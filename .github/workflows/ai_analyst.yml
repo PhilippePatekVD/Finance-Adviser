@@ -1,15 +1,12 @@
 name: AI Financial Analyst
 
 on:
+workflow_dispatch:
 schedule:
 # 10:00 Heure Suisse (CEST) = 08:00 UTC
 - cron: '0 8 * * *'
 # 19:45 Heure Suisse (CEST) = 17:45 UTC
 - cron: '45 17 * * *'
-
-Permet de lancer le script manuellement depuis GitHub pour tester
-
-workflow_dispatch:
 
 permissions:
 contents: write
@@ -30,7 +27,6 @@ uses: actions/checkout@v4
     run: pip install -r requirements.txt
     
   - name: Exécuter l'analyseur IA (Script Python)
-    # Injecte la clé API secrète dans le script
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
     run: python analyze.py
