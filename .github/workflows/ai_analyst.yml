@@ -1,16 +1,4 @@
-name: AI Financial Analyston:
-workflow_dispatch:
-schedule:
-# 10:00 Heure Suisse (CEST) = 08:00 UTC
-- cron: '0 8 * * *'
-# 19:45 Heure Suisse (CEST) = 17:45 UTC
-- cron: '45 17 * * *'permissions:
-contents: writejobs:
-analyze_and_publish:
-runs-on: ubuntu-latest
-steps:
-- name: Récupérer le code du dépôt
-uses: actions/checkout@v4  - name: Configurer l'environnement Python
+name: AI Financial Analyston:workflow_dispatch:schedule:# 10:00 Heure Suisse (CEST) = 08:00 UTC- cron: '0 8 * * *'# 19:45 Heure Suisse (CEST) = 17:45 UTC- cron: '45 17 * * *'permissions:contents: writejobs:analyze_and_publish:runs-on: ubuntu-lateststeps:- name: Récupérer le code du dépôtuses: actions/checkout@v4  - name: Configurer l'environnement Python
     uses: actions/setup-python@v5
     with:
       python-version: '3.10'
