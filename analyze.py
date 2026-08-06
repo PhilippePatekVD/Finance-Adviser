@@ -60,7 +60,7 @@ def generate_financial_report(portfolio_data, portfolio_market_data, macro_data)
     
     try:
         response = client.models.generate_content(
-            model='gemini-2.5-pro',
+            model='gemini-3.6-flash',
             contents=prompt,
             config={'response_mime_type': 'application/json'}
         )
