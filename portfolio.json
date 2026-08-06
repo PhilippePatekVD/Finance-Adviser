@@ -1,0 +1,30 @@
+{
+  "profil_investisseur": {
+    "horizon_placement": "Long terme",
+    "devise_reference": "CHF",
+    "objectif": "Croissance du capital, diversification mondiale et surperformance ciblée (IA)"
+  },
+  "actifs_actuels": [
+    {
+      "ticker": "FWRA.SW",
+      "nom": "Invesco FTSE All-World UCITS ETF",
+      "poids_pourcentage": 66.26,
+      "valeur_marche_chf": 10217.07,
+      "quantite": 1325
+    },
+    {
+      "ticker": "SPIA.SW",
+      "nom": "iShares Core SPI ETF (CH)",
+      "poids_pourcentage": 26.36,
+      "valeur_marche_chf": 4064.00,
+      "quantite": 1000
+    },
+    {
+      "ticker": "XAIX.SW",
+      "nom": "Xtrackers Artificial Intelligence and Big Data UCITS ETF",
+      "poids_pourcentage": 7.38,
+      "valeur_marche_chf": 1138.56,
+      "quantite": 6
+    }
+  ]
+}
