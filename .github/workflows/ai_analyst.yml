@@ -3,13 +3,13 @@ name: AI Financial Analyst
 on:
   workflow_dispatch:
   schedule:
-    # 10:00 Heure Suisse (CEST) = 08:00 UTC
     - cron: '0 8 * * *'
-    # 19:45 Heure Suisse (CEST) = 17:45 UTC
     - cron: '45 17 * * *'
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   analyze_and_publish:
@@ -31,10 +31,22 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python analyze.py
         
-      - name: Sauvegarder les résultats sur GitHub
+      - name: Sauvegarder les résultats (JSON)
         run: |
           git config --global user.name "AI Analyst Bot"
           git config --global user.email "bot@example.com"
           git add data.json
           git commit -m "Mise à jour automatique de l'analyse IA" || echo "Aucun changement à commiter"
           git push
+
+      - name: Configurer GitHub Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Préparer les fichiers pour le web
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+          
+      - name: Déployer le site web
+        id: deployment
+        uses: actions/deploy-pages@v4
