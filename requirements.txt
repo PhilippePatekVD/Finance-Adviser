@@ -1,2 +1,2 @@
-yfinance0.2.40
-google-genai0.3.0
+yfinance
+google-genai
