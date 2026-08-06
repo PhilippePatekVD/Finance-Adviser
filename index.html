@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse Stratégique & Portefeuille</title>
+    <style>
+        :root {
+            --bg-color: #f4f4f5;
+            --card-bg: #ffffff;
+            --text-main: #18181b;
+            --text-muted: #71717a;
+            --accent: #09090b;
+            --border: #e4e4e7;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        header {
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 20px;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.02em;
+        }
+        .meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+        .content {
+            font-size: 1rem;
+            white-space: pre-wrap;
+            text-align: justify;
+        }
+        .loader {
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tableau de Bord Stratégique</h1>
+            <div class="meta" id="date-maj">Recherche des dernières analyses...</div>
+        </header>
+
+        <div id="dashboard" style="display: none;">
+            <div class="card">
+                <h2>🌍 Macro-Économie Globale</h2>
+                <div class="content" id="macro"></div>
+            </div>
+            
+            <div class="card">
+                <h2>📊 Revue de votre Portefeuille</h2>
+                <div class="content" id="revue"></div>
+            </div>
+            
+            <div class="card">
+                <h2>⚖️ Conseils & Ajustements</h2>
+                <div class="content" id="conseils"></div>
+            </div>
+            
+            <div class="card">
+                <h2>🎯 Opportunités de Marché</h2>
+                <div class="content" id="opportunites"></div>
+            </div>
+        </div>
+        <div class="loader" id="error-msg"></div>
+    </div>
+
+    <script>
+        // Ce script va lire le fichier data.json pour remplir les cases du site web
+        fetch('data.json')
+            .then(response => {
+                if (!response.ok) throw new Error("Fichier non trouvé");
+                return response.json();
+            })
+            .then(data => {
+                const date = new Date(data.date_generation);
+                document.getElementById('date-maj').innerText = "Dernière mise à jour de l'IA : " + date.toLocaleString('fr-CH');
+                
+                const rapport = data.rapport;
+                document.getElementById('macro').innerText = rapport.analyse_macro_globale || "Donnée indisponible";
+                document.getElementById('revue').innerText = rapport.revue_portefeuille || "Donnée indisponible";
+                document.getElementById('conseils').innerText = rapport.conseils_ajustement || "Donnée indisponible";
+                document.getElementById('opportunites').innerText = rapport.opportunites_marche || "Donnée indisponible";
+                
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('error-msg').style.display = 'none';
+            })
+            .catch(error => {
+                document.getElementById('date-maj').innerText = "En attente du premier rapport";
+                document.getElementById('error-msg').innerText = "Le rapport de l'intelligence artificielle n'a pas encore été généré aujourd'hui. Il apparaîtra ici automatiquement après la prochaine exécution.";
+            });
+    </script>
+</body>
+</html>
