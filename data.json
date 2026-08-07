@@ -1,22 +1,6 @@
 {
-    "date_generation": "2026-08-06T10:34:50.256661Z",
+    "date_generation": "2026-08-07T08:54:13.108444Z",
     "rapport": {
-        "analyse_macro_globale": "Au cours des 30 derniers jours, les marchés mondiaux d'actions ont affiché une dynamique haussière solide, tirée par le S&P 500 (+2,47 %) et l'indice global URTH (+2,30 %). Cependant, la hausse marquée de l'or (+4,21 %) indique une recherche parallèle de protection contre les risques géopolitiques et l'incertitude macroéconomique. Pour un investisseur dont la devise de référence est le CHF, le rendement réel dépend également des fluctuations de change, le franc suisse agissant historiquement comme valeur refuge face au USD et à l'EUR.",
-        "revue_portefeuille": "L'allocation actuelle suit une structure de type 'Core-Satellite' cohérente avec l'objectif de croissance à long terme. Néanmoins, l'analyse révèle deux faiblesses majeures : 1) Un biais national (Home Bias) excessif, avec 26,36 % exposés aux actions suisses (SPIA.SW), entraînant une surconcentration sur quelques grands titres (Nestlé, Roche, Novartis) déjà représentés dans l'ETF mondial FWRA.SW. 2) La poche thématique IA (XAIX.SW), bien qu'alignée avec l'objectif de surperformance, accuse un retard sur 30 jours (-1,31 %) illustrant la volatilité court terme des valeurs technologiques à forte valorisation. Le portefeuille manque également d'actifs décorrélés (comme l'or ou les obligations).",
-        "conseils_ajustement": "1) Réduire le biais suisse : Réduire la pondération de SPIA.SW de 26,36 % à environ 10-15 % afin de limiter la redondance avec l'ETF mondial et d'optimiser la diversification géographique. 2) Consolider le cœur du portefeuille : Maintenir ou augmenter la position sur FWRA.SW (autour de 70-75 %) pour capturer la performance du marché global de manière efficiente. 3) Lissage sur la thématique IA : Conserver XAIX.SW aux alentours de 7-10 % et profiter des replis ponctuels (-1,31 % sur 30j) pour effectuer des achats périodiques (Dollar-Cost Averaging) sans sur-exposer le portefeuille au risque sectoriel.",
-        "opportunites_marche": [
-            {
-                "cible": "Secteur de l'Intelligence Artificielle et Big Data (Consolidation tactique)",
-                "these_investissement": "Le repli récent de XAIX.SW (-1,31 %) dans un marché d'actions globalement haussier offre un point d'entrée attrayant pour renforcer une thématique séculaire à fort potentiel de croissance des bénéfices à long terme."
-            },
-            {
-                "cible": "Or et Métaux Précieux (GC=F)",
-                "these_investissement": "Avec une progression de +4,21 % sur 30 jours, l'or surperforme les indices d'actions majeurs. L'introduction d'une allocation de 5 % à 10 % en or physique ou ETF or hébergé en CHF permettrait de réduire la volatilité globale du portefeuille et de se protéger contre les risques systémiques."
-            },
-            {
-                "cible": "Marchés Émergents (Hors Chine) / Asie-Pacifique",
-                "these_investissement": "Présentant des décotes de valorisation historiques par rapport aux actions américaines, cette zone bénéficie du pivot monétaire des banques centrales mondiales et de la relocalisation des chaînes de valeur industrielles et technologiques."
-            }
-        ]
+        "erreur": "Génération échouée"
     }
 }
