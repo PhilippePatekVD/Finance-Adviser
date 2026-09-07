@@ -1,4 +1,7 @@
 {
+  "version": 2,
+  "snapshot_date": "2026-09-07",
+  "market_values_are_manual_snapshot": true,
   "profil_investisseur": {
     "horizon_placement": "Long terme",
     "devise_reference": "CHF",
@@ -8,6 +11,9 @@
     {
       "ticker": "FWRA.SW",
       "nom": "Invesco FTSE All-World UCITS ETF",
+      "sleeve": "core_global",
+      "asset_class": "ETF actions mondiales",
+      "currency": "CHF",
       "poids_pourcentage": 66.26,
       "valeur_marche_chf": 10217.07,
       "quantite": 1325
@@ -15,13 +21,19 @@
     {
       "ticker": "SPIA.SW",
       "nom": "iShares Core SPI ETF (CH)",
+      "sleeve": "core_swiss",
+      "asset_class": "ETF actions suisses",
+      "currency": "CHF",
       "poids_pourcentage": 26.36,
-      "valeur_marche_chf": 4064.00,
+      "valeur_marche_chf": 4064.0,
       "quantite": 1000
     },
     {
       "ticker": "XAIX.SW",
       "nom": "Xtrackers Artificial Intelligence and Big Data UCITS ETF",
+      "sleeve": "satellite_ai",
+      "asset_class": "ETF thématique",
+      "currency": "CHF",
       "poids_pourcentage": 7.38,
       "valeur_marche_chf": 1138.56,
       "quantite": 6
