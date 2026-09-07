@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "status": "ok",
-  "date_generation": "2026-09-07T18:24:30.192526Z",
+  "date_generation": "2026-09-07T18:29:07.673367Z",
   "ai_model": "gemini-3.6-flash",
   "portfolio": {
     "profile": {
@@ -16,18 +16,18 @@
         "sleeve": "core_global",
         "asset_class": "ETF actions mondiales",
         "currency": "CHF",
-        "poids_pourcentage": 66.26,
-        "valeur_marche_chf": 10217.07,
+        "poids_pourcentage": 65.67,
+        "valeur_marche_chf": 10213.02,
         "quantite": 1325
       },
       {
         "ticker": "SPIA.SW",
-        "nom": "iShares Core SPI ETF (CH)",
+        "nom": "UBS ETF SPI",
         "sleeve": "core_swiss",
         "asset_class": "ETF actions suisses",
         "currency": "CHF",
-        "poids_pourcentage": 26.36,
-        "valeur_marche_chf": 4064.0,
+        "poids_pourcentage": 26.12,
+        "valeur_marche_chf": 4062.39,
         "quantite": 1000
       },
       {
@@ -36,35 +36,59 @@
         "sleeve": "satellite_ai",
         "asset_class": "ETF thématique",
         "currency": "CHF",
-        "poids_pourcentage": 7.38,
-        "valeur_marche_chf": 1138.56,
+        "poids_pourcentage": 7.32,
+        "valeur_marche_chf": 1138.11,
         "quantite": 6
+      },
+      {
+        "ticker": "CASH_CHF",
+        "nom": "Liquidités CHF",
+        "sleeve": "cash",
+        "asset_class": "Cash",
+        "currency": "CHF",
+        "poids_pourcentage": 0.89,
+        "valeur_marche_chf": 138.75,
+        "quantite": 138.75
       }
     ],
     "diagnostics": {
-      "total_market_value_chf": 15419.63,
+      "total_market_value_chf": 15552.27,
+      "reported_net_liquidation_chf": 15554.0,
+      "reported_securities_market_value_chf": 15413.52,
+      "reported_cash_chf": 138.75,
       "weights_sum_pct": 100.0,
       "largest_position": {
         "ticker": "FWRA.SW",
         "name": "Invesco FTSE All-World UCITS ETF",
-        "weight_pct": 66.26
+        "weight_pct": 65.67
       },
       "concentration_assessment": "élevée",
-      "herfindahl_index": 0.514,
-      "effective_positions": 1.95,
+      "herfindahl_index": 0.5049,
+      "effective_positions": 1.98,
       "sleeve_weights_pct": {
-        "core_global": 66.26,
-        "core_swiss": 26.36,
-        "satellite_ai": 7.38
+        "core_global": 65.67,
+        "core_swiss": 26.12,
+        "satellite_ai": 7.32,
+        "cash": 0.89
       },
       "diagnostic_flags": [
-        "Poids dominant: Invesco FTSE All-World UCITS ETF à 66.26 %.",
-        "Diversification effective faible: 1.95 positions équivalentes."
+        "Poids dominant: Invesco FTSE All-World UCITS ETF à 65.67 %.",
+        "Diversification effective faible: 1.98 positions équivalentes."
       ],
       "note": "Les seuils de concentration sont des heuristiques de diagnostic, pas des limites personnelles d'investissement."
     },
     "snapshot_date": "2026-09-07",
-    "market_values_are_manual_snapshot": true
+    "market_values_are_manual_snapshot": true,
+    "account_snapshot": {
+      "net_liquidation_chf": 15554,
+      "securities_market_value_chf": 15413.52,
+      "cash_chf": 138.75,
+      "unrealized_pnl_chf": 352,
+      "realized_pnl_chf": 0,
+      "daily_pnl_chf": -35,
+      "daily_pnl_pct": -0.22
+    },
+    "snapshot_source": "Interactive Brokers mobile screenshot"
   },
   "market": {
     "^GSPC": {
@@ -126,7 +150,7 @@
     },
     "SPIA.SW": {
       "ticker": "SPIA.SW",
-      "label": "iShares Core SPI ETF (CH)",
+      "label": "UBS ETF SPI",
       "last": 3.946,
       "variation_1j_pct": -0.73,
       "variation_5j_pct": -0.5,
@@ -335,28 +359,28 @@
     }
   },
   "report": {
-    "executive_summary": "Au 7 septembre 2026, le portefeuille évalué à 15 419,63 CHF est réparti sur trois ETF (FWRA 66,26 %, SPIA 26,36 %, XAIX 7,38 %). L'indice Herfindahl-Hirschman de 0,514 et un nombre effectif de positions de 1,95 révèlent une concentration diagnostiquée comme élevée par nos heuristiques techniques. La pondération simultanée du marché suisse via SPIA et des valeurs technologiques mondiales via FWRA et XAIX engendre des chevauchements d'exposition régionaux et sectoriels. Par ailleurs, l'absence de données renseignées sur le niveau de liquidités disponibles (cash) empêche la mesure exacte du risque d'illiquidité net. Si les performances sur un an sont soutenues (notamment XAIX à +48,84 %), la volatilité annualisée de ce satellite (27,14 %) exige une discipline d'allocation stricte. Les opportunités identifiées sur le screener soulignent des dossiers de qualité fondamentale supérieure, dont l'intégration reste conditionnée au contrôle préalable du risque de change en USD.",
-    "market_regime": "Le contexte de marché affiche un biais haussier à moyen terme sur les indices d'actions mondiales (MSCI World proxy à +20,69 % sur 1 ans et S&P 500 à +19,09 %), tempéré par une hausse forte de l'or (+23,05 % sur 1 an à 4 476,60 USD, volatilité 25,99 %) signalant la recherche de couvertures contre les incertitudes macroéconomiques. La paire USD/CHF s'établit à 0,8094 (+1,29 % sur 1 an mais -0,36 % sur 1 mois), confirmant la vigueur relative du franc suisse. Le secteur technologique continue de porter la performance globale malgré des accès de volatilité et des interrogations sectorielles émergentes. Note analytique : les données relatives aux taux d'intérêt souverains et à l'inflation ne sont pas fournies et constituent une incertitude non modélisée dans ce diagnostic.",
-    "portfolio_diagnosis": "Le portefeuille est structuré selon une approche Cœur-Satellite mais comporte des biais de concentration notables. La position dominante FWRA (66,26 %) remplit son rôle de cœur global, mais l'exposition de 26,36 % à l'indice suisse SPIA crée un biais domestique significatif par rapport au poids de la Suisse dans la capitalisation boursière mondiale (~2-3 %). Ce biais génère un chevauchement direct avec FWRA qui détient déjà les grandes capitalisations suisses (Nestlé, Roche, Novartis). Le satellite thématique XAIX (7,38 %) apporte un surcroît de volatilité (27,14 %) et accroît la redondance sur les méga-caps technologiques américaines déjà présentes dans FWRA. Enfin, l'exposition implicite au dollar US est élevée et soumise au risque de change CHF/USD sans couverture apparente.",
-    "risk_watch": "1. Risque de change USD/CHF : appréciation du franc suisse détériorant la valeur convertie en CHF des actifs sous-jacents américains de FWRA et XAIX. 2. Surconcentration thématique et sectorielle : chevauchement important sur le secteur technologique US entre le cœur global et le satellite IA. 3. Biais domestique élevé : allocation de 26,36 % sur les actions suisses via SPIA augmentant la dépendance au marché local. 4. Volatilité du satellite : XAIX présente une volatilité annualisée de 27,14 % nécessitant un suivi rigoureux du risque de baisse.",
+    "executive_summary": "Le portefeuille d'une valeur totale de 15'554 CHF repose sur une structure cœur-satellite claire, dominée par l'ETF mondial FWRA.SW (65,67 %) et l'ETF suisse SPIA.SW (26,12 %), complétée par un satellite IA XAIX.SW (7,32 %) et un solde de liquidités très faible de 0,89 % (138,75 CHF). La performance globale sur un an bénéficie du régime haussier des marchés d'actions et de l'or, bien que la volatilité à un jour montre un léger repli. La concentration technique est forte avec un indice Herfindahl de 0,5049, équivalant à seulement 1,98 position effective, principalement en raison du poids de FWRA.SW et d'un biais domestique suisse prononcé (26,12 %). On note l'absence de ratios fondamentaux sous-jacents (PER, croissance des bénéfices) pour les ETF détenus dans le relevé fourni. Aucune rebalancement immédiat n'est requis, mais l'absence de cash limite la réactivité tactique et impose une discipline d'apport de capitaux avant toute nouvelle initiative.",
+    "market_regime": "Les marchés évoluent dans un régime de hausse mature poussé par la technologie globale (S&P 500 à +19,09 % sur 1 an, MSCI World à +20,69 %), tandis que l'or atteint des sommets (+23,05 % sur 1 an à 4'476,60 USD) traduisant une recherche parallèle de couverture contre les risques systémiques ou monétaires. La paire USD/CHF s'établit à 0,8094 (+1,64 % sur 3 mois), apportant un répit temporaire au risque de change pour les investisseurs basés en CHF. La volatilité annuelle demeure contenue sur le cœur d'actions mondial (11,22 % pour FWRA.SW), mais reste élevée sur le satellite IA XAIX.SW (27,14 %). Les actualités récentes soulignent des divergences sectorielles accrues et des doutes émergents sur la rentabilité de certaines infrastructures liées à l'IA.",
+    "portfolio_diagnosis": "L'allocation respecte l'architecture requise (cœur diversifié + satellites), mais présente un chevauchement d'expositions direct et indirect. FWRA.SW contient déjà les géants technologiques américains que surpondère XAIX.SW, amplifiant le risque sectoriel de la Tech. Le biais domestique est marqué avec 26,12 % investis sur le marché suisse via SPIA.SW, qui s'ajoute à la part suisse déjà intégrée dans l'indice FTSE All-World. Avec 138,75 CHF de cash (0,89 %), le portefeuille souffre d'un manque de flexibilité : tout achat nécessitera soit un apport externe, soit la liquidation partielle d'une position. L'incertitude analytique reste présente concernant les multiples de valorisation exacts des ETF en portefeuille, les données n'étant pas fournies.",
+    "risk_watch": "1. Risque de change CHF/USD : une appréciation mécanique du franc suisse éroderait la valeur des actifs libellés en USD (FWRA.SW et XAIX.SW). 2. Risque de chevauchement thématique : une correction globale sur le secteur de l'intelligence artificielle toucherait à la fois XAIX.SW et les premières lignes de FWRA.SW. 3. Risque de biais domestique : une sous-performance du marché suisse (SPIA.SW) pèserait exagérément sur l'ensemble du portefeuille. 4. Contrainte de liquidité : le cash quasi nul élimine la capacité d'intervenir sur repli sans arbitrage forcé.",
     "action_plan": [
-      "Envisager un rééquilibrage graduel de SPIA.SW en cas d'arbitrage vers le cœur mondial afin d'aligner la part suisse sur un niveau plus proche de la politique de diversification, sous réserve d'impact fiscal neutre.",
-      "Définir une règle d'encadrement pour le satellite XAIX.SW (ex. plafonnement strict du poids en portefeuille) pour éviter une dérive d'allocation causée par sa surperformance récente.",
-      "Renseigner les données de trésorerie (cash) manquantes pour établir le niveau de risque et de liquidité réel du patrimoine global.",
-      "Évaluer l'introduction d'un titre individuel issu du screener uniquement en remplacement d'une ligne existante et en cas de repli de valorisation."
+      "Prioriser la reconstitution progressive d'une réserve de liquidités en CHF lors des prochains apports pour retrouver une marge de manœuvre tactique.",
+      "Maintenir les positions actuelles sans vente forcée, les deux ETF cœur (FWRA.SW et SPIA.SW) assurant le socle long terme.",
+      "Conditionner tout renforcement du satellite XAIX.SW à une correction nette du secteur IA afin de ne pas surpayer le chevauchement avec FWRA.SW.",
+      "Orienter les futurs investissements en priorité vers FWRA.SW pour diluer progressivement le biais domestique suisse à mesure que le portefeuille grandit."
     ],
     "opportunities": [
-      "ASML (Score 92/100) : Forward PE de 28,56, marge nette de 30,11 %, ROE de 53,94 % et croissance des résultats de 28,50 %. Solide avantage concurrentiel dans les équipements de semi-conducteurs.",
-      "Intuitive Surgical (ISRG - Score 85/100) : Forward PE de 30,38, marge nette de 28,45 %, ROE de 17,42 % et croissance des résultats de 26,50 %. Acteur référent dans la chirurgie robotique.",
-      "Stryker (SYK - Score 85/100) : Forward PE de 18,09, marge nette de 14,43 %, ROE de 16,51 % et croissance des résultats de 44,10 %. Valorisation modérée couplée à une forte croissance bénéficiaire dans la santé.",
-      "Fortinet (FTNT - Score 84/100) : Forward PE de 41,44, marge nette de 28,17 %, ROE exceptionnel de 117,44 % et croissance des résultats de 43,90 %. Leader rentable de la cybersécurité avec un multiple exigeant.",
-      "Constellation Software (CSU.TO - Score 79/100) : Forward PE de 16,55, marge nette de 7,60 %, ROE de 23,28 % et croissance des résultats de 389,30 %. Profil d'acquéreur de logiciels niche à valorisation attrayante en CAD."
+      "ASML (ASML) - Score 92 : PER futur de 28,56, croissance des bénéfices de 28,50 %, marge nette de 30,11 % et ROE de 53,94 %. Position dominante dans les semi-conducteurs avec d'excellents ratios de rentabilité.",
+      "Intuitive Surgical (ISRG) - Score 85 : PER futur de 30,38, croissance des bénéfices de 26,50 %, marge nette de 28,45 % et ROE de 17,42 %. Profil MedTech à forte récurrence et croissance solide.",
+      "Stryker (SYK) - Score 85 : PER futur de 18,09 pour une croissance des bénéfices de 44,10 %, une marge nette de 14,43 % et un ROE de 16,51 %. Valorisation relative intéressante au vu du taux de croissance.",
+      "Fortinet (FTNT) - Score 84 : PER futur de 41,44, croissance des bénéfices de 43,90 %, marge nette de 28,17 % et ROE exceptionnel de 117,44 %. Titre à haute rentabilité mais valorisation exigeante à surveiller.",
+      "Constellation Software (CSU.TO) - Score 79 : PER futur de 16,55, croissance affichée des bénéfices de 389,30 %, marge nette de 7,60 % et ROE de 23,28 %. Option de diversification technologique à multiple raisonnable."
     ],
     "what_to_monitor": [
-      "Comportement du taux de change USD/CHF au franchissement du seuil des 0,81.",
-      "Résultats financiers et révisions de bénéfices des principales positions technologiques de XAIX et FWRA.",
-      "Performance relative du marché suisse (SPIA) par rapport aux indices mondiaux (FWRA/URTH).",
-      "Mise à jour des contraintes personnelles d'investissement et des montants de trésorerie hors portefeuille."
+      "Evolution de la parité USD/CHF et impact sur la valeur consolidée du portefeuille.",
+      "Niveau de volatilité et écart de performance entre XAIX.SW et FWRA.SW.",
+      "Prochaines publications de résultats des grands poids de l'indice SPI (Nestlé, Novartis, Roche).",
+      "Pression sur les multiples de valorisation du secteur technologique mondial."
     ]
   },
   "warnings": [],
