@@ -1,7 +1,17 @@
 {
-  "version": 2,
+  "version": 3,
   "snapshot_date": "2026-09-07",
+  "snapshot_source": "Interactive Brokers mobile screenshot",
   "market_values_are_manual_snapshot": true,
+  "account_snapshot": {
+    "net_liquidation_chf": 15554,
+    "securities_market_value_chf": 15413.52,
+    "cash_chf": 138.75,
+    "unrealized_pnl_chf": 352,
+    "realized_pnl_chf": 0,
+    "daily_pnl_chf": -35,
+    "daily_pnl_pct": -0.22
+  },
   "profil_investisseur": {
     "horizon_placement": "Long terme",
     "devise_reference": "CHF",
@@ -14,18 +24,18 @@
       "sleeve": "core_global",
       "asset_class": "ETF actions mondiales",
       "currency": "CHF",
-      "poids_pourcentage": 66.26,
-      "valeur_marche_chf": 10217.07,
+      "poids_pourcentage": 65.67,
+      "valeur_marche_chf": 10213.02,
       "quantite": 1325
     },
     {
       "ticker": "SPIA.SW",
-      "nom": "iShares Core SPI ETF (CH)",
+      "nom": "UBS ETF SPI",
       "sleeve": "core_swiss",
       "asset_class": "ETF actions suisses",
       "currency": "CHF",
-      "poids_pourcentage": 26.36,
-      "valeur_marche_chf": 4064.0,
+      "poids_pourcentage": 26.12,
+      "valeur_marche_chf": 4062.39,
       "quantite": 1000
     },
     {
@@ -34,9 +44,19 @@
       "sleeve": "satellite_ai",
       "asset_class": "ETF thématique",
       "currency": "CHF",
-      "poids_pourcentage": 7.38,
-      "valeur_marche_chf": 1138.56,
+      "poids_pourcentage": 7.32,
+      "valeur_marche_chf": 1138.11,
       "quantite": 6
+    },
+    {
+      "ticker": "CASH_CHF",
+      "nom": "Liquidités CHF",
+      "sleeve": "cash",
+      "asset_class": "Cash",
+      "currency": "CHF",
+      "poids_pourcentage": 0.89,
+      "valeur_marche_chf": 138.75,
+      "quantite": 138.75
     }
   ]
 }
