@@ -104,6 +104,10 @@ def fetch_portfolio_market_data(portfolio: Dict[str, Any]) -> Dict[str, Dict[str
     output: Dict[str, Dict[str, Any]] = {}
     for asset in portfolio.get("actifs_actuels", []):
         ticker = asset.get("ticker")
+        asset_class = str(asset.get("asset_class", "")).lower()
+        sleeve = str(asset.get("sleeve", "")).lower()
+        if asset_class == "cash" or sleeve == "cash" or str(ticker or "").upper().startswith("CASH"):
+            continue
         if ticker:
             output[ticker] = market_snapshot(ticker, asset.get("nom"))
     return output
