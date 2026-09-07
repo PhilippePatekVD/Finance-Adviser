@@ -218,8 +218,8 @@ function diagnosticsFromPositions(positions){
   const largest=[...positions].sort((a,b)=>(Number(b.valeur_marche_chf)||0)-(Number(a.valeur_marche_chf)||0))[0]||{};
   return {total_market_value_chf:total,largest_position:{weight_pct:total?((Number(largest.valeur_marche_chf)||0)/total*100):0},effective_positions:hhi?1/hhi:0};
 }
-function renderPortfolioSnapshot(positions,diag){
-  $("totalValue").textContent=chf(diag.total_market_value_chf);
+function renderPortfolioSnapshot(positions,diag,reportedNet=null){
+  $("totalValue").textContent=chf(reportedNet ?? diag.total_market_value_chf);
   $("topWeight").textContent=pct(diag.largest_position?.weight_pct);
   $("effectivePositions").textContent=n(diag.effective_positions,2);
   $("allocation").innerHTML=positions.map(p=>'<div class="alloc-row"><div><div class="alloc-name">'+esc(p.nom||p.ticker)+'</div><div class="alloc-meta">'+esc(p.sleeve||"")+' · '+esc(p.ticker||"")+'</div><div class="bar"><span style="width:'+Math.min(100,Math.max(0,Number(p.poids_pourcentage)||0))+'%"></span></div></div><div class="alloc-weight">'+pct(p.poids_pourcentage)+'</div></div>').join("");
@@ -253,7 +253,7 @@ fetch("./data.json?ts="+Date.now(),{cache:"no-store"})
   const local=localPortfolio();
   const activePortfolio=local?normalizePortfolio(local):normalizePortfolio({profil_investisseur:data.portfolio?.profile||{},actifs_actuels:data.portfolio?.positions||[]});
   const activeDiagnostics=local?diagnosticsFromPositions(activePortfolio.actifs_actuels):d;
-  renderPortfolioSnapshot(activePortfolio.actifs_actuels,activeDiagnostics);
+  renderPortfolioSnapshot(activePortfolio.actifs_actuels,activeDiagnostics,local?null:(data.portfolio?.account_snapshot?.net_liquidation_chf ?? d.reported_net_liquidation_chf ?? null));
   $("localBanner").classList.toggle("show",!!local);
   $("updatedAt").textContent=data.date_generation?new Date(data.date_generation).toLocaleString("fr-CH",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}):"—";
 
@@ -346,7 +346,7 @@ $("resetLocal").onclick=()=>{
   editorPortfolio=portfolioForEditor();
   renderEditor();
   $("localBanner").classList.remove("show");
-  if(serverData)renderPortfolioSnapshot(serverData.portfolio?.positions||[],serverData.portfolio?.diagnostics||{});
+  if(serverData)renderPortfolioSnapshot(serverData.portfolio?.positions||[],serverData.portfolio?.diagnostics||{},serverData.portfolio?.account_snapshot?.net_liquidation_chf ?? null);
   $("syncStatus").textContent="Snapshot GitHub restauré.";
 };
 $("exportPortfolio").onclick=()=>{
