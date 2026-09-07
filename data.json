@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "status": "degraded",
-  "date_generation": "2026-09-07T18:07:22.489865Z",
-  "ai_model": "gemini-2.5-flash",
+  "status": "ok",
+  "date_generation": "2026-09-07T18:08:24.714308Z",
+  "ai_model": "gemini-3.6-flash",
   "portfolio": {
     "profile": {
       "horizon_placement": "Long terme",
@@ -103,12 +103,12 @@
     "CHF=X": {
       "ticker": "CHF=X",
       "label": "USD/CHF",
-      "last": 0.8093,
-      "variation_1j_pct": 0.22,
-      "variation_5j_pct": 0.06,
-      "variation_1m_pct": -0.38,
-      "variation_3m_pct": 1.62,
-      "variation_1y_pct": 1.27,
+      "last": 0.8094,
+      "variation_1j_pct": 0.23,
+      "variation_5j_pct": 0.07,
+      "variation_1m_pct": -0.37,
+      "variation_3m_pct": 1.63,
+      "variation_1y_pct": 1.28,
       "volatilite_annualisee_pct": 7.07
     }
   },
@@ -334,14 +334,36 @@
       "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
     }
   },
-  "report": null,
+  "report": {
+    "executive_summary": "Le portefeuille affiche une valeur totale de 15 419,63 CHF repartie sur trois ETF : FWRA.SW (66,26 %), SPIA.SW (26,36 %) et XAIX.SW (7,38 %). La structure globale respecte une logique cœur-satellite, mais la diversification effective reste faible avec un indice d'Herfindahl de 0,514 (soit 1,95 positions effectives). L'absence de donnees sur le niveau exact de liquidites (cash) constitue une limite a l'analyse globale du risque. Sur le plan macroeconomique, la dynamique des marches d'actions mondiaux demeure positive sur un an (+24,13 % pour FWRA.SW), mais le risque de change direct (USD/CHF a 0,8094) et indirect pese sur la performance en CHF. L'exposition thématique a l'intelligence artificielle via XAIX.SW (+48,84 % sur un an) apporte du dynamisme mais s'accompagne d'une volatilite elevee de 27,14 %. Aucune contrainte chiffrée personnelle n'etant definie dans la politique d'investissement, le diagnostic s'appuie sur des heuristiques financieres standard.",
+    "market_regime": "Le regime de marche actuel reflète un environnement d'actions oriente a la hausse sur 12 mois (S&P 500 a +19,09 %, MSCI World a +20,69 %), porte par le secteur technologique, malgre une consolidation a tres court terme (-0,38 % sur 1 jour pour le S&P 500). L'or poursuit sa progression (+23,05 % sur un an a 4 476,60 USD) avec une volatilite annualisee marquee de 25,99 %, signalant une recherche continue de couverture face aux incertitudes macroeconomiques. Le taux USD/CHF s'etablit a 0,8094 (+1,28 % sur 1 an), maintenant un risque de change structurel pour un portefeuille libelle en CHF detenant des actifs sous-jacents americains.",
+    "portfolio_diagnosis": "L'allocation actuelle presente un cœur mondial predominant via FWRA.SW (66,26 %) combine a un biais domestique suisse significatif via SPIA.SW (26,36 %), et un satellite thematique IA XAIX.SW (7,38 %). Bien que FWRA.SW offre une diversification sous-jacente large, l'indice d'Herfindahl de 0,514 traduit une forte concentration au niveau des lignes d'ETF detenues. Un chevauchement important existe entre les megacaps technologiques americaines de XAIX.SW et celles incluses dans FWRA.SW, amplifiant le risque sectoriel. Par ailleurs, les donnees ne fournissent pas la part de cash detenue, ce qui masque le niveau de liquidite reel.",
+    "risk_watch": "1. Risque de concentration et chevauchement sectoriel : surexposition indirecte aux Big Tech americaines via FWRA.SW et XAIX.SW. 2. Risque de change USD/CHF : impact negatif d'une appreciation du CHF sur la valeur consolidee des actions internationales. 3. Volatilite elevee du satellite IA : volatilite annualisee de 27,14 % pour XAIX.SW. 4. Absence de visibilite sur la tresorerie : impossibilite de mesurer le ratio de liquidite global.",
+    "action_plan": [
+      "Conserver le cœur de portefeuille (FWRA.SW et SPIA.SW) pour maintenir la structure globale diversifiee en CHF.",
+      "Reevaluer le poids du satellite XAIX.SW en cas de hausse accentuee de la volatilite du secteur technologique.",
+      "Completer les donnees de portefeuille en renseignant la position exacte en cash CHF avant tout nouveau deploiement.",
+      "Definir des limites chiffrées explicites au sein de la politique d'investissement pour encadrer le poids maximal par satellite."
+    ],
+    "opportunities": [
+      "ASML (ASML) - Score 92 : PER futur de 28,56 x, croissance des benefices de 28,50 %, marge nette de 30,11 % et ROE de 53,94 %.",
+      "Stryker (SYK) - Score 85 : PER futur de 18,09 x, croissance des benefices de 44,10 %, marge nette de 14,43 % et ROE de 16,51 %.",
+      "Intuitive Surgical (ISRG) - Score 85 : PER futur de 30,38 x, croissance des benefices de 26,50 %, marge nette de 28,45 % et ROE de 17,42 %.",
+      "Fortinet (FTNT) - Score 84 : PER futur de 41,44 x, croissance des benefices de 43,90 %, marge nette de 28,17 % et ROE de 117,44 %.",
+      "Constellation Software (CSU.TO) - Score 79 : PER futur de 16,55 x, croissance des benefices de 389,30 %, marge nette de 7,60 % et ROE de 23,28 %."
+    ],
+    "what_to_monitor": [
+      "Evolution du taux de change USD/CHF autour du niveau de 0,8094.",
+      "Niveaux de valorisation des megacaps technologiques sous-jacentes a FWRA.SW et XAIX.SW.",
+      "Ecart de performance entre le marche mondial (FWRA.SW) et le marche suisse (SPIA.SW).",
+      "Saisie et mise a jour des donnees relatives a la liquidite globale du portefeuille."
+    ]
+  },
   "warnings": [],
-  "errors": [
-    "Erreur Gemini (gemini-2.5-flash): ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.', 'status': 'NOT_FOUND'}}"
-  ],
+  "errors": [],
   "methodology": {
     "market_data": "Yahoo Finance via yfinance",
-    "ai": "Google Gemini (gemini-2.5-flash)",
+    "ai": "Google Gemini (gemini-3.6-flash)",
     "fundamental_score": "Heuristique interne qualité/valorisation; non comparable parfaitement entre secteurs.",
     "disclaimer": "Outil d'aide à la décision. Aucune transaction n'est exécutée automatiquement."
   }
