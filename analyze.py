@@ -224,8 +224,12 @@ def portfolio_diagnostics(portfolio: Dict[str, Any], thresholds: Dict[str, Any])
     if effective_positions is not None and effective_positions < thresholds.get("effective_positions_low", 2.0):
         flags.append(f"Diversification effective faible: {effective_positions:.2f} positions équivalentes.")
 
+    account_snapshot = portfolio.get("account_snapshot", {})
     return {
         "total_market_value_chf": round(total_value, 2),
+        "reported_net_liquidation_chf": round_or_none(account_snapshot.get("net_liquidation_chf"), 2),
+        "reported_securities_market_value_chf": round_or_none(account_snapshot.get("securities_market_value_chf"), 2),
+        "reported_cash_chf": round_or_none(account_snapshot.get("cash_chf"), 2),
         "weights_sum_pct": round(total_weight, 2),
         "largest_position": {
             "ticker": largest.get("ticker") if largest else None,
@@ -356,6 +360,8 @@ def main() -> None:
             "diagnostics": diagnostics,
             "snapshot_date": portfolio.get("snapshot_date"),
             "market_values_are_manual_snapshot": portfolio.get("market_values_are_manual_snapshot", False),
+            "account_snapshot": portfolio.get("account_snapshot", {}),
+            "snapshot_source": portfolio.get("snapshot_source"),
         },
         "market": macro,
         "portfolio_market": portfolio_market,
