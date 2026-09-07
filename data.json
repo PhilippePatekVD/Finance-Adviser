@@ -1,6 +1,348 @@
 {
-    "date_generation": "2026-09-07T13:54:49.640922Z",
-    "rapport": {
-        "erreur": "Génération échouée"
+  "schema_version": 2,
+  "status": "degraded",
+  "date_generation": "2026-09-07T18:07:22.489865Z",
+  "ai_model": "gemini-2.5-flash",
+  "portfolio": {
+    "profile": {
+      "horizon_placement": "Long terme",
+      "devise_reference": "CHF",
+      "objectif": "Croissance du capital, diversification mondiale et surperformance ciblée (IA)"
+    },
+    "positions": [
+      {
+        "ticker": "FWRA.SW",
+        "nom": "Invesco FTSE All-World UCITS ETF",
+        "sleeve": "core_global",
+        "asset_class": "ETF actions mondiales",
+        "currency": "CHF",
+        "poids_pourcentage": 66.26,
+        "valeur_marche_chf": 10217.07,
+        "quantite": 1325
+      },
+      {
+        "ticker": "SPIA.SW",
+        "nom": "iShares Core SPI ETF (CH)",
+        "sleeve": "core_swiss",
+        "asset_class": "ETF actions suisses",
+        "currency": "CHF",
+        "poids_pourcentage": 26.36,
+        "valeur_marche_chf": 4064.0,
+        "quantite": 1000
+      },
+      {
+        "ticker": "XAIX.SW",
+        "nom": "Xtrackers Artificial Intelligence and Big Data UCITS ETF",
+        "sleeve": "satellite_ai",
+        "asset_class": "ETF thématique",
+        "currency": "CHF",
+        "poids_pourcentage": 7.38,
+        "valeur_marche_chf": 1138.56,
+        "quantite": 6
+      }
+    ],
+    "diagnostics": {
+      "total_market_value_chf": 15419.63,
+      "weights_sum_pct": 100.0,
+      "largest_position": {
+        "ticker": "FWRA.SW",
+        "name": "Invesco FTSE All-World UCITS ETF",
+        "weight_pct": 66.26
+      },
+      "concentration_assessment": "élevée",
+      "herfindahl_index": 0.514,
+      "effective_positions": 1.95,
+      "sleeve_weights_pct": {
+        "core_global": 66.26,
+        "core_swiss": 26.36,
+        "satellite_ai": 7.38
+      },
+      "diagnostic_flags": [
+        "Poids dominant: Invesco FTSE All-World UCITS ETF à 66.26 %.",
+        "Diversification effective faible: 1.95 positions équivalentes."
+      ],
+      "note": "Les seuils de concentration sont des heuristiques de diagnostic, pas des limites personnelles d'investissement."
+    },
+    "snapshot_date": "2026-09-07",
+    "market_values_are_manual_snapshot": true
+  },
+  "market": {
+    "^GSPC": {
+      "ticker": "^GSPC",
+      "label": "S&P 500",
+      "last": 7718.6001,
+      "variation_1j_pct": -0.38,
+      "variation_5j_pct": 0.09,
+      "variation_1m_pct": 0.11,
+      "variation_3m_pct": 2.18,
+      "variation_1y_pct": 19.09,
+      "volatilite_annualisee_pct": 13.43
+    },
+    "URTH": {
+      "ticker": "URTH",
+      "label": "MSCI World (proxy)",
+      "last": 209.82,
+      "variation_1j_pct": -0.25,
+      "variation_5j_pct": 0.19,
+      "variation_1m_pct": 0.57,
+      "variation_3m_pct": 3.21,
+      "variation_1y_pct": 20.69,
+      "volatilite_annualisee_pct": 13.61
+    },
+    "GC=F": {
+      "ticker": "GC=F",
+      "label": "Or",
+      "last": 4476.6001,
+      "variation_1j_pct": 1.06,
+      "variation_5j_pct": 1.03,
+      "variation_1m_pct": 3.13,
+      "variation_3m_pct": 0.02,
+      "variation_1y_pct": 23.05,
+      "volatilite_annualisee_pct": 25.99
+    },
+    "CHF=X": {
+      "ticker": "CHF=X",
+      "label": "USD/CHF",
+      "last": 0.8093,
+      "variation_1j_pct": 0.22,
+      "variation_5j_pct": 0.06,
+      "variation_1m_pct": -0.38,
+      "variation_3m_pct": 1.62,
+      "variation_1y_pct": 1.27,
+      "volatilite_annualisee_pct": 7.07
     }
+  },
+  "portfolio_market": {
+    "FWRA.SW": {
+      "ticker": "FWRA.SW",
+      "label": "Invesco FTSE All-World UCITS ETF",
+      "last": 7.77,
+      "variation_1j_pct": -0.05,
+      "variation_5j_pct": 0.88,
+      "variation_1m_pct": 0.3,
+      "variation_3m_pct": 5.83,
+      "variation_1y_pct": 24.13,
+      "volatilite_annualisee_pct": 11.22
+    },
+    "SPIA.SW": {
+      "ticker": "SPIA.SW",
+      "label": "iShares Core SPI ETF (CH)",
+      "last": 3.946,
+      "variation_1j_pct": -0.73,
+      "variation_5j_pct": -0.5,
+      "variation_1m_pct": -2.52,
+      "variation_3m_pct": 6.2,
+      "variation_1y_pct": 17.41,
+      "volatilite_annualisee_pct": 9.89
+    },
+    "XAIX.SW": {
+      "ticker": "XAIX.SW",
+      "label": "Xtrackers Artificial Intelligence and Big Data UCITS ETF",
+      "last": 195.82,
+      "variation_1j_pct": 0.18,
+      "variation_5j_pct": 1.06,
+      "variation_1m_pct": 2.52,
+      "variation_3m_pct": 3.52,
+      "variation_1y_pct": 48.84,
+      "volatilite_annualisee_pct": 27.14
+    }
+  },
+  "news": [
+    {
+      "title": "IBB Just Beat the S&P 500 by 22 Points in Three Months. Are You Late to the Party?",
+      "publisher": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/etf/2026/09/07/ibb-just-beat-the-sp-500-by-22-points-in-three-months-are-you-late-to-the-party/",
+      "published_at": "2026-09-07T16:22:05Z"
+    },
+    {
+      "title": "Super Micro Has Gained 35% in 2026. What Would It Take to Get SMCI Stock Up to $50?",
+      "publisher": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/2026/09/07/super-micro-has-gained-35-in-2026-what-would-it-take-to-get-smci-stock-up-to-50/",
+      "published_at": "2026-09-07T15:50:08Z"
+    },
+    {
+      "title": "Microsoft Is Close to a New All-Time High. This Number Will Determine If It Keeps Climbing",
+      "publisher": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/2026/09/07/microsoft-is-close-to-a-new-all-time-high-this-number-will-determine-if-it-keeps-climbing/",
+      "published_at": "2026-09-07T15:45:50Z"
+    },
+    {
+      "title": "Which Telecom Stock Has Dominated in 2026: AT&T, Verizon, or T-Mobile? (It’s Not Even Close)",
+      "publisher": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/2026/09/07/which-telecom-stock-has-dominated-in-2026-att-verizon-or-t-mobile-its-not-even-close/",
+      "published_at": "2026-09-07T15:40:15Z"
+    },
+    {
+      "title": "Roblox Has Collapsed 47% This Year: Is It Time to Switch to Take-Two or GameStop?",
+      "publisher": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/2026/09/07/roblox-has-collapsed-47-this-year-is-it-time-to-switch-to-take-two-or-gamestop/",
+      "published_at": "2026-09-07T14:50:39Z"
+    },
+    {
+      "title": "Tesla Says This Time Is Different. Wall Street Is Split on Whether to Believe It",
+      "publisher": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/2026/09/07/tesla-says-this-time-is-different-wall-street-is-split-on-whether-to-believe-it/",
+      "published_at": "2026-09-07T14:43:26Z"
+    },
+    {
+      "title": "Which Solar Stock Has Dominated in 2026: SolarEdge, Enphase Energy, or First Solar?",
+      "publisher": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/2026/09/07/which-solar-stock-has-dominated-in-2026-solaredge-enphase-energy-or-first-solar/",
+      "published_at": "2026-09-07T14:30:43Z"
+    },
+    {
+      "title": "XLU’s AI Power Story Crumbles as Texas Freezes Data-Center Demand",
+      "publisher": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/etf/2026/09/07/xlus-ai-power-story-crumbles-as-texas-freezes-data-center-demand/",
+      "published_at": "2026-09-07T14:22:05Z"
+    }
+  ],
+  "screener": {
+    "TECN.SW": {
+      "ticker": "TECN.SW",
+      "label": "Tecan",
+      "theme": "Santé / Life Sciences",
+      "name": "TECAN GROUP AG N",
+      "sector": "Healthcare",
+      "forward_pe": 25.37,
+      "earnings_growth_pct": -29.8,
+      "net_margin_pct": -13.36,
+      "roe_pct": -9.69,
+      "market_cap": 2427396096,
+      "currency": "CHF",
+      "quality_valuation_score": 32,
+      "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
+    },
+    "VACN.SW": {
+      "ticker": "VACN.SW",
+      "label": "VAT Group",
+      "theme": "Semi-conducteurs",
+      "name": "VAT GROUP N",
+      "sector": "Industrials",
+      "forward_pe": 37.52,
+      "earnings_growth_pct": -6.5,
+      "net_margin_pct": 20.2,
+      "roe_pct": 30.09,
+      "market_cap": 18867175424,
+      "currency": "CHF",
+      "quality_valuation_score": 61,
+      "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
+    },
+    "ISRG": {
+      "ticker": "ISRG",
+      "label": "Intuitive Surgical",
+      "theme": "MedTech",
+      "name": "Intuitive Surgical, Inc.",
+      "sector": "Healthcare",
+      "forward_pe": 30.38,
+      "earnings_growth_pct": 26.5,
+      "net_margin_pct": 28.45,
+      "roe_pct": 17.42,
+      "market_cap": 131380568064,
+      "currency": "USD",
+      "quality_valuation_score": 85,
+      "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
+    },
+    "SYK": {
+      "ticker": "SYK",
+      "label": "Stryker",
+      "theme": "MedTech",
+      "name": "Stryker Corporation",
+      "sector": "Healthcare",
+      "forward_pe": 18.09,
+      "earnings_growth_pct": 44.1,
+      "net_margin_pct": 14.43,
+      "roe_pct": 16.51,
+      "market_cap": 116272504832,
+      "currency": "USD",
+      "quality_valuation_score": 85,
+      "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
+    },
+    "CSU.TO": {
+      "ticker": "CSU.TO",
+      "label": "Constellation Software",
+      "theme": "Logiciels",
+      "name": "CONSTELLATION SOFTWARE INC.",
+      "sector": "Technology",
+      "forward_pe": 16.55,
+      "earnings_growth_pct": 389.3,
+      "net_margin_pct": 7.6,
+      "roe_pct": 23.28,
+      "market_cap": 64082337792,
+      "currency": "CAD",
+      "quality_valuation_score": 79,
+      "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
+    },
+    "FTNT": {
+      "ticker": "FTNT",
+      "label": "Fortinet",
+      "theme": "Cybersécurité",
+      "name": "Fortinet, Inc.",
+      "sector": "Technology",
+      "forward_pe": 41.44,
+      "earnings_growth_pct": 43.9,
+      "net_margin_pct": 28.17,
+      "roe_pct": 117.44,
+      "market_cap": 114672107520,
+      "currency": "USD",
+      "quality_valuation_score": 84,
+      "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
+    },
+    "ASML": {
+      "ticker": "ASML",
+      "label": "ASML",
+      "theme": "Semi-conducteurs",
+      "name": "ASML Holding N.V. - New York Re",
+      "sector": "Technology",
+      "forward_pe": 28.56,
+      "earnings_growth_pct": 28.5,
+      "net_margin_pct": 30.11,
+      "roe_pct": 53.94,
+      "market_cap": 658685427712,
+      "currency": "USD",
+      "quality_valuation_score": 92,
+      "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
+    },
+    "RMS.PA": {
+      "ticker": "RMS.PA",
+      "label": "Hermès",
+      "theme": "Luxe",
+      "name": "HERMES INTL",
+      "sector": "Consumer Cyclical",
+      "forward_pe": 29.02,
+      "earnings_growth_pct": -0.3,
+      "net_margin_pct": 28.0,
+      "roe_pct": 25.45,
+      "market_cap": 154493992960,
+      "currency": "EUR",
+      "quality_valuation_score": 69,
+      "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
+    },
+    "RACE": {
+      "ticker": "RACE",
+      "label": "Ferrari",
+      "theme": "Luxe",
+      "name": "Ferrari N.V.",
+      "sector": "Consumer Cyclical",
+      "forward_pe": 32.15,
+      "earnings_growth_pct": 10.1,
+      "net_margin_pct": 22.25,
+      "roe_pct": 45.44,
+      "market_cap": 72054792192,
+      "currency": "USD",
+      "quality_valuation_score": 85,
+      "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
+    }
+  },
+  "report": null,
+  "warnings": [],
+  "errors": [
+    "Erreur Gemini (gemini-2.5-flash): ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.', 'status': 'NOT_FOUND'}}"
+  ],
+  "methodology": {
+    "market_data": "Yahoo Finance via yfinance",
+    "ai": "Google Gemini (gemini-2.5-flash)",
+    "fundamental_score": "Heuristique interne qualité/valorisation; non comparable parfaitement entre secteurs.",
+    "disclaimer": "Outil d'aide à la décision. Aucune transaction n'est exécutée automatiquement."
+  }
 }
