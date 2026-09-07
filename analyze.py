@@ -1,150 +1,384 @@
 import json
+import math
+import os
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+
 import yfinance as yf
 from google import genai
-from datetime import datetime
+from google.genai import types
+from pydantic import BaseModel, Field
 
-MACRO_TICKERS = ["^GSPC", "URTH", "GC=F"]
+ROOT = Path(__file__).resolve().parent
 
-# Le nouveau Screener : Qualité, Moat, Santé, Tech de pointe, Luxe
-SCREENER_TICKERS = [
-    "TECN.SW", "VACN.SW", "ISRG", "SYK", 
-    "CSU.TO", "FTNT", "ASML",
-    "RMS.PA", "RACE"
-]
 
-def load_portfolio():
+class AIReport(BaseModel):
+    executive_summary: str = Field(description="Synthèse décisionnelle en 4 à 8 phrases.")
+    market_regime: str = Field(description="Lecture du régime de marché et du contexte macro.")
+    portfolio_diagnosis: str = Field(description="Diagnostic critique de l'allocation et des risques.")
+    risk_watch: str = Field(description="Risques prioritaires à surveiller.")
+    action_plan: List[str] = Field(description="Actions ou décisions à envisager, avec prudence et conditions.")
+    opportunities: List[str] = Field(description="Opportunités issues uniquement du screener fourni.")
+    what_to_monitor: List[str] = Field(description="Points de contrôle pour les prochaines séances.")
+
+
+def load_json(filename: str) -> Dict[str, Any]:
+    with (ROOT / filename).open("r", encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def dump_json(filename: str, payload: Dict[str, Any]) -> None:
+    with (ROOT / filename).open("w", encoding="utf-8") as handle:
+        json.dump(payload, handle, indent=2, ensure_ascii=False)
+
+
+def finite_number(value: Any) -> Optional[float]:
     try:
-        with open("portfolio.json", "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception as e:
-        print(f"Erreur portefeuille : {e}")
+        number = float(value)
+        return number if math.isfinite(number) else None
+    except (TypeError, ValueError):
         return None
 
-def fetch_market_data(tickers):
-    data = {}
-    for ticker_symbol in tickers:
-        try:
-            ticker = yf.Ticker(ticker_symbol)
-            hist = ticker.history(period="1mo")
-            if not hist.empty:
-                data[ticker_symbol] = {
-                    "variation_30j_pct": round(((hist['Close'].iloc[-1] - hist['Close'].iloc[0]) / hist['Close'].iloc[0]) * 100, 2)
-                }
-        except:
-            pass
-    return data
 
-def fetch_financial_news():
-    """Récupère les 5 dernières grandes dépêches de Yahoo Finance."""
+def round_or_none(value: Any, digits: int = 2) -> Optional[float]:
+    number = finite_number(value)
+    return round(number, digits) if number is not None else None
+
+
+def pct_change(first: Any, last: Any) -> Optional[float]:
+    first_n = finite_number(first)
+    last_n = finite_number(last)
+    if first_n in (None, 0) or last_n is None:
+        return None
+    return round((last_n / first_n - 1) * 100, 2)
+
+
+def market_snapshot(ticker_symbol: str, label: Optional[str] = None) -> Dict[str, Any]:
+    result: Dict[str, Any] = {"ticker": ticker_symbol, "label": label or ticker_symbol}
     try:
-        # On utilise l'ETF SPY (S&P 500) comme proxy pour obtenir les news globales du marché
-        news_data = yf.Ticker("SPY").news
-        headlines = [f"- {item.get('title')} (Source: {item.get('publisher')})" for item in news_data[:5]]
-        return "\n".join(headlines) if headlines else "Aucune actualité financière majeure récupérée."
-    except Exception as e:
-        return f"Erreur lors de la récupération de l'actualité : {e}"
+        history = yf.Ticker(ticker_symbol).history(period="1y", auto_adjust=True)
+        if history.empty:
+            result["error"] = "Aucun historique disponible"
+            return result
 
-def run_fundamental_screener(tickers):
-    """Extrait les ratios fondamentaux stricts pour identifier les anomalies de valorisation."""
-    screener_data = {}
-    for t in tickers:
-        try:
-            ticker = yf.Ticker(t)
-            info = ticker.info
-            if not info:
-                continue
-            
-            screener_data[t] = {
-                "nom": info.get("shortName", t),
-                "secteur": info.get("sector", "Inconnu"),
-                "PER_Forward": info.get("forwardPE", "N/A"),
-                "Croissance_Benefices_Est": info.get("earningsGrowth", "N/A"),
-                "Marge_Nette": info.get("profitMargins", "N/A"),
-                "Rendement_Capitaux_Propres_ROE": info.get("returnOnEquity", "N/A")
-            }
-        except Exception:
-            pass
-    return screener_data
+        closes = history["Close"].dropna()
+        if closes.empty:
+            result["error"] = "Cours de clôture indisponible"
+            return result
 
-def generate_financial_report(portfolio_data, portfolio_market_data, macro_data, screener_data, news_headlines):
-    client = genai.Client()
-    
-    prompt = f"""
-    Agissez en tant que stratégiste de marché et gérant de fonds quantitatif de premier plan.
-    Vous devez fournir une analyse institutionnelle, impartiale et strictement basée sur les données fournies.
-    
-    1. DÉPÊCHES DU JOUR :
-    {news_headlines}
-    
-    2. CONTEXTE MACRO (30j) : {json.dumps(macro_data)}
-    3. PORTEFEUILLE ACTUEL : {json.dumps(portfolio_data)}
-    4. PERF PORTEFEUILLE (30j) : {json.dumps(portfolio_market_data)}
-    
-    5. SCREENER FONDAMENTAL (VALEURS DE QUALITÉ / SOUS LES RADARS) :
-    {json.dumps(screener_data, indent=2)}
-    
-    Générez un rapport exhaustif respectant rigoureusement ces 5 axes :
-    - "actualite_financiere" : Rédigez un "Morning Briefing" digeste analysant les dépêches du jour fournies et leur impact potentiel sur la séance.
-    - "analyse_macro_globale" : Synthèse de la dynamique des marchés mondiaux et de l'inflation.
-    - "revue_portefeuille" : Critique sévère de l'allocation actuelle, des redondances et de l'exposition au risque.
-    - "conseils_ajustement" : Recommandations tactiques chiffrées pour rééquilibrer le portefeuille.
-    - "opportunites_marche" : OBLIGATOIRE : Basez-vous UNIQUEMENT sur les données du SCREENER FONDAMENTAL. Identifiez la ou les actions présentant la meilleure équation (Marge Nette forte / ROE élevé / PER justifié). Nommez les entreprises, citez leurs ratios exacts, et expliquez l'avantage concurrentiel fondamental de ces pépites.
-    
-    Format : Texte suivi exhaustif, argumenté. Utilisez des sauts de ligne (\\n\\n) pour séparer les paragraphes.
-    """
-    
-    try:
-        response = client.models.generate_content(
-            model='gemini-3.1-flash', 
-            contents=prompt,
-            config={
-                'response_mime_type': 'application/json',
-                'response_schema': {
-                    "type": "OBJECT",
-                    "properties": {
-                        "actualite_financiere": {"type": "STRING"},
-                        "analyse_macro_globale": {"type": "STRING"},
-                        "revue_portefeuille": {"type": "STRING"},
-                        "conseils_ajustement": {"type": "STRING"},
-                        "opportunites_marche": {"type": "STRING"}
-                    },
-                    "required": ["actualite_financiere", "analyse_macro_globale", "revue_portefeuille", "conseils_ajustement", "opportunites_marche"]
-                }
-            }
-        )
-        return json.loads(response.text)
-    except Exception as e:
-        print(f"Erreur API Gemini : {e}")
-        return {"erreur": "Génération échouée"}
+        result["last"] = round_or_none(closes.iloc[-1], 4)
 
-def main():
-    portfolio = load_portfolio()
-    if not portfolio:
-        return
+        windows = {
+            "variation_1j_pct": 2,
+            "variation_5j_pct": 6,
+            "variation_1m_pct": 22,
+            "variation_3m_pct": 66,
+            "variation_1y_pct": len(closes),
+        }
+        for key, size in windows.items():
+            if len(closes) >= 2:
+                subset = closes.tail(min(size, len(closes)))
+                result[key] = pct_change(subset.iloc[0], subset.iloc[-1])
+            else:
+                result[key] = None
 
-    print("1. Récupération des données du portefeuille...")
-    portfolio_tickers = [actif["ticker"] for actif in portfolio.get("actifs_actuels", [])]
-    portfolio_market_data = fetch_market_data(portfolio_tickers)
-    
-    print("2. Récupération des données macroéconomiques...")
-    macro_data = fetch_market_data(MACRO_TICKERS)
-    
-    print("3. Lecture des dernières dépêches financières...")
-    news = fetch_financial_news()
-    
-    print("4. Extraction des fondamentaux boursiers (Screener)...")
-    screener_data = run_fundamental_screener(SCREENER_TICKERS)
-    
-    print("5. Génération de l'analyse institutionnelle par l'IA...")
-    report = generate_financial_report(portfolio, portfolio_market_data, macro_data, screener_data, news)
-    
-    final_output = {
-        "date_generation": datetime.utcnow().isoformat() + "Z",
-        "rapport": report
+        returns = closes.pct_change().dropna().tail(66)
+        if len(returns) >= 10:
+            result["volatilite_annualisee_pct"] = round(float(returns.std()) * math.sqrt(252) * 100, 2)
+        else:
+            result["volatilite_annualisee_pct"] = None
+    except Exception as exc:
+        result["error"] = f"{type(exc).__name__}: {exc}"
+    return result
+
+
+def fetch_market_block(items: List[Dict[str, str]]) -> Dict[str, Dict[str, Any]]:
+    return {
+        item["ticker"]: market_snapshot(item["ticker"], item.get("label"))
+        for item in items
     }
-    
-    with open("data.json", "w", encoding="utf-8") as f:
-        json.dump(final_output, f, indent=4, ensure_ascii=False)
+
+
+def fetch_portfolio_market_data(portfolio: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
+    output: Dict[str, Dict[str, Any]] = {}
+    for asset in portfolio.get("actifs_actuels", []):
+        ticker = asset.get("ticker")
+        if ticker:
+            output[ticker] = market_snapshot(ticker, asset.get("nom"))
+    return output
+
+
+def fetch_financial_news(limit: int = 8) -> List[Dict[str, Any]]:
+    stories: List[Dict[str, Any]] = []
+    try:
+        raw_news = yf.Ticker("SPY").news or []
+        for item in raw_news:
+            content = item.get("content") or {}
+            provider = content.get("provider") or {}
+            canonical = content.get("canonicalUrl") or {}
+            title = item.get("title") or content.get("title")
+            if not title:
+                continue
+            stories.append({
+                "title": title,
+                "publisher": item.get("publisher") or provider.get("displayName"),
+                "url": item.get("link") or canonical.get("url"),
+                "published_at": content.get("pubDate") or item.get("providerPublishTime"),
+            })
+            if len(stories) >= limit:
+                break
+    except Exception as exc:
+        stories.append({"title": "Actualités indisponibles", "error": f"{type(exc).__name__}: {exc}"})
+    return stories
+
+
+def quality_score(forward_pe: Any, earnings_growth: Any, margin: Any, roe: Any) -> Optional[int]:
+    pe = finite_number(forward_pe)
+    growth = finite_number(earnings_growth)
+    margin_n = finite_number(margin)
+    roe_n = finite_number(roe)
+    available = [v for v in (pe, growth, margin_n, roe_n) if v is not None]
+    if len(available) < 2:
+        return None
+
+    score = 50
+    if margin_n is not None:
+        score += 12 if margin_n >= 0.20 else 6 if margin_n >= 0.10 else -5 if margin_n < 0 else 0
+    if roe_n is not None:
+        score += 15 if roe_n >= 0.25 else 8 if roe_n >= 0.15 else -5 if roe_n < 0.08 else 0
+    if growth is not None:
+        score += 15 if growth >= 0.20 else 8 if growth >= 0.10 else -8 if growth < 0 else 0
+    if pe is not None:
+        score += 6 if pe <= 25 else 0 if pe <= 35 else -8 if pe <= 50 else -15
+    return max(0, min(100, int(round(score))))
+
+
+def run_fundamental_screener(items: List[Dict[str, str]]) -> Dict[str, Dict[str, Any]]:
+    output: Dict[str, Dict[str, Any]] = {}
+    for item in items:
+        ticker_symbol = item["ticker"]
+        record: Dict[str, Any] = {
+            "ticker": ticker_symbol,
+            "label": item.get("label", ticker_symbol),
+            "theme": item.get("theme"),
+        }
+        try:
+            info = yf.Ticker(ticker_symbol).info or {}
+            pe = info.get("forwardPE")
+            growth = info.get("earningsGrowth")
+            margin = info.get("profitMargins")
+            roe = info.get("returnOnEquity")
+            record.update({
+                "name": info.get("shortName") or item.get("label") or ticker_symbol,
+                "sector": info.get("sector"),
+                "forward_pe": round_or_none(pe, 2),
+                "earnings_growth_pct": round_or_none(finite_number(growth) * 100 if finite_number(growth) is not None else None, 2),
+                "net_margin_pct": round_or_none(finite_number(margin) * 100 if finite_number(margin) is not None else None, 2),
+                "roe_pct": round_or_none(finite_number(roe) * 100 if finite_number(roe) is not None else None, 2),
+                "market_cap": info.get("marketCap"),
+                "currency": info.get("currency"),
+                "quality_valuation_score": quality_score(pe, growth, margin, roe),
+                "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux.",
+            })
+        except Exception as exc:
+            record["error"] = f"{type(exc).__name__}: {exc}"
+        output[ticker_symbol] = record
+    return output
+
+
+def portfolio_diagnostics(portfolio: Dict[str, Any], thresholds: Dict[str, Any]) -> Dict[str, Any]:
+    assets = portfolio.get("actifs_actuels", [])
+    weights = [finite_number(a.get("poids_pourcentage")) or 0 for a in assets]
+    total_weight = sum(weights)
+    total_value = sum(finite_number(a.get("valeur_marche_chf")) or 0 for a in assets)
+    largest = max(assets, key=lambda a: finite_number(a.get("poids_pourcentage")) or 0, default=None)
+
+    normalized = [(w / total_weight) for w in weights if w > 0] if total_weight else []
+    hhi = sum(w * w for w in normalized)
+    effective_positions = (1 / hhi) if hhi > 0 else None
+
+    sleeve_weights: Dict[str, float] = {}
+    for asset in assets:
+        sleeve = asset.get("sleeve", "non_classifie")
+        sleeve_weights[sleeve] = sleeve_weights.get(sleeve, 0) + (finite_number(asset.get("poids_pourcentage")) or 0)
+
+    largest_weight = finite_number(largest.get("poids_pourcentage")) if largest else None
+    concentration = "modérée"
+    if largest_weight is not None:
+        if largest_weight >= thresholds.get("single_position_high_pct", 60):
+            concentration = "élevée"
+        elif largest_weight >= thresholds.get("single_position_watch_pct", 40):
+            concentration = "à surveiller"
+
+    flags: List[str] = []
+    if largest and largest_weight is not None and concentration != "modérée":
+        flags.append(f"Poids dominant: {largest.get('nom', largest.get('ticker'))} à {largest_weight:.2f} %.")
+    ai_weight = sleeve_weights.get("satellite_ai", 0)
+    if ai_weight >= thresholds.get("thematic_watch_pct", 20):
+        flags.append(f"Exposition thématique IA élevée selon l'heuristique: {ai_weight:.2f} %.")
+    if effective_positions is not None and effective_positions < thresholds.get("effective_positions_low", 2.0):
+        flags.append(f"Diversification effective faible: {effective_positions:.2f} positions équivalentes.")
+
+    return {
+        "total_market_value_chf": round(total_value, 2),
+        "weights_sum_pct": round(total_weight, 2),
+        "largest_position": {
+            "ticker": largest.get("ticker") if largest else None,
+            "name": largest.get("nom") if largest else None,
+            "weight_pct": round_or_none(largest_weight, 2),
+        },
+        "concentration_assessment": concentration,
+        "herfindahl_index": round(hhi, 4),
+        "effective_positions": round(effective_positions, 2) if effective_positions is not None else None,
+        "sleeve_weights_pct": {k: round(v, 2) for k, v in sleeve_weights.items()},
+        "diagnostic_flags": flags,
+        "note": "Les seuils de concentration sont des heuristiques de diagnostic, pas des limites personnelles d'investissement.",
+    }
+
+
+def build_ai_report(
+    client: genai.Client,
+    model: str,
+    temperature: float,
+    portfolio: Dict[str, Any],
+    policy: Dict[str, Any],
+    diagnostics: Dict[str, Any],
+    portfolio_market: Dict[str, Any],
+    macro: Dict[str, Any],
+    screener: Dict[str, Any],
+    news: List[Dict[str, Any]],
+) -> AIReport:
+    payload = {
+        "investment_policy": policy,
+        "portfolio": portfolio,
+        "portfolio_diagnostics": diagnostics,
+        "portfolio_market_data": portfolio_market,
+        "macro_market_data": macro,
+        "fundamental_screener": screener,
+        "financial_news": news,
+    }
+    prompt = f"""
+Tu es le moteur d'analyse d'un tableau de bord financier personnel en CHF.
+
+MISSION
+Produis une analyse institutionnelle, sceptique, utile à la décision et strictement ancrée dans les données fournies ci-dessous.
+
+RÈGLES
+- Sépare les faits observés, les calculs, les hypothèses et ton jugement.
+- N'invente aucune donnée fondamentale, valorisation, prévision ou actualité manquante.
+- Signale explicitement les données absentes ou possiblement retardées.
+- Respecte la politique d'investissement fournie. Les champs null signifient qu'aucune limite personnelle n'a été définie.
+- Les seuils de diagnostic sont des heuristiques techniques, pas des contraintes de l'investisseur.
+- Pour les opportunités, utilise uniquement le screener fourni et cite les ratios disponibles.
+- Ne recommande jamais une transaction automatique. Formule des décisions à envisager avec conditions, déclencheurs et risques.
+- Analyse la concentration, les chevauchements probables, le risque thématique, le risque de change, la valorisation et le contexte macro.
+- Écris en français clair, précis et dense. Évite les slogans et les certitudes injustifiées.
+
+DONNÉES
+{json.dumps(payload, ensure_ascii=False, indent=2)}
+"""
+    response = client.models.generate_content(
+        model=model,
+        contents=prompt,
+        config=types.GenerateContentConfig(
+            temperature=temperature,
+            response_mime_type="application/json",
+            response_schema=AIReport,
+        ),
+    )
+    if not response.text:
+        raise RuntimeError("Réponse Gemini vide")
+    return AIReport.model_validate_json(response.text)
+
+
+def main() -> None:
+    generated_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    config = load_json("config.json")
+    portfolio = load_json("portfolio.json")
+    policy = load_json("investment_policy.json")
+
+    warnings: List[str] = []
+    errors: List[str] = []
+
+    macro = fetch_market_block(config["market"]["macro_tickers"])
+    portfolio_market = fetch_portfolio_market_data(portfolio)
+    news = fetch_financial_news()
+    screener = run_fundamental_screener(config["screener"])
+    diagnostics = portfolio_diagnostics(portfolio, config.get("diagnostic_thresholds", {}))
+
+    report: Optional[AIReport] = None
+    api_key = os.getenv("GEMINI_API_KEY")
+    model = config.get("ai", {}).get("model", "gemini-2.5-flash")
+    temperature = float(config.get("ai", {}).get("temperature", 0.2))
+
+    if not api_key:
+        errors.append("GEMINI_API_KEY absent: analyse IA non générée.")
+    else:
+        try:
+            client = genai.Client(api_key=api_key)
+            report = build_ai_report(
+                client=client,
+                model=model,
+                temperature=temperature,
+                portfolio=portfolio,
+                policy=policy,
+                diagnostics=diagnostics,
+                portfolio_market=portfolio_market,
+                macro=macro,
+                screener=screener,
+                news=news,
+            )
+        except Exception as exc:
+            errors.append(f"Erreur Gemini ({model}): {type(exc).__name__}: {exc}")
+
+    if any("error" in value for value in macro.values()):
+        warnings.append("Certaines données macro n'ont pas pu être récupérées.")
+    if any("error" in value for value in portfolio_market.values()):
+        warnings.append("Certaines données de marché du portefeuille sont indisponibles.")
+    if any("error" in value for value in screener.values()):
+        warnings.append("Certaines données fondamentales du screener sont indisponibles.")
+
+    status = "ok" if report is not None and not errors else "degraded"
+
+    output: Dict[str, Any] = {
+        "schema_version": 2,
+        "status": status,
+        "date_generation": generated_at,
+        "ai_model": model,
+        "portfolio": {
+            "profile": portfolio.get("profil_investisseur", {}),
+            "positions": portfolio.get("actifs_actuels", []),
+            "diagnostics": diagnostics,
+            "snapshot_date": portfolio.get("snapshot_date"),
+            "market_values_are_manual_snapshot": portfolio.get("market_values_are_manual_snapshot", False),
+        },
+        "market": macro,
+        "portfolio_market": portfolio_market,
+        "news": news,
+        "screener": screener,
+        "report": report.model_dump() if report is not None else None,
+        "warnings": warnings,
+        "errors": errors,
+        "methodology": {
+            "market_data": "Yahoo Finance via yfinance",
+            "ai": f"Google Gemini ({model})",
+            "fundamental_score": "Heuristique interne qualité/valorisation; non comparable parfaitement entre secteurs.",
+            "disclaimer": "Outil d'aide à la décision. Aucune transaction n'est exécutée automatiquement."
+        },
+    }
+    dump_json("data.json", output)
+
+    print(f"Finance-Adviser terminé — statut: {status}")
+    if warnings:
+        print("Avertissements:")
+        for warning in warnings:
+            print(f"- {warning}")
+    if errors:
+        print("Erreurs:")
+        for error in errors:
+            print(f"- {error}")
+
 
 if __name__ == "__main__":
     main()
