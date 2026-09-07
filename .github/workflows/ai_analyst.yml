@@ -1,52 +1,111 @@
-name: AI Financial Analyst
+name: Finance Adviser
 
 on:
   workflow_dispatch:
   schedule:
     - cron: '0 8 * * *'
     - cron: '45 17 * * *'
+  push:
+    branches: ["main"]
+    paths:
+      - "analyze.py"
+      - "index.html"
+      - "portfolio.json"
+      - "investment_policy.json"
+      - "config.json"
+      - "requirements.txt"
+      - ".github/workflows/ai_analyst.yml"
 
 permissions:
   contents: write
+  actions: read
   pages: write
   id-token: write
+
+concurrency:
+  group: finance-adviser
+  cancel-in-progress: true
 
 jobs:
   analyze_and_publish:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - name: Récupérer le code du dépôt
-        uses: actions/checkout@v4
-        
-      - name: Configurer l'environnement Python
-        uses: actions/setup-python@v5
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Python
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.10'
-          
-      - name: Installer les dépendances Python
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Dependencies
         run: pip install -r requirements.txt
-        
-      - name: Exécuter l'analyseur IA (Script Python)
+
+      - name: Run analysis
+        id: analysis
+        continue-on-error: true
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python analyze.py
-        
-      - name: Sauvegarder les résultats (JSON)
-        run: |
-          git config --global user.name "AI Analyst Bot"
-          git config --global user.email "bot@example.com"
-          git add data.json
-          git commit -m "Mise à jour automatique de l'analyse IA" || echo "Aucun changement à commiter"
-          git push
 
-      - name: Configurer GitHub Pages
-        uses: actions/configure-pages@v4
-        
-      - name: Préparer les fichiers pour le web
-        uses: actions/upload-pages-artifact@v3
+      - name: Commit generated report
+        if: always()
+        run: |
+          if [ -f data.json ]; then
+            git config user.name "Finance Adviser Bot"
+            git config user.email "finance-adviser-bot@users.noreply.github.com"
+            git add data.json
+            git diff --cached --quiet || git commit -m "chore: refresh financial analysis"
+            git push
+          fi
+
+      - name: Prepare public site
+        if: always()
+        run: |
+          rm -rf site
+          mkdir -p site
+          cp index.html site/index.html
+          cp data.json site/data.json
+          touch site/.nojekyll
+
+      - name: Configure Pages
+        if: always()
+        uses: actions/configure-pages@v6
+
+      - name: Upload Pages artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v5
         with:
-          path: '.'
-          
-      - name: Déployer le site web
+          path: "site"
+
+      - name: Deploy Pages
+        if: always()
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
+
+      - name: Health check
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          path = Path("data.json")
+          if not path.exists():
+              print("data.json absent")
+              sys.exit(1)
+
+          data = json.loads(path.read_text(encoding="utf-8"))
+          status = data.get("status")
+          print("Finance Adviser status:", status)
+          for error in data.get("errors", []):
+              print("ERROR:", error)
+
+          sys.exit(0 if status == "ok" else 1)
+          PY
