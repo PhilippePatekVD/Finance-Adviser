@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "status": "active",
+  "reference_currency": "CHF",
+  "investment_horizon": "Long terme",
+  "primary_objective": "Croissance du capital, diversification mondiale et surperformance ciblée via des satellites de conviction.",
+  "portfolio_philosophy": [
+    "Utiliser un coeur de portefeuille largement diversifié.",
+    "Traiter les expositions thématiques et les titres individuels comme des satellites, et non comme le socle du portefeuille.",
+    "Privilégier la qualité des entreprises, la solidité financière et les avantages concurrentiels durables.",
+    "Intégrer la valorisation dans toute décision d'achat, même pour une excellente entreprise.",
+    "Analyser explicitement les redondances entre ETF, secteurs, zones géographiques et facteurs de risque.",
+    "Raisonner en CHF et surveiller les expositions de change.",
+    "Ne jamais transformer automatiquement une analyse en ordre de marché."
+  ],
+  "analysis_priorities": [
+    "Concentration et diversification réelle",
+    "Chevauchement des expositions",
+    "Risque devise",
+    "Risque thématique",
+    "Qualité fondamentale",
+    "Valorisation",
+    "Régime de marché et macroéconomie",
+    "Opportunités présentant une asymétrie rendement/risque intéressante"
+  ],
+  "hard_constraints": {
+    "max_single_position_pct": null,
+    "max_thematic_exposure_pct": null,
+    "minimum_cash_pct": null,
+    "maximum_cash_pct": null,
+    "notes": "Aucune limite chiffrée personnelle n'est présumée tant qu'elle n'a pas été explicitement définie."
+  },
+  "decision_standard": "Les recommandations doivent distinguer faits, calculs, hypothèses, incertitudes et jugement analytique."
+}
