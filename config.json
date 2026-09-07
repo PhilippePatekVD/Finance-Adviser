@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "ai": {
+    "model": "gemini-2.5-flash",
+    "temperature": 0.2
+  },
+  "market": {
+    "macro_tickers": [
+      {"ticker": "^GSPC", "label": "S&P 500"},
+      {"ticker": "URTH", "label": "MSCI World (proxy)"},
+      {"ticker": "GC=F", "label": "Or"},
+      {"ticker": "CHF=X", "label": "USD/CHF"}
+    ]
+  },
+  "screener": [
+    {"ticker": "TECN.SW", "label": "Tecan", "theme": "Santé / Life Sciences"},
+    {"ticker": "VACN.SW", "label": "VAT Group", "theme": "Semi-conducteurs"},
+    {"ticker": "ISRG", "label": "Intuitive Surgical", "theme": "MedTech"},
+    {"ticker": "SYK", "label": "Stryker", "theme": "MedTech"},
+    {"ticker": "CSU.TO", "label": "Constellation Software", "theme": "Logiciels"},
+    {"ticker": "FTNT", "label": "Fortinet", "theme": "Cybersécurité"},
+    {"ticker": "ASML", "label": "ASML", "theme": "Semi-conducteurs"},
+    {"ticker": "RMS.PA", "label": "Hermès", "theme": "Luxe"},
+    {"ticker": "RACE", "label": "Ferrari", "theme": "Luxe"}
+  ],
+  "diagnostic_thresholds": {
+    "single_position_watch_pct": 40,
+    "single_position_high_pct": 60,
+    "effective_positions_low": 2.0,
+    "thematic_watch_pct": 20
+  }
+}
