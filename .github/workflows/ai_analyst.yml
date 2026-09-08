@@ -50,6 +50,20 @@ jobs:
       - name: Dependencies
         run: pip install -r requirements.txt
 
+      - name: Static checks
+        run: |
+          python -m py_compile analyze.py screening.py quotes.py
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          html = Path("index.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", html, flags=re.I)
+          inline = "\n".join(s for s in scripts if s.strip())
+          Path("/tmp/dashboard-inline.js").write_text(inline, encoding="utf-8")
+          PY
+          node --check /tmp/dashboard-inline.js
+
       - name: Run analysis
         id: analysis
         continue-on-error: true
