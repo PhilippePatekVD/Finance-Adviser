@@ -1,0 +1,59 @@
+name: Market Quotes
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/30 6-22 * * 1-5'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: finance-adviser-market-quotes
+  cancel-in-progress: true
+
+jobs:
+  refresh_quotes:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Refresh quotes without AI
+        run: python quotes.py
+
+      - name: Prepare public site
+        run: |
+          rm -rf site
+          mkdir -p site
+          cp index.html site/index.html
+          cp data.json site/data.json
+          cp quotes.json site/quotes.json
+          touch site/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: "site"
+
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
