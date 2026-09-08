@@ -12,6 +12,7 @@ import yfinance as yf
 from google import genai
 from google.genai import types
 from pydantic import BaseModel, Field
+from screening import run_dynamic_screener, run_watchlist_analysis
 
 ROOT = Path(__file__).resolve().parent
 
@@ -262,6 +263,7 @@ def build_analysis_prompt(
     portfolio_market: Dict[str, Any],
     macro: Dict[str, Any],
     screener: Dict[str, Any],
+    watchlist: List[Dict[str, Any]],
     news: List[Dict[str, Any]],
 ) -> str:
     payload = {
@@ -270,7 +272,8 @@ def build_analysis_prompt(
         "portfolio_diagnostics": diagnostics,
         "portfolio_market_data": portfolio_market,
         "macro_market_data": macro,
-        "fundamental_screener": screener,
+        "dynamic_growth_screener": screener,
+        "personal_watchlist": watchlist,
         "financial_news": news,
     }
     return f"""
@@ -285,7 +288,9 @@ RÈGLES
 - Signale explicitement les données absentes ou possiblement retardées.
 - Respecte la politique d'investissement fournie. Les champs null signifient qu'aucune limite personnelle n'a été définie.
 - Les seuils de diagnostic sont des heuristiques techniques, pas des contraintes de l'investisseur.
-- Pour les opportunités, utilise uniquement le screener fourni et cite les ratios disponibles.
+- Pour les opportunités, utilise uniquement les résultats du screener dynamique fourni, jamais la watchlist personnelle comme source de découverte.
+- La watchlist personnelle sert au suivi de convictions existantes ; distingue-la explicitement des nouvelles opportunités découvertes.
+- Favorise les relais de croissance de qualité et pénalise les titres dont le momentum récent est excessivement tendu.
 - Ne recommande jamais une transaction automatique. Formule des décisions à envisager avec conditions, déclencheurs et risques.
 - Analyse la concentration, les chevauchements probables, le risque thématique, le risque de change, la valorisation et le contexte macro.
 - Écris en français clair, précis et dense. Évite les slogans et les certitudes injustifiées.
@@ -459,6 +464,7 @@ def main() -> None:
     config = load_json("config.json")
     portfolio = load_json("portfolio.json")
     policy = load_json("investment_policy.json")
+    watchlist_config = load_json("watchlist.json")
 
     warnings: List[str] = []
     errors: List[str] = []
@@ -466,7 +472,8 @@ def main() -> None:
     macro = fetch_market_block(config["market"]["macro_tickers"])
     portfolio_market = fetch_portfolio_market_data(portfolio)
     news = fetch_financial_news()
-    screener = run_fundamental_screener(config["screener"])
+    screener = run_dynamic_screener(config.get("screener_dynamic", {}))
+    watchlist_analysis = run_watchlist_analysis(watchlist_config.get("items", []))
     diagnostics = portfolio_diagnostics(portfolio, config.get("diagnostic_thresholds", {}))
 
     report: Optional[AIReport] = None
@@ -482,6 +489,7 @@ def main() -> None:
             portfolio_market=portfolio_market,
             macro=macro,
             screener=screener,
+            watchlist=watchlist_analysis,
             news=news,
         )
         report, ai_provider, ai_model, ai_attempts = run_ai_provider_chain(config, prompt)
@@ -515,8 +523,11 @@ def main() -> None:
         warnings.append("Certaines données macro n'ont pas pu être récupérées.")
     if any("error" in value for value in portfolio_market.values()):
         warnings.append("Certaines données de marché du portefeuille sont indisponibles.")
-    if any("error" in value for value in screener.values()):
-        warnings.append("Certaines données fondamentales du screener sont indisponibles.")
+    screener_errors = (screener.get("discovery") or {}).get("errors") or []
+    if screener_errors:
+        warnings.append("Certaines sources de découverte du screener dynamique sont indisponibles.")
+    if any(item.get("error") for item in watchlist_analysis):
+        warnings.append("Certaines valeurs de la watchlist n'ont pas pu être mises à jour.")
 
     status = "ok" if report is not None and not errors else "degraded"
 
@@ -540,6 +551,7 @@ def main() -> None:
         "market": macro,
         "portfolio_market": portfolio_market,
         "news": news,
+        "watchlist": watchlist_analysis,
         "screener": screener,
         "report": report.model_dump() if report is not None else None,
         "warnings": warnings,
@@ -547,7 +559,7 @@ def main() -> None:
         "methodology": {
             "market_data": "Yahoo Finance via yfinance",
             "ai": (f"{ai_provider} / {ai_model} (free-only)" if ai_provider and ai_model else "IA indisponible (free-only)"),
-            "fundamental_score": "Heuristique interne qualité/valorisation; non comparable parfaitement entre secteurs.",
+            "fundamental_score": "Screener dynamique multi-facteurs: qualité 30 %, croissance 20 %, valorisation 20 %, bilan 15 %, momentum 10 %, risque 5 %, avec comparaison sectorielle et pénalité anti-chasse.",
             "disclaimer": "Outil d'aide à la décision. Aucune transaction n'est exécutée automatiquement."
         },
     }
