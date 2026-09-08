@@ -3,6 +3,7 @@ import math
 import os
 import urllib.error
 import urllib.request
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -17,7 +18,7 @@ ROOT = Path(__file__).resolve().parent
 # Safety lock: Finance-Adviser is intentionally a zero-cost personal project.
 # Only models explicitly verified as available on a provider free tier may be called.
 FREE_AI_ALLOWLIST = {
-    "gemini": {"gemini-3.7-flash"},
+    "gemini": {"gemini-3.7-flash", "gemini-3.6-flash"},
     "groq": {"openai/gpt-oss-120b"},
 }
 
@@ -310,17 +311,31 @@ def assert_free_provider(provider: str, model: str, free_only: bool) -> None:
 
 def build_gemini_report(api_key: str, model: str, prompt: str) -> AIReport:
     client = genai.Client(api_key=api_key)
-    response = client.models.generate_content(
-        model=model,
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            response_mime_type="application/json",
-            response_schema=AIReport,
-        ),
-    )
-    if not response.text:
-        raise RuntimeError("Réponse Gemini vide")
-    return AIReport.model_validate_json(response.text)
+    last_error: Optional[Exception] = None
+
+    for attempt, delay in enumerate((0, 3, 8), start=1):
+        if delay:
+            time.sleep(delay)
+        try:
+            response = client.models.generate_content(
+                model=model,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    response_mime_type="application/json",
+                    response_schema=AIReport,
+                ),
+            )
+            if not response.text:
+                raise RuntimeError("Réponse Gemini vide")
+            return AIReport.model_validate_json(response.text)
+        except Exception as exc:
+            last_error = exc
+            message = str(exc).upper()
+            transient = any(code in message for code in ("503", "UNAVAILABLE", "HIGH DEMAND", "429", "RESOURCE_EXHAUSTED"))
+            if not transient or attempt >= 3:
+                raise
+
+    raise RuntimeError(f"Gemini indisponible après retries: {last_error}")
 
 
 def build_groq_report(api_key: str, model: str, prompt: str, temperature: float) -> AIReport:
