@@ -1,7 +1,21 @@
 {
-  "version": 2,
+  "version": 3,
   "ai": {
-    "model": "gemini-3.6-flash",
+    "free_only": true,
+    "providers": [
+      {
+        "name": "gemini",
+        "model": "gemini-3.7-flash",
+        "enabled": true,
+        "free_tier_required": true
+      },
+      {
+        "name": "groq",
+        "model": "openai/gpt-oss-120b",
+        "enabled": true,
+        "free_tier_required": true
+      }
+    ],
     "temperature": 0.2
   },
   "market": {
