@@ -52,24 +52,24 @@
   },
   "screener_dynamic": {
     "enabled": true,
-    "max_candidates_enriched": 36,
+    "max_candidates_enriched": 32,
     "max_results": 12,
-    "minimum_market_cap": 2000000000,
+    "minimum_market_cap": 5000000000,
     "discovery_sources": [
       {
         "type": "predefined",
         "query": "undervalued_growth_stocks",
-        "count": 30
+        "count": 35
+      },
+      {
+        "type": "predefined",
+        "query": "undervalued_large_caps",
+        "count": 35
       },
       {
         "type": "predefined",
         "query": "growth_technology_stocks",
-        "count": 30
-      },
-      {
-        "type": "predefined",
-        "query": "most_actives",
-        "count": 25
+        "count": 35
       },
       {
         "type": "regions",
@@ -82,7 +82,7 @@
           "it",
           "se"
         ],
-        "size": 60
+        "size": 70
       }
     ],
     "weights": {
@@ -96,6 +96,15 @@
     "anti_chase": {
       "max_1m_pct": 22,
       "max_3m_pct": 40
-    }
+    },
+    "minimum_revenue_growth_pct": 4,
+    "minimum_earnings_growth_pct": 8,
+    "excluded_industry_keywords": [
+      "REIT",
+      "Shell Companies"
+    ],
+    "excluded_symbol_fragments": [
+      ".XC"
+    ]
   }
 }
