@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "status": "ok",
-  "date_generation": "2026-09-07T20:47:10.775812Z",
-  "ai_model": "gemini-3.6-flash",
+  "status": "degraded",
+  "date_generation": "2026-09-08T07:17:23.460478Z",
+  "ai_model": "gemini-2.5-flash",
   "portfolio": {
     "profile": {
       "horizon_placement": "Long terme",
@@ -116,62 +116,68 @@
     "GC=F": {
       "ticker": "GC=F",
       "label": "Or",
-      "last": 4476.6001,
-      "variation_1j_pct": 1.06,
-      "variation_5j_pct": 1.03,
-      "variation_1m_pct": 3.13,
-      "variation_3m_pct": 0.02,
-      "variation_1y_pct": 23.05,
-      "volatilite_annualisee_pct": 25.99
+      "last": 4452.1001,
+      "variation_1j_pct": 0.5,
+      "variation_5j_pct": 0.47,
+      "variation_1m_pct": 2.57,
+      "variation_3m_pct": -0.53,
+      "variation_1y_pct": 22.37,
+      "volatilite_annualisee_pct": 25.93
     },
     "CHF=X": {
       "ticker": "CHF=X",
       "label": "USD/CHF",
-      "last": 0.8095,
-      "variation_1j_pct": 0.25,
-      "variation_5j_pct": 0.08,
-      "variation_1m_pct": -0.36,
-      "variation_3m_pct": 1.64,
-      "variation_1y_pct": 1.29,
-      "volatilite_annualisee_pct": 7.07
+      "last": 0.8105,
+      "variation_1j_pct": 0.08,
+      "variation_5j_pct": 0.29,
+      "variation_1m_pct": 0.29,
+      "variation_3m_pct": 1.55,
+      "variation_1y_pct": 1.42,
+      "volatilite_annualisee_pct": 6.84
     }
   },
   "portfolio_market": {
     "FWRA.SW": {
       "ticker": "FWRA.SW",
       "label": "Invesco FTSE All-World UCITS ETF",
-      "last": 7.77,
-      "variation_1j_pct": -0.05,
-      "variation_5j_pct": 0.88,
-      "variation_1m_pct": 0.3,
-      "variation_3m_pct": 5.83,
-      "variation_1y_pct": 24.13,
+      "last": 7.767,
+      "variation_1j_pct": -0.09,
+      "variation_5j_pct": 0.84,
+      "variation_1m_pct": 0.26,
+      "variation_3m_pct": 5.79,
+      "variation_1y_pct": 24.09,
       "volatilite_annualisee_pct": 11.22
     },
     "SPIA.SW": {
       "ticker": "SPIA.SW",
       "label": "UBS ETF SPI",
-      "last": 3.946,
-      "variation_1j_pct": -0.73,
-      "variation_5j_pct": -0.5,
-      "variation_1m_pct": -2.52,
-      "variation_3m_pct": 6.2,
-      "variation_1y_pct": 17.41,
-      "volatilite_annualisee_pct": 9.89
+      "last": 3.909,
+      "variation_1j_pct": -1.66,
+      "variation_5j_pct": -1.44,
+      "variation_1m_pct": -3.43,
+      "variation_3m_pct": 5.21,
+      "variation_1y_pct": 16.3,
+      "volatilite_annualisee_pct": 10.35
     },
     "XAIX.SW": {
       "ticker": "XAIX.SW",
       "label": "Xtrackers Artificial Intelligence and Big Data UCITS ETF",
-      "last": 195.82,
-      "variation_1j_pct": 0.18,
-      "variation_5j_pct": 1.06,
-      "variation_1m_pct": 2.52,
-      "variation_3m_pct": 3.52,
-      "variation_1y_pct": 48.84,
+      "last": 196.08,
+      "variation_1j_pct": 0.32,
+      "variation_5j_pct": 1.2,
+      "variation_1m_pct": 2.66,
+      "variation_3m_pct": 3.66,
+      "variation_1y_pct": 49.04,
       "volatilite_annualisee_pct": 27.14
     }
   },
   "news": [
+    {
+      "title": "How a 64-Year-Old’s $1.2 Million in VOO Turned Into a $456,000 Bet on a Single Sector",
+      "publisher": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/etf/2026/09/07/how-a-64-year-olds-1-2-million-in-voo-turned-into-a-456000-bet-on-a-single-sector/",
+      "published_at": "2026-09-07T21:25:21Z"
+    },
     {
       "title": "IBB Just Beat the S&P 500 by 22 Points in Three Months. Are You Late to the Party?",
       "publisher": "24/7 Wall St.",
@@ -213,12 +219,6 @@
       "publisher": "24/7 Wall St.",
       "url": "https://247wallst.com/investing/2026/09/07/which-solar-stock-has-dominated-in-2026-solaredge-enphase-energy-or-first-solar/",
       "published_at": "2026-09-07T14:30:43Z"
-    },
-    {
-      "title": "XLU’s AI Power Story Crumbles as Texas Freezes Data-Center Demand",
-      "publisher": "24/7 Wall St.",
-      "url": "https://247wallst.com/investing/etf/2026/09/07/xlus-ai-power-story-crumbles-as-texas-freezes-data-center-demand/",
-      "published_at": "2026-09-07T14:22:05Z"
     }
   ],
   "screener": {
@@ -228,11 +228,11 @@
       "theme": "Santé / Life Sciences",
       "name": "TECAN GROUP AG N",
       "sector": "Healthcare",
-      "forward_pe": 25.37,
+      "forward_pe": 25.33,
       "earnings_growth_pct": -29.8,
       "net_margin_pct": -13.36,
       "roe_pct": -9.69,
-      "market_cap": 2427396096,
+      "market_cap": 2423699456,
       "currency": "CHF",
       "quality_valuation_score": 32,
       "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
@@ -243,11 +243,11 @@
       "theme": "Semi-conducteurs",
       "name": "VAT GROUP N",
       "sector": "Industrials",
-      "forward_pe": 37.52,
+      "forward_pe": 37.12,
       "earnings_growth_pct": -6.5,
       "net_margin_pct": 20.2,
       "roe_pct": 30.09,
-      "market_cap": 18867175424,
+      "market_cap": 18669393920,
       "currency": "CHF",
       "quality_valuation_score": 61,
       "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
@@ -288,7 +288,7 @@
       "theme": "Logiciels",
       "name": "CONSTELLATION SOFTWARE INC.",
       "sector": "Technology",
-      "forward_pe": 16.55,
+      "forward_pe": 16.56,
       "earnings_growth_pct": 389.3,
       "net_margin_pct": 7.6,
       "roe_pct": 23.28,
@@ -333,11 +333,11 @@
       "theme": "Luxe",
       "name": "HERMES INTL",
       "sector": "Consumer Cyclical",
-      "forward_pe": 29.02,
+      "forward_pe": 28.76,
       "earnings_growth_pct": -0.3,
       "net_margin_pct": 28.0,
       "roe_pct": 25.45,
-      "market_cap": 154493992960,
+      "market_cap": 153079971840,
       "currency": "EUR",
       "quality_valuation_score": 69,
       "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
@@ -348,7 +348,7 @@
       "theme": "Luxe",
       "name": "Ferrari N.V.",
       "sector": "Consumer Cyclical",
-      "forward_pe": 32.15,
+      "forward_pe": 32.14,
       "earnings_growth_pct": 10.1,
       "net_margin_pct": 22.25,
       "roe_pct": 45.44,
@@ -358,35 +358,14 @@
       "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
     }
   },
-  "report": {
-    "executive_summary": "Le portefeuille affiche une valeur totale de 15 554 CHF articulée autour de trois ETF et d un solde résiduel de liquidités (0.89 %). L allocation respecte la philosophie coeur-satellite avec Invesco FTSE All-World (65.67 %), UBS SPI (26.12 %) et Xtrackers AI (7.32 %). Cependant, l indice Herfindahl de 0.5049 et un nombre effectif de positions de 1.98 révèlent une forte concentration technique. La surpondération des actions suisses crée un biais domestique marqué, tandis que l exposition sous-jacente aux actions américaines via FWRA et XAIX induit un risque de change USD implicite. Le niveau de cash très réduit (138.75 CHF) limite toute agilité tactique directe sans rebalancement préalable. Enfin, les opportunités identifiées dans le screener nécessiteraient des arbitrages explicites.",
-    "market_regime": "Le régime de marché demeure porté par une dynamique haussière globale, matérialisée par la progression sur un an du MSCI World Proxy (+20.69 %) et du S&P 500 (+19.09 %). Le segment thématique de l intelligence artificielle surperforme nettement avec une hausse de +48.84 % sur un an pour XAIX, accompagnée d une volatilité annualisée élevée de 27.14 %. Parallèlement, la progression de l or (+23.05 % sur un an) et sa volatilité de 25.99 % signalent une recherche continue de couvertures face aux incertitudes macroéconomiques. La paire USD/CHF (0.8095) montre une stabilité relative à court terme (+1.29 % sur un an) mais conserve un risque d appréciation du franc suisse à long terme.",
-    "portfolio_diagnosis": "L analyse de la structure met en évidence un biais domestique important avec 26.12 % investis en actions suisses (SPIA.SW), bien au-delà du poids de la Suisse dans les indices mondiaux. Il existe un chevauchement probable entre les composantes technologiques globales de FWRA.SW et l ETF thématique XAIX.SW. Bien que cotées en CHF, les lignes internationales subissent le risque de change sous-jacent (USD/EUR). Les liquidités quasi inexistantes (138.75 CHF, 0.89 %) empêchent tout achat d opportunité sans vente préalable. Il est à noter qu aucune contrainte chiffrée personnelle n ayant été définie dans la politique d investissement, ce diagnostic s appuie uniquement sur des heuristiques financières.",
-    "risk_watch": "Risque de change sous-jacent USD/CHF impactant le sous-jacent de FWRA.SW et XAIX.SW. Risque de concentration sectorielle lié au chevauchement de la thématique technologie/IA. Risque de biais domestique élevé via l exposition au marché suisse à hauteur de 26.12 %. Risque de manque de liquidité opérationnelle en raison d une réserve de cash négligeable de 0.89 %.",
-    "action_plan": [
-      "Envisager d orienter les nouveaux apports en capital prioritairement vers le coeur mondial (FWRA.SW) afin d atténuer progressivement le biais domestique suisse sans générer d opérations de vente.",
-      "Fixer une cible minimale de liquidités pour restaurer la flexibilité tactique face aux opportunités de marché.",
-      "Conserver la position satellite XAIX.SW à sa taille actuelle (7.32 %) tout en surveillant la volatilité du secteur technologique."
-    ],
-    "opportunities": [
-      "ASML (ASML) - Semi-conducteurs: Score 92, Forward PE 28.56, croissance des bénéfices 28.5 %, marge nette 30.11 %, ROE 53.94 %.",
-      "Intuitive Surgical (ISRG) - MedTech: Score 85, Forward PE 30.38, croissance des bénéfices 26.5 %, marge nette 28.45 %, ROE 17.42 %.",
-      "Stryker (SYK) - MedTech: Score 85, Forward PE 18.09, croissance des bénéfices 44.1 %, marge nette 14.43 %, ROE 16.51 %.",
-      "Fortinet (FTNT) - Cybersécurité: Score 84, Forward PE 41.44, croissance des bénéfices 43.9 %, marge nette 28.17 %, ROE 117.44 %.",
-      "Constellation Software (CSU.TO) - Logiciels: Score 79, Forward PE 16.55, croissance des bénéfices 389.3 %, marge nette 7.60 %, ROE 23.28 %."
-    ],
-    "what_to_monitor": [
-      "Évolution du taux USD/CHF (0.8095) et son impact sur la valeur nette en CHF des ETF internationaux.",
-      "Stabilité du marché suisse (SPIA.SW) après son repli mensuel de -2.52 %.",
-      "Volatilité annualisée de XAIX.SW (27.14 %) en cas de prises de bénéfices sur le secteur technologique.",
-      "Flux de trésorerie entrants sur le compte pour reconstituer une marge de liquidités."
-    ]
-  },
+  "report": null,
   "warnings": [],
-  "errors": [],
+  "errors": [
+    "Erreur Gemini (gemini-2.5-flash): ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.', 'status': 'NOT_FOUND'}}"
+  ],
   "methodology": {
     "market_data": "Yahoo Finance via yfinance",
-    "ai": "Google Gemini (gemini-3.6-flash)",
+    "ai": "Google Gemini (gemini-2.5-flash)",
     "fundamental_score": "Heuristique interne qualité/valorisation; non comparable parfaitement entre secteurs.",
     "disclaimer": "Outil d'aide à la décision. Aucune transaction n'est exécutée automatiquement."
   }
