@@ -57,3 +57,18 @@ Les valeurs de marché du fichier sont considérées comme un snapshot manuel ; 
 ## Limites
 
 Yahoo Finance n'est pas une source institutionnelle garantie et certaines données peuvent être retardées, manquantes ou structurées différemment selon le titre. Le score qualité/valorisation est une heuristique de tri, pas un modèle de valorisation intrinsèque.
+
+
+## Politique IA zéro coût
+
+Finance Adviser est volontairement configuré en mode `free_only`.
+
+Chaîne actuelle :
+1. `gemini-3.7-flash` via le Free Tier Gemini ;
+2. `openai/gpt-oss-120b` via le Free Plan Groq, uniquement si un secret `GROQ_API_KEY` est présent.
+
+Le code contient une liste blanche interne. Un modèle ou fournisseur non explicitement autorisé est refusé avant tout appel réseau.
+
+**Important :** cette protection empêche Finance Adviser d'appeler volontairement un modèle non approuvé comme gratuit. Elle ne peut pas vérifier le statut de facturation externe d'un compte Google/Groq. Pour garantir zéro dépense, les projets API correspondants doivent rester sur leurs offres gratuites et ne pas être configurés pour une facturation payante.
+
+Aucune clé API n'est stockée dans le dépôt.
