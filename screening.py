@@ -396,20 +396,87 @@ def score_records(records: List[Dict[str, Any]], config: Dict[str, Any]) -> List
     return sorted(records, key=lambda x: (x.get("relay_candidate", False), x.get("score", 0)), reverse=True)
 
 
+def eligible_growth_relay(record: Dict[str, Any], config: Dict[str, Any]) -> bool:
+    ticker = str(record.get("ticker") or "")
+    industry = str(record.get("industry") or "")
+    market_cap = finite(record.get("market_cap"))
+    rev_growth = finite(record.get("revenue_growth_pct"))
+    eps_growth = finite(record.get("earnings_growth_pct"))
+    margin = finite(record.get("net_margin_pct"))
+
+    if market_cap is not None and market_cap < float(config.get("minimum_market_cap", 5_000_000_000)):
+        return False
+    if any(fragment in ticker for fragment in config.get("excluded_symbol_fragments", [])):
+        return False
+    if any(keyword.lower() in industry.lower() for keyword in config.get("excluded_industry_keywords", [])):
+        return False
+
+    growth_ok = (
+        (rev_growth is not None and rev_growth >= float(config.get("minimum_revenue_growth_pct", 4)))
+        or (eps_growth is not None and eps_growth >= float(config.get("minimum_earnings_growth_pct", 8)))
+    )
+    if not growth_ok:
+        return False
+
+    if record.get("sector") != "Financial Services" and margin is not None and margin <= 0:
+        return False
+    if float(record.get("data_completeness_pct") or 0) < 55:
+        return False
+    return True
+
+
+def deduplicate_companies(records: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    seen: Dict[str, Dict[str, Any]] = {}
+    for record in records:
+        name = str(record.get("name") or record.get("ticker") or "").lower()
+        normalized = "".join(ch for ch in name if ch.isalnum())
+        for suffix in ("limited", "ltd", "plc", "inc", "corporation", "corp", "sa", "ag", "nv"):
+            if normalized.endswith(suffix):
+                normalized = normalized[:-len(suffix)]
+        key = normalized or str(record.get("ticker"))
+        current = seen.get(key)
+        if current is None or (finite(record.get("market_cap")) or 0) > (finite(current.get("market_cap")) or 0):
+            seen[key] = record
+    return list(seen.values())
+
+
 def run_dynamic_screener(config: Dict[str, Any]) -> Dict[str, Any]:
     candidates, discovery = discover_candidates(config)
     records = [enrich_candidate(candidate) for candidate in candidates]
     records = [r for r in records if not r.get("error") or len(r) > 8]
     ranked = score_records(records, config)
+    ranked = deduplicate_companies(ranked)
+
+    eligible = [r for r in ranked if eligible_growth_relay(r, config)]
+    eligible.sort(key=lambda x: (x.get("relay_candidate", False), x.get("score", 0)), reverse=True)
+
+    max_results = int(config.get("max_results", 12))
+    results = eligible[:max_results]
+    if len(results) < max_results:
+        chosen = {r.get("ticker") for r in results}
+        backfill = [
+            r for r in ranked
+            if r.get("ticker") not in chosen
+            and not r.get("overheated")
+            and float(r.get("score") or 0) >= 52
+        ]
+        results.extend(backfill[: max_results - len(results)])
 
     return {
         "generated_from_dynamic_universe": True,
         "method": "Yahoo Finance/yfinance dynamic discovery + sector-relative multi-factor scoring",
+        "objective": "Relais de croissance rentable, de qualité, à valorisation raisonnable; éviter de courir après les envolées.",
         "discovery": discovery,
         "weights": config.get("weights", {}),
         "anti_chase": config.get("anti_chase", {}),
-        "results": ranked[: int(config.get("max_results", 12))],
+        "filters": {
+            "minimum_market_cap": config.get("minimum_market_cap"),
+            "minimum_revenue_growth_pct": config.get("minimum_revenue_growth_pct"),
+            "minimum_earnings_growth_pct": config.get("minimum_earnings_growth_pct"),
+        },
+        "results": results,
         "candidates_scored": len(ranked),
+        "growth_eligible": len(eligible),
     }
 
 
