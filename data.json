@@ -1,8 +1,23 @@
 {
-  "schema_version": 2,
-  "status": "degraded",
-  "date_generation": "2026-09-08T07:17:23.460478Z",
-  "ai_model": "gemini-2.5-flash",
+  "schema_version": 3,
+  "status": "ok",
+  "date_generation": "2026-09-08T07:20:47.762320Z",
+  "ai_provider": "gemini",
+  "ai_model": "gemini-3.6-flash",
+  "ai_attempts": [
+    {
+      "provider": "gemini",
+      "model": "gemini-3.7-flash",
+      "status": "failed",
+      "reason": "ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.6-flash",
+      "status": "success"
+    }
+  ],
+  "ai_free_only": true,
   "portfolio": {
     "profile": {
       "horizon_placement": "Long terme",
@@ -116,23 +131,23 @@
     "GC=F": {
       "ticker": "GC=F",
       "label": "Or",
-      "last": 4452.1001,
-      "variation_1j_pct": 0.5,
-      "variation_5j_pct": 0.47,
-      "variation_1m_pct": 2.57,
-      "variation_3m_pct": -0.53,
-      "variation_1y_pct": 22.37,
+      "last": 4451.2002,
+      "variation_1j_pct": 0.48,
+      "variation_5j_pct": 0.45,
+      "variation_1m_pct": 2.55,
+      "variation_3m_pct": -0.55,
+      "variation_1y_pct": 22.35,
       "volatilite_annualisee_pct": 25.93
     },
     "CHF=X": {
       "ticker": "CHF=X",
       "label": "USD/CHF",
-      "last": 0.8105,
-      "variation_1j_pct": 0.08,
-      "variation_5j_pct": 0.29,
-      "variation_1m_pct": 0.29,
-      "variation_3m_pct": 1.55,
-      "variation_1y_pct": 1.42,
+      "last": 0.8104,
+      "variation_1j_pct": 0.06,
+      "variation_5j_pct": 0.28,
+      "variation_1m_pct": 0.28,
+      "variation_3m_pct": 1.54,
+      "variation_1y_pct": 1.41,
       "volatilite_annualisee_pct": 6.84
     }
   },
@@ -151,13 +166,13 @@
     "SPIA.SW": {
       "ticker": "SPIA.SW",
       "label": "UBS ETF SPI",
-      "last": 3.909,
-      "variation_1j_pct": -1.66,
-      "variation_5j_pct": -1.44,
-      "variation_1m_pct": -3.43,
-      "variation_3m_pct": 5.21,
-      "variation_1y_pct": 16.3,
-      "volatilite_annualisee_pct": 10.35
+      "last": 3.9055,
+      "variation_1j_pct": -1.75,
+      "variation_5j_pct": -1.53,
+      "variation_1m_pct": -3.52,
+      "variation_3m_pct": 5.11,
+      "variation_1y_pct": 16.2,
+      "volatilite_annualisee_pct": 10.41
     },
     "XAIX.SW": {
       "ticker": "XAIX.SW",
@@ -228,11 +243,11 @@
       "theme": "Santé / Life Sciences",
       "name": "TECAN GROUP AG N",
       "sector": "Healthcare",
-      "forward_pe": 25.33,
+      "forward_pe": 25.42,
       "earnings_growth_pct": -29.8,
       "net_margin_pct": -13.36,
       "roe_pct": -9.69,
-      "market_cap": 2423699456,
+      "market_cap": 2432324608,
       "currency": "CHF",
       "quality_valuation_score": 32,
       "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
@@ -243,11 +258,11 @@
       "theme": "Semi-conducteurs",
       "name": "VAT GROUP N",
       "sector": "Industrials",
-      "forward_pe": 37.12,
+      "forward_pe": 37.1,
       "earnings_growth_pct": -6.5,
       "net_margin_pct": 20.2,
       "roe_pct": 30.09,
-      "market_cap": 18669393920,
+      "market_cap": 18657406976,
       "currency": "CHF",
       "quality_valuation_score": 61,
       "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
@@ -333,11 +348,11 @@
       "theme": "Luxe",
       "name": "HERMES INTL",
       "sector": "Consumer Cyclical",
-      "forward_pe": 28.76,
+      "forward_pe": 28.78,
       "earnings_growth_pct": -0.3,
       "net_margin_pct": 28.0,
       "roe_pct": 25.45,
-      "market_cap": 153079971840,
+      "market_cap": 153184714752,
       "currency": "EUR",
       "quality_valuation_score": 69,
       "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
@@ -358,14 +373,37 @@
       "score_note": "Heuristique interne; ne compare pas parfaitement les secteurs entre eux."
     }
   },
-  "report": null,
-  "warnings": [],
-  "errors": [
-    "Erreur Gemini (gemini-2.5-flash): ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.', 'status': 'NOT_FOUND'}}"
+  "report": {
+    "executive_summary": "Au 7 septembre 2026, le portefeuille totalise une valeur de marché de 15 552.27 CHF, très fortement concentrée sur deux ETF cœurs qui représentent 91.79 % de l'encours (FWRA à 65.67 % et SPIA à 26.12 %). La structure actuelle fait ressortir une faible diversification effective avec un indice de Herfindahl de 0.5049, équivalent à seulement 1.98 positions effectives, accentué par un biais domestique suisse prononcé. La poche satellite thématique ciblée sur l'intelligence artificielle (XAIX) s'élève à 7.32 %, apportant un moteur de performance performant sur 1 an (+49.04 %) mais caractérisé par une volatilité annualisée élevée de 27.14 %. Les liquidités disponibles sont marginales (138.75 CHF, soit 0.89 %), ce qui annule toute marge de manœuvre tactique immédiate sans cession d'actifs ou apport de capitaux frais. Dans un contexte macroéconomique soutenu par les grandes capitalisations internationales, la priorité réside dans la réorientation progressive des flux futurs vers la consolidation du cœur mondial et la réduction du chevauchement d'exposition suisse.",
+    "market_regime": "Le marché mondial demeure orienté dans un régime de croissance tiré par les grandes capitalisations mondiales, comme en témoignent les performances sur un an du MSCI World (+20.69 %) et du S&P 500 (+19.09 %). Le secteur technologique et thématique IA conserve un momentum très favorable (+49.04 % sur un an pour XAIX), mais s'accompagne d'une volatilité annualisée importante (27.14 %), traduisant des risques d'exubérance sectorielle. La fermeté de l'or (+22.35 % sur un an à 4 451.20 USD) reflète une recherche constante de couverture globale face aux incertitudes monétaires. Du côté des devises, la parité USD/CHF s'établit à 0.8104 (+1.41 % sur un an), maintenant une stabilité relative mais rappelant la sensibilité en CHF des positions internationales sous-jacentes non couvertes.",
+    "portfolio_diagnosis": "Le diagnostic met en évidence une concentration élevée de l'allocation globale, dominée par le tandem FWRA.SW (65.67 %) et SPIA.SW (26.12 %). Bien que FWRA offre une diversification sous-jacente sur les marchés mondiaux, la surpondération de 26.12 % sur les actions suisses via SPIA génère un fort biais domestique et un chevauchement direct sur les grandes capitalisations helvétiques (telles que Nestlé, Novartis ou Roche) déjà présentes dans l'indice mondial. Le satellite XAIX.SW (7.32 %) remplit son rôle de surperformance ciblée mais renforce le profil de risque technologique global. La poche de cash (0.89 %) est insuffisante pour saisir des opportunités en cas de repli de marché. Il convient de noter l'absence de données explicites sur la valorisation fondamentale consolidée (PER, ratios de bilan) des ETF en portefeuille.",
+    "risk_watch": "1. Chevauchement et biais géographique : sur-exposition cumulative aux grandes valeurs suisses entre l'ETF SPI et le composant suisse de l'ETF All-World. 2. Risque de volatilité sectorielle : sensibilité accrue du satellite XAIX.SW (volatilité annualisée de 27.14 %) à un retournement du sentiment sur l'IA. 3. Contrainte de liquidité : niveau de trésorerie limité (0.89 %) restreignant la réactivité sans arbitrage préalable. 4. Risque de change : exposition aux fluctuations de l'USD et de l'EUR au sein du tracker global FWRA.",
+    "action_plan": [
+      "Prioriser l'affectation des nouveaux apports de capital vers l'ETF global FWRA.SW afin de diluer progressivement le poids de SPIA.SW sous la barre des 20 % sans générer de frictions fiscales ou de frais de vente.",
+      "Conserver la position satellite XAIX.SW à son niveau actuel (7.32 %) et conditionner tout renforcement à une correction technique sectorielle significative.",
+      "Reconstituer une réserve tactique de liquidités en CHF (cible indicative de 3 % à 5 %) pour préserver la flexibilité du portefeuille.",
+      "En cas de décision de réallocation vers des titres vifs, effectuer des arbitrages ciblés uniquement si le montant engagé justifie les coûts de transaction par rapport au capital total de 15 552 CHF."
+    ],
+    "opportunities": [
+      "ASML (ASML) - Score Qualité/Valorisation : 92. Leader de la lithographie pour semi-conducteurs affichant un PER futur de 28.56, une croissance attendue des bénéfices de 28.5 %, une marge nette de 30.11 % et un ROE élevé de 53.94 %.",
+      "Intuitive Surgical (ISRG) - Score Qualité/Valorisation : 85. Pure player MedTech présentant un PER futur de 30.38, une croissance des bénéfices de 26.5 %, une marge nette de 28.45 % et un ROE de 17.42 %.",
+      "Stryker (SYK) - Score Qualité/Valorisation : 85. Acteur de la santé bénéficiant d'un PER futur modéré de 18.09, d'une croissance forte des bénéfices à 44.1 % et d'une marge nette de 14.43 %.",
+      "Fortinet (FTNT) - Score Qualité/Valorisation : 84. Acteur de la cybersécurité démontrant un ROE très élevé de 117.44 %, une marge nette de 28.17 % et une croissance des bénéfices de 43.9 %, pour un PER futur de 41.44."
+    ],
+    "what_to_monitor": [
+      "Évolution du taux de change USD/CHF (niveau actuel : 0.8104) pour mesurer l'impact sur les performances restituées en CHF.",
+      "Comportement relatif de l'ETF SPIA.SW par rapport aux actions mondiales FWRA.SW afin de piloter la réduction du biais domestique.",
+      "Tenue du support de volatilité sur XAIX.SW lors des phases de consolidation des grandes valeurs technologiques américaines.",
+      "Niveau global des liquidités en CHF pour assurer le maintien d'une réserve minimale d'intervention."
+    ]
+  },
+  "warnings": [
+    "Fallback IA utilisé: gemini/gemini-3.6-flash après échec du moteur principal."
   ],
+  "errors": [],
   "methodology": {
     "market_data": "Yahoo Finance via yfinance",
-    "ai": "Google Gemini (gemini-2.5-flash)",
+    "ai": "gemini / gemini-3.6-flash (free-only)",
     "fundamental_score": "Heuristique interne qualité/valorisation; non comparable parfaitement entre secteurs.",
     "disclaimer": "Outil d'aide à la décision. Aucune transaction n'est exécutée automatiquement."
   }
