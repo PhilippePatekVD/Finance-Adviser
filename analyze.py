@@ -1,6 +1,8 @@
 import json
 import math
 import os
+import urllib.error
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -11,6 +13,13 @@ from google.genai import types
 from pydantic import BaseModel, Field
 
 ROOT = Path(__file__).resolve().parent
+
+# Safety lock: Finance-Adviser is intentionally a zero-cost personal project.
+# Only models explicitly verified as available on a provider free tier may be called.
+FREE_AI_ALLOWLIST = {
+    "gemini": {"gemini-3.7-flash"},
+    "groq": {"openai/gpt-oss-120b"},
+}
 
 
 class AIReport(BaseModel):
@@ -245,10 +254,7 @@ def portfolio_diagnostics(portfolio: Dict[str, Any], thresholds: Dict[str, Any])
     }
 
 
-def build_ai_report(
-    client: genai.Client,
-    model: str,
-    temperature: float,
+def build_analysis_prompt(
     portfolio: Dict[str, Any],
     policy: Dict[str, Any],
     diagnostics: Dict[str, Any],
@@ -256,7 +262,7 @@ def build_ai_report(
     macro: Dict[str, Any],
     screener: Dict[str, Any],
     news: List[Dict[str, Any]],
-) -> AIReport:
+) -> str:
     payload = {
         "investment_policy": policy,
         "portfolio": portfolio,
@@ -266,7 +272,7 @@ def build_ai_report(
         "fundamental_screener": screener,
         "financial_news": news,
     }
-    prompt = f"""
+    return f"""
 Tu es le moteur d'analyse d'un tableau de bord financier personnel en CHF.
 
 MISSION
@@ -286,11 +292,28 @@ RÈGLES
 DONNÉES
 {json.dumps(payload, ensure_ascii=False, indent=2)}
 """
+
+
+def assert_free_provider(provider: str, model: str, free_only: bool) -> None:
+    if not free_only:
+        raise RuntimeError(
+            "Finance-Adviser refuse de désactiver le mode free_only. "
+            "Aucun appel IA payant n'est autorisé."
+        )
+    allowed = FREE_AI_ALLOWLIST.get(provider, set())
+    if model not in allowed:
+        raise RuntimeError(
+            f"Modèle refusé par la sécurité zéro coût: {provider}/{model}. "
+            "Ajoutez-le à la liste blanche uniquement après vérification explicite de son Free Tier."
+        )
+
+
+def build_gemini_report(api_key: str, model: str, prompt: str) -> AIReport:
+    client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
         model=model,
         contents=prompt,
         config=types.GenerateContentConfig(
-            temperature=temperature,
             response_mime_type="application/json",
             response_schema=AIReport,
         ),
@@ -298,6 +321,122 @@ DONNÉES
     if not response.text:
         raise RuntimeError("Réponse Gemini vide")
     return AIReport.model_validate_json(response.text)
+
+
+def build_groq_report(api_key: str, model: str, prompt: str, temperature: float) -> AIReport:
+    endpoint = "https://api.groq.com/openai/v1/chat/completions"
+    schema = AIReport.model_json_schema()
+    request_body = {
+        "model": model,
+        "messages": [
+            {
+                "role": "system",
+                "content": (
+                    "Réponds uniquement avec un objet JSON valide conforme au schéma fourni. "
+                    "Aucun texte hors JSON."
+                ),
+            },
+            {"role": "user", "content": prompt},
+        ],
+        "temperature": temperature,
+        "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+                "name": "finance_adviser_report",
+                "schema": schema,
+                "strict": True,
+            },
+        },
+    }
+    request = urllib.request.Request(
+        endpoint,
+        data=json.dumps(request_body).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=90) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"Groq HTTP {exc.code}: {detail[:500]}") from exc
+    except urllib.error.URLError as exc:
+        raise RuntimeError(f"Groq réseau: {exc.reason}") from exc
+
+    try:
+        content = payload["choices"][0]["message"]["content"]
+    except (KeyError, IndexError, TypeError) as exc:
+        raise RuntimeError(f"Réponse Groq inattendue: {str(payload)[:500]}") from exc
+    if not content:
+        raise RuntimeError("Réponse Groq vide")
+    return AIReport.model_validate_json(content)
+
+
+def run_ai_provider_chain(
+    config: Dict[str, Any],
+    prompt: str,
+) -> tuple[Optional[AIReport], Optional[str], Optional[str], List[Dict[str, Any]]]:
+    ai_config = config.get("ai", {})
+    free_only = bool(ai_config.get("free_only", True))
+    temperature = float(ai_config.get("temperature", 0.2))
+    providers = ai_config.get("providers") or []
+    attempts: List[Dict[str, Any]] = []
+
+    if not free_only:
+        raise RuntimeError(
+            "Configuration refusée: free_only doit rester activé pour ce projet."
+        )
+
+    for item in providers:
+        if not item.get("enabled", True):
+            continue
+
+        provider = str(item.get("name", "")).strip().lower()
+        model = str(item.get("model", "")).strip()
+        assert_free_provider(provider, model, free_only)
+
+        key_name = {
+            "gemini": "GEMINI_API_KEY",
+            "groq": "GROQ_API_KEY",
+        }.get(provider)
+        api_key = os.getenv(key_name or "") if key_name else None
+
+        if not api_key:
+            attempts.append({
+                "provider": provider,
+                "model": model,
+                "status": "skipped",
+                "reason": f"{key_name or 'API key'} absent",
+            })
+            continue
+
+        try:
+            if provider == "gemini":
+                report = build_gemini_report(api_key, model, prompt)
+            elif provider == "groq":
+                report = build_groq_report(api_key, model, prompt, temperature)
+            else:
+                raise RuntimeError(f"Provider non supporté: {provider}")
+
+            attempts.append({
+                "provider": provider,
+                "model": model,
+                "status": "success",
+            })
+            return report, provider, model, attempts
+        except Exception as exc:
+            attempts.append({
+                "provider": provider,
+                "model": model,
+                "status": "failed",
+                "reason": f"{type(exc).__name__}: {exc}",
+            })
+
+    return None, None, None, attempts
 
 
 def main() -> None:
@@ -316,29 +455,46 @@ def main() -> None:
     diagnostics = portfolio_diagnostics(portfolio, config.get("diagnostic_thresholds", {}))
 
     report: Optional[AIReport] = None
-    api_key = os.getenv("GEMINI_API_KEY")
-    model = config.get("ai", {}).get("model", "gemini-2.5-flash")
-    temperature = float(config.get("ai", {}).get("temperature", 0.2))
+    ai_provider: Optional[str] = None
+    ai_model: Optional[str] = None
+    ai_attempts: List[Dict[str, Any]] = []
 
-    if not api_key:
-        errors.append("GEMINI_API_KEY absent: analyse IA non générée.")
-    else:
-        try:
-            client = genai.Client(api_key=api_key)
-            report = build_ai_report(
-                client=client,
-                model=model,
-                temperature=temperature,
-                portfolio=portfolio,
-                policy=policy,
-                diagnostics=diagnostics,
-                portfolio_market=portfolio_market,
-                macro=macro,
-                screener=screener,
-                news=news,
+    try:
+        prompt = build_analysis_prompt(
+            portfolio=portfolio,
+            policy=policy,
+            diagnostics=diagnostics,
+            portfolio_market=portfolio_market,
+            macro=macro,
+            screener=screener,
+            news=news,
+        )
+        report, ai_provider, ai_model, ai_attempts = run_ai_provider_chain(config, prompt)
+    except Exception as exc:
+        errors.append(f"Sécurité / configuration IA: {type(exc).__name__}: {exc}")
+
+    if report is None:
+        failed = [a for a in ai_attempts if a.get("status") == "failed"]
+        skipped = [a for a in ai_attempts if a.get("status") == "skipped"]
+        if failed:
+            errors.append(
+                "Tous les moteurs IA gratuits disponibles ont échoué: "
+                + " | ".join(
+                    f"{a.get('provider')}/{a.get('model')}: {a.get('reason')}"
+                    for a in failed
+                )
             )
-        except Exception as exc:
-            errors.append(f"Erreur Gemini ({model}): {type(exc).__name__}: {exc}")
+        elif skipped:
+            errors.append(
+                "Aucune clé API gratuite disponible pour la chaîne IA: "
+                + ", ".join(str(a.get("reason")) for a in skipped)
+            )
+        else:
+            errors.append("Aucun moteur IA gratuit activé.")
+    elif len(ai_attempts) > 1 and any(a.get("status") == "failed" for a in ai_attempts[:-1]):
+        warnings.append(
+            f"Fallback IA utilisé: {ai_provider}/{ai_model} après échec du moteur principal."
+        )
 
     if any("error" in value for value in macro.values()):
         warnings.append("Certaines données macro n'ont pas pu être récupérées.")
@@ -350,10 +506,13 @@ def main() -> None:
     status = "ok" if report is not None and not errors else "degraded"
 
     output: Dict[str, Any] = {
-        "schema_version": 2,
+        "schema_version": 3,
         "status": status,
         "date_generation": generated_at,
-        "ai_model": model,
+        "ai_provider": ai_provider,
+        "ai_model": ai_model,
+        "ai_attempts": ai_attempts,
+        "ai_free_only": True,
         "portfolio": {
             "profile": portfolio.get("profil_investisseur", {}),
             "positions": portfolio.get("actifs_actuels", []),
@@ -372,7 +531,7 @@ def main() -> None:
         "errors": errors,
         "methodology": {
             "market_data": "Yahoo Finance via yfinance",
-            "ai": f"Google Gemini ({model})",
+            "ai": (f"{ai_provider} / {ai_model} (free-only)" if ai_provider and ai_model else "IA indisponible (free-only)"),
             "fundamental_score": "Heuristique interne qualité/valorisation; non comparable parfaitement entre secteurs.",
             "disclaimer": "Outil d'aide à la décision. Aucune transaction n'est exécutée automatiquement."
         },
