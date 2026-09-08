@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "updated_at": "2026-09-08",
+  "items": [
+    {
+      "ticker": "AAPL",
+      "label": "Apple",
+      "theme": "Technologie / écosystème",
+      "note": "Conviction personnelle"
+    },
+    {
+      "ticker": "TECN.SW",
+      "label": "Tecan",
+      "theme": "Santé / Life Sciences",
+      "note": "Qualité suisse"
+    },
+    {
+      "ticker": "VACN.SW",
+      "label": "VAT Group",
+      "theme": "Semi-conducteurs",
+      "note": "Infrastructure semi-conducteurs"
+    },
+    {
+      "ticker": "ISRG",
+      "label": "Intuitive Surgical",
+      "theme": "MedTech",
+      "note": "Robotique chirurgicale"
+    },
+    {
+      "ticker": "SYK",
+      "label": "Stryker",
+      "theme": "MedTech",
+      "note": "Dispositifs médicaux"
+    },
+    {
+      "ticker": "CSU.TO",
+      "label": "Constellation Software",
+      "theme": "Logiciels",
+      "note": "Compounder logiciel"
+    },
+    {
+      "ticker": "FTNT",
+      "label": "Fortinet",
+      "theme": "Cybersécurité",
+      "note": "Cybersécurité"
+    },
+    {
+      "ticker": "ASML",
+      "label": "ASML",
+      "theme": "Semi-conducteurs",
+      "note": "Lithographie EUV"
+    },
+    {
+      "ticker": "RMS.PA",
+      "label": "Hermès",
+      "theme": "Luxe",
+      "note": "Luxe / pricing power"
+    },
+    {
+      "ticker": "RACE",
+      "label": "Ferrari",
+      "theme": "Luxe",
+      "note": "Marque / rareté"
+    }
+  ]
+}
