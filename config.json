@@ -10,6 +10,12 @@
         "free_tier_required": true
       },
       {
+        "name": "gemini",
+        "model": "gemini-3.6-flash",
+        "enabled": true,
+        "free_tier_required": true
+      },
+      {
         "name": "groq",
         "model": "openai/gpt-oss-120b",
         "enabled": true,
