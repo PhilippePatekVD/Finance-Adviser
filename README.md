@@ -72,3 +72,36 @@ Le code contient une liste blanche interne. Un modèle ou fournisseur non explic
 **Important :** cette protection empêche Finance Adviser d'appeler volontairement un modèle non approuvé comme gratuit. Elle ne peut pas vérifier le statut de facturation externe d'un compte Google/Groq. Pour garantir zéro dépense, les projets API correspondants doivent rester sur leurs offres gratuites et ne pas être configurés pour une facturation payante.
 
 Aucune clé API n'est stockée dans le dépôt.
+
+
+## Screener dynamique et watchlist
+
+Le screener n'est plus une liste de tickers imposés.
+
+Il découvre automatiquement des candidats via les screeners Yahoo Finance/yfinance et un univers européen, puis enrichit les meilleures valeurs avec leurs fondamentaux et leur historique de marché.
+
+Score multi-facteurs :
+- qualité : 30 %
+- croissance : 20 %
+- valorisation : 20 %
+- bilan / cash-flow : 15 %
+- momentum : 10 %
+- risque : 5 %
+
+Le moteur applique aussi :
+- comparaison relative au secteur lorsque l'échantillon le permet ;
+- taille minimale de capitalisation ;
+- exigence de croissance minimale ;
+- pénalité lorsque le cours a déjà trop accéléré à 1 ou 3 mois ;
+- exclusion de certains faux positifs de type REIT ou cotations exotiques ;
+- déduplication des doubles cotations d'une même société.
+
+`watchlist.json` est totalement séparé du screener. Une société peut donc rester suivie parce qu'elle fait partie des convictions personnelles même si elle ne ressort pas comme opportunité du jour.
+
+## Cotations des positions
+
+`quotes.py` produit un snapshot léger des positions personnelles et de la watchlist, sans aucun appel IA.
+
+Le workflow `Market Quotes` le rafraîchit toutes les 30 minutes en semaine entre 06:00 et 22:59 UTC, puis republie le dashboard sans toucher au rapport IA.
+
+Les cours sont indicatifs et peuvent être retardés. Interactive Brokers reste la source de référence pour la valeur officielle du compte.
