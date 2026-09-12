@@ -1,19 +1,13 @@
 {
   "schema_version": 3,
   "status": "ok",
-  "date_generation": "2026-09-12T11:56:01.263092Z",
+  "date_generation": "2026-09-12T19:38:31.131192Z",
   "ai_provider": "gemini",
-  "ai_model": "gemini-3.6-flash",
+  "ai_model": "gemini-3.7-flash",
   "ai_attempts": [
     {
       "provider": "gemini",
       "model": "gemini-3.7-flash",
-      "status": "failed",
-      "reason": "ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
-    },
-    {
-      "provider": "gemini",
-      "model": "gemini-3.6-flash",
       "status": "success"
     }
   ],
@@ -188,6 +182,12 @@
   },
   "news": [
     {
+      "title": "Investing in the Vanguard S&P 500 ETF (VOO)? Beware of This 1 Sneaky Risk.",
+      "publisher": "Motley Fool",
+      "url": "https://www.fool.com/investing/2026/09/12/investing-in-the-vanguard-sp-500-etf-voo-beware-of/",
+      "published_at": "2026-09-12T19:20:00Z"
+    },
+    {
       "title": "S&P 500, Dow Break Past Four-Day Loss To End Higher As Investors Eye Fed Meeting Next Week — DELL, HPE, EL, WMT In Focus",
       "publisher": "Stocktwits",
       "url": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-dow-break-past-four-day-loss-to-end-higher-as-investors-eye-fed-meeting-next-week-dell-hpe-el-wmt-in-focus/cZtXyR4RBbK",
@@ -228,12 +228,6 @@
       "publisher": "24/7 Wall St.",
       "url": "https://247wallst.com/investing/etf/2026/09/11/this-0-06-fee-dividend-etf-is-beating-the-sp-500-by-16-ytd-without-owning-a-single-magnificent-seven-stock/",
       "published_at": "2026-09-11T18:36:06Z"
-    },
-    {
-      "title": "Storage Stocks Slide as Profit Taking Follows Big Run: Seagate Falls 4%, SanDisk Drops 3%, Micron Holds Flat",
-      "publisher": "24/7 Wall St.",
-      "url": "https://247wallst.com/investing/2026/09/11/storage-stocks-slide-as-profit-taking-follows-big-run-seagate-falls-4-sandisk-drops-3-micron-holds-flat/",
-      "published_at": "2026-09-11T18:05:50Z"
     }
   ],
   "watchlist": [
@@ -540,7 +534,7 @@
         "currency": "USD",
         "market_cap": 1349221220352.0,
         "forward_pe": 5.58,
-        "trailing_pe": 11.1,
+        "trailing_pe": 11.2,
         "ev_to_ebitda": -0.03,
         "price_to_book": 408.78,
         "revenue_growth_pct": 256.8,
@@ -593,7 +587,7 @@
         "currency": "USD",
         "market_cap": 34555191296.0,
         "forward_pe": 9.52,
-        "trailing_pe": 10.99,
+        "trailing_pe": 11.08,
         "ev_to_ebitda": 6.09,
         "price_to_book": 3.58,
         "revenue_growth_pct": 29.5,
@@ -695,7 +689,7 @@
         "currency": "USD",
         "market_cap": 19917107200.0,
         "forward_pe": 10.78,
-        "trailing_pe": 15.24,
+        "trailing_pe": 15.34,
         "ev_to_ebitda": 5.39,
         "price_to_book": 1.66,
         "revenue_growth_pct": 55.1,
@@ -950,7 +944,7 @@
         "currency": "USD",
         "market_cap": 136620572672.0,
         "forward_pe": 5.32,
-        "trailing_pe": 5.41,
+        "trailing_pe": 5.35,
         "ev_to_ebitda": 1.85,
         "price_to_book": 1.45,
         "revenue_growth_pct": 42.3,
@@ -1099,32 +1093,34 @@
     "growth_eligible": 24
   },
   "report": {
-    "executive_summary": "Le portefeuille s'élève à 15 554 CHF de valeur liquidation nette, structuré autour du cœur mondial FWRA.SW (65.67 %) et du cœur suisse SPIA.SW (26.12 %), complété par le satellite XAIX.SW (7.32 %) et un solde de cash résiduel de 0.89 %. Malgré l'utilisation d'ETF, la concentration effective demeure élevée avec un indice Herfindahl de 0.5049 (soit 1.98 positions effectives). L'exposition suisse via SPIA crée un biais domestique prononcé, tandis que XAIX subit la volatilité forte du secteur de l'IA (26.70 % d'écart-type annualisé). Les opportunités issues exclusivement du screener dynamique mettent en avant Micron Technology (MU) comme le seul candidat relais non surchauffé. Le cash disponible (138.75 CHF) impose de conditionner tout nouvel achat à un rééquilibrage ou un apport externe. Aucune contrainte personnelle chiffrée n'étant définie dans la politique, le diagnostic repose sur des heuristiques financières.",
-    "market_regime": "Régime de marché marqué par une phase de consolidation à court terme sur les indices mondiaux (S&P 500 à -1.18 % sur 1 mois, MSCI World proxy URTH à -1.28 %), après une hausse annuelle soutenue (+16.29 % pour le S&P 500). L'USD/CHF s'établit à 0.8161 (+2.80 % sur 3 mois), ce qui soutient la valeur en CHF des positions exposées au dollar non couvertes. Le marché actions fait face à des prises de bénéfices ciblées sur les valeurs technologiques et de stockage dans l'attente de la réunion de la Réserve fédérale.",
-    "portfolio_diagnosis": "L'allocation actuelle présente un déséquilibre structurel : la combinaison de FWRA.SW et SPIA.SW génère un chevauchement d'exposition sur les grandes valeurs suisses tout en créant une surreprésentation du marché suisse (26.12 % du portefeuille). Le satellite XAIX.SW (7.32 %) apporte un facteur de risque thématique élevé avec un chevauchement probable sur les megacaps technologiques déjà contenues dans FWRA.SW. Avec un taux de liquidité de 0.89 %, la capacité d'arbitrage tactique est quasi nulle sans cession préalable.",
-    "risk_watch": "1. Risque de surconcentration thématique et de chevauchement entre FWRA.SW et XAIX.SW sur le secteur des semi-conducteurs/IA. 2. Risque de change USD/CHF pesant sur le cœur global et les satellites libellés indirectement en USD. 3. Risque de sous-performance lié au biais domestique (SPIA.SW à 26.12 %). 4. Contrainte de liquidité avec seulement 138.75 CHF disponibles en cash.",
+    "executive_summary": "Le portefeuille totalise 15 554 CHF avec une allocation structurée autour d'un coeur indiciel mondial (FWRA à 65,67 %) et suisse (SPIA à 26,12 %), complétée d'un satellite thématique IA (XAIX à 7,32 %) et d'une encaisse résiduelle de 0,89 %. La structure respecte la philosophie globale de gestion coeur-satellite, mais présente une concentration technique élevée avec seulement 1,98 position effective. La performance annuelle reste robuste sur l'ensemble des lignes, bien qu'un essoufflement à court terme se manifeste sur le marché suisse (-5,10 % sur 1 mois). Sur le plan macroéconomique, la consolidation des indices globaux et l'appréciation graduelle de l'USD/CHF (+2,80 % sur 3 mois à 0,8161) soutiennent la valorisation des actifs internationaux libellés en CHF. Le screener dynamique met en évidence Micron Technology (MU) comme principal relais de croissance éligible, tandis que les candidats surchauffés comme SK Hynix (SKHY) doivent être écartés pour éviter les poursuites de cours. Aucune intervention d'urgence n'est requise, mais le niveau de trésorerie très bas limite toute flexibilité tactique immédiate.",
+    "market_regime": "Le régime de marché actuel se caractérise par une phase de consolidation haussière à moyen terme, ponctuée de prises de bénéfices récentes sur les actions mondiales (S&P 500 à -1,18 % sur 1 mois, MSCI World à -1,28 % sur 1 mois). L'or marque également une pause (-0,97 % sur 1 mois à 4 366 USD) après un parcours annuel solide (+19,64 %). La volatilité annualisée des grands indices reste contenue entre 11 % et 13 %, traduisant l'absence de panique systémique mais signalant une attention accrue aux prochaines réunions des banques centrales. La paire USD/CHF affiche une lente reprise (+0,76 % sur 5 jours, +2,18 % sur 1 an à 0,8161), réduisant temporairement la pression de change sur les sous-jacents internationaux non couverts.",
+    "portfolio_diagnosis": "L'allocation globale est disciplinée mais présente un biais géographique et sectoriel notable. Le coeur mondial FWRA et le satellite XAIX induisent un chevauchement substantiel sur les mégacapitalisations technologiques américaines, amplifiant la sensibilité au cycle de l'intelligence artificielle. Le biais domestique suisse (SPIA à 26,12 %) confère une assise défensive en CHF, mais pèse sur la dynamique récente en raison d'une sous-performance marquée (-4,29 % sur 5 jours). Bien que les ETF soient négociés en CHF, le risque de change sous-jacent reste prédominant sur le dollar américain. Enfin, les liquidités (138,75 CHF, soit 0,89 %) sont insuffisantes pour exécuter de futurs rééquilibrages ou saisir des opportunités sans désinvestissement préalable.",
+    "risk_watch": "1. Risque de corrélation et redondance technologique : forte exposition indirecte aux semi-conducteurs et méga-caps via FWRA et XAIX (volatilité de XAIX à 26,70 %). 2. Risque de change résiduel : sensibilité des actifs sous-jacents à une rechute du dollar face au franc suisse. 3. Risque de liquidité tactique : trésorerie quasi nulle empêchant toute flexibilité sans arbitrage. 4. Sous-performance relative du marché suisse (SPIA) sur les horizons court terme.",
     "action_plan": [
-      "Envisager un rééquilibrage progressif de la position SPIA.SW (26.12 %) si l'objectif est d'aligner le portefeuille sur la pondération mondiale globale et de dégager des liquidités en CHF.",
-      "Définir des conditions strictes d'invalidation sur le satellite XAIX.SW afin de protéger les gains enregistrés (+43.61 % sur 1 an) face à la volatilité élevée (26.70 %).",
-      "Conditionner toute prise de position sur les opportunités du screener (ex. MU) à la libération préalable de liquidités ou à un nouvel apport de capitaux."
+      "Conserver inchangée la structure centrale (FWRA et SPIA) tant qu'aucun apport de capital ne permet de reconstituer un volant de liquidités.",
+      "Fixer un objectif de trésorerie disponible (par exemple 2 % à 5 % de la valeur nette) lors des prochains flux d'épargne avant d'engager de nouveaux satellites.",
+      "Évaluer Micron Technology (MU) en vue d'une éventuelle diversification satellite, sous condition d'un repli technique consolidant le ratio risque/rendement et sans dépasser l'allocation satellite cible.",
+      "S'abstenir de tout achat impulsif sur les titres du screener identifiés comme surchauffés (SKHY, PBR) malgré leurs scores fondamentaux bruts élevés."
     ],
     "opportunities": [
-      "MU (Micron Technology, Inc.) : Candidat relais validé par le screener (Score: 73.3, Forward PE: 6.25, Croissance CA: 345.7 %), dynamique récente non overheated (+7.02 % sur 1 mois).",
-      "Exclusion motivée : SKHY (SK hynix Inc., Score 75.2) et PBR (Petroleo Brasileiro, Score 55.7) sont écartés des opportunités immédiates en raison d'un momentum à 1 mois excessif (>22 %), conformément aux règles anti-chasse du screener."
+      "Micron Technology, Inc. (MU) : Retenu comme unique candidat relais de croissance (score 73,3/100, PER forward 6,25, marge nette 55,91 %, momentum 1 mois mesuré à +7,02 % non surchauffé).",
+      "Kinross Gold Corporation (KGC) : Option de diversification hors technologie avec bilan solide et PER attractif (score 65,4/100, PER forward 9,52, marge FCF 35,36 %), bien que non classée relais dynamique.",
+      "NVIDIA Corporation (NVDA) : Qualité fondamentale irréprochable mais score de valorisation et de croissance relative pénalisé par la dynamique récente (score 61,6/100, PER forward 14,02).",
+      "Exclusions explicites du screener : SK hynix (SKHY) et Petrobras (PBR), disqualifiées pour cause de momentum excessif à court terme (+23,09 % et +22,87 % sur 1 mois)."
     ],
     "what_to_monitor": [
-      "Décisions de la Réserve Fédérale américaine et impact direct sur la trajectoire de la paire USD/CHF (0.8161).",
-      "Comportement technique de l'ETF XAIX.SW sur les niveaux de support récents à la suite de sa consolidation à court terme.",
-      "Suivi des titres de la watchlist personnelle (notamment ASML, ISRG, SYK et RMS.PA) qui subissent des replis mensuels importants, afin d'évaluer leur potentielle intégration future si filtrés par le screener."
+      "Évolution de la parité USD/CHF autour du support de 0,8100 et de la résistance de 0,8250.",
+      "Comportement de SPIA.SW après son recul mensuel de -5,10 % pour détecter une stabilisation du marché suisse.",
+      "Tenue du support court terme sur FWRA.SW et XAIX.SW face à la volatilité du secteur technologique.",
+      "Annonces des banques centrales et indicateurs d'inflation susceptibles d'impacter les valorisations des valeurs de croissance."
     ]
   },
-  "warnings": [
-    "Fallback IA utilisé: gemini/gemini-3.6-flash après échec du moteur principal."
-  ],
+  "warnings": [],
   "errors": [],
   "methodology": {
     "market_data": "Yahoo Finance via yfinance",
-    "ai": "gemini / gemini-3.6-flash (free-only)",
+    "ai": "gemini / gemini-3.7-flash (free-only)",
     "fundamental_score": "Screener dynamique multi-facteurs: qualité 30 %, croissance 20 %, valorisation 20 %, bilan 15 %, momentum 10 %, risque 5 %, avec comparaison sectorielle et pénalité anti-chasse.",
     "disclaimer": "Outil d'aide à la décision. Aucune transaction n'est exécutée automatiquement."
   }
