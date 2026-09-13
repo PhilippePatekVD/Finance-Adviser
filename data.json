@@ -1,13 +1,19 @@
 {
   "schema_version": 3,
   "status": "ok",
-  "date_generation": "2026-09-13T13:04:16.110231Z",
+  "date_generation": "2026-09-13T19:49:59.057824Z",
   "ai_provider": "gemini",
-  "ai_model": "gemini-3.7-flash",
+  "ai_model": "gemini-3.6-flash",
   "ai_attempts": [
     {
       "provider": "gemini",
       "model": "gemini-3.7-flash",
+      "status": "failed",
+      "reason": "ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.6-flash",
       "status": "success"
     }
   ],
@@ -136,13 +142,13 @@
     "CHF=X": {
       "ticker": "CHF=X",
       "label": "USD/CHF",
-      "last": 0.8161,
-      "variation_1j_pct": 0.35,
-      "variation_5j_pct": 0.76,
-      "variation_1m_pct": 0.24,
-      "variation_3m_pct": 2.8,
-      "variation_1y_pct": 2.18,
-      "volatilite_annualisee_pct": 6.78
+      "last": 0.8156,
+      "variation_1j_pct": 0.29,
+      "variation_5j_pct": 0.7,
+      "variation_1m_pct": 0.18,
+      "variation_3m_pct": 2.73,
+      "variation_1y_pct": 2.12,
+      "volatilite_annualisee_pct": 6.77
     }
   },
   "portfolio_market": {
@@ -181,6 +187,12 @@
     }
   },
   "news": [
+    {
+      "title": "Goldman Sachs Says AI Is Driving Half of S&P 500 Earnings Growth. That Number Cuts Both Ways.",
+      "publisher": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/2026/09/13/goldman-sachs-says-ai-is-driving-half-of-sp-500-earnings-growth-that-number-cuts-both-ways/",
+      "published_at": "2026-09-13T18:00:24Z"
+    },
     {
       "title": "‘Sounds Like a 14 Year Old’: Dave Ramsey Rips Husband Sinking 80% of Pay Into Pokemon Cards",
       "publisher": "24/7 Wall St.",
@@ -222,12 +234,6 @@
       "publisher": "etf.com",
       "url": "http://www.etf.com/sections/features/peak-back-future-proof-citywide-tom-lee?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss",
       "published_at": "2026-09-11T20:21:58Z"
-    },
-    {
-      "title": "ChargePoint Stock Is Up 38% in 2026: What Will It Take to Break Through $10?",
-      "publisher": "24/7 Wall St.",
-      "url": "https://247wallst.com/investing/2026/09/11/chargepoint-stock-is-up-38-in-2026-what-will-it-take-to-break-through-10/",
-      "published_at": "2026-09-11T19:17:10Z"
     }
   ],
   "watchlist": [
@@ -556,14 +562,14 @@
         "volatility_pct": 54.51,
         "max_drawdown_1y_pct": -40.66,
         "scores": {
-          "quality": 84.6,
+          "quality": 83.8,
           "growth": 42.0,
-          "valuation": 70.9,
-          "balance_sheet": 82.0,
+          "valuation": 72.9,
+          "balance_sheet": 81.4,
           "momentum": 52.9,
           "risk": 51.3
         },
-        "score": 68.1,
+        "score": 68.2,
         "data_completeness_pct": 100.0,
         "overheated": false,
         "relay_candidate": false,
@@ -724,56 +730,55 @@
         "risk_flags": []
       },
       {
-        "ticker": "NU",
+        "ticker": "0M69.IL",
         "discovery_sources": [
-          "undervalued_growth_stocks",
-          "undervalued_large_caps"
+          "europe_large_mid_caps"
         ],
-        "preliminary_name": "Nu Holdings Ltd.",
-        "preliminary_market_cap": 70624665600,
-        "preliminary_price": 14.62,
-        "name": "Nu Holdings Ltd.",
+        "preliminary_name": "OTP BANK NYRT OTP BANK ORD SHS",
+        "preliminary_market_cap": 17223563345920,
+        "preliminary_price": 45829.043,
+        "name": "OTP BANK NYRT OTP BANK ORD SHS",
         "sector": "Financial Services",
         "industry": "Banks - Regional",
-        "currency": "USD",
-        "market_cap": 70624665600.0,
-        "forward_pe": 12.75,
-        "trailing_pe": 20.03,
+        "currency": "HUF",
+        "market_cap": 17223563345920.0,
+        "forward_pe": null,
+        "trailing_pe": 12.15,
         "ev_to_ebitda": null,
-        "price_to_book": 5.33,
-        "revenue_growth_pct": 52.1,
-        "earnings_growth_pct": 66.3,
-        "net_margin_pct": 42.73,
-        "operating_margin_pct": 50.15,
-        "roe_pct": 31.63,
-        "roa_pct": 4.96,
+        "price_to_book": 3.13,
+        "revenue_growth_pct": 10.3,
+        "earnings_growth_pct": 28.7,
+        "net_margin_pct": 42.76,
+        "operating_margin_pct": 53.54,
+        "roe_pct": 27.28,
+        "roa_pct": 2.79,
         "debt_to_equity": null,
         "current_ratio": null,
         "free_cash_flow": null,
         "free_cash_flow_margin_pct": null,
-        "beta": 0.94,
-        "last_price": 14.62,
-        "momentum_1m_pct": 7.82,
-        "momentum_3m_pct": 23.06,
-        "momentum_6m_pct": -1.35,
-        "momentum_12m_pct": -6.82,
-        "volatility_pct": 40.0,
-        "max_drawdown_1y_pct": -38.17,
+        "beta": 0.91,
+        "last_price": 12590.0,
+        "momentum_1m_pct": 0.0,
+        "momentum_3m_pct": 0.0,
+        "momentum_6m_pct": 9.85,
+        "momentum_12m_pct": 9.85,
+        "volatility_pct": 0.0,
+        "max_drawdown_1y_pct": 0.0,
         "scores": {
-          "quality": 86.2,
-          "growth": 100.0,
-          "valuation": 0.0,
+          "quality": 77.9,
+          "growth": 45.8,
+          "valuation": 45,
           "balance_sheet": 45.0,
-          "momentum": 32.3,
-          "risk": 48.4
+          "momentum": 67.1,
+          "risk": 97.5
         },
-        "score": 58.3,
-        "data_completeness_pct": 78.0,
+        "score": 59.9,
+        "data_completeness_pct": 67.0,
         "overheated": false,
         "relay_candidate": false,
-        "why": "qualité opérationnelle élevée · croissance supérieure aux pairs",
+        "why": "qualité opérationnelle élevée · tendance de marché constructive",
         "risk_flags": [
-          "valorisation exigeante"
+          "données fondamentales incomplètes"
         ]
       },
       {
@@ -814,18 +819,71 @@
         "max_drawdown_1y_pct": -47.79,
         "scores": {
           "quality": 58.8,
-          "growth": 56.1,
-          "valuation": 41.9,
-          "balance_sheet": 86.0,
+          "growth": 54.3,
+          "valuation": 42.7,
+          "balance_sheet": 85.6,
           "momentum": 53.5,
           "risk": 47.3
         },
-        "score": 57.9,
+        "score": 57.6,
         "data_completeness_pct": 100.0,
         "overheated": false,
         "relay_candidate": false,
         "why": "bilan / cash-flow solide",
         "risk_flags": []
+      },
+      {
+        "ticker": "NU",
+        "discovery_sources": [
+          "undervalued_growth_stocks",
+          "undervalued_large_caps"
+        ],
+        "preliminary_name": "Nu Holdings Ltd.",
+        "preliminary_market_cap": 70624665600,
+        "preliminary_price": 14.62,
+        "name": "Nu Holdings Ltd.",
+        "sector": "Financial Services",
+        "industry": "Banks - Regional",
+        "currency": "USD",
+        "market_cap": 70624665600.0,
+        "forward_pe": 12.75,
+        "trailing_pe": 20.03,
+        "ev_to_ebitda": null,
+        "price_to_book": 5.33,
+        "revenue_growth_pct": 52.1,
+        "earnings_growth_pct": 66.3,
+        "net_margin_pct": 42.73,
+        "operating_margin_pct": 50.15,
+        "roe_pct": 31.63,
+        "roa_pct": 4.96,
+        "debt_to_equity": null,
+        "current_ratio": null,
+        "free_cash_flow": null,
+        "free_cash_flow_margin_pct": null,
+        "beta": 0.94,
+        "last_price": 14.62,
+        "momentum_1m_pct": 7.82,
+        "momentum_3m_pct": 23.06,
+        "momentum_6m_pct": -1.35,
+        "momentum_12m_pct": -6.82,
+        "volatility_pct": 40.0,
+        "max_drawdown_1y_pct": -38.17,
+        "scores": {
+          "quality": 82.1,
+          "growth": 100.0,
+          "valuation": 0.0,
+          "balance_sheet": 45.0,
+          "momentum": 32.3,
+          "risk": 48.4
+        },
+        "score": 57.0,
+        "data_completeness_pct": 78.0,
+        "overheated": false,
+        "relay_candidate": false,
+        "why": "qualité opérationnelle élevée · croissance supérieure aux pairs",
+        "risk_flags": [
+          "valorisation exigeante"
+        ]
       },
       {
         "ticker": "VG",
@@ -879,58 +937,6 @@
         "risk_flags": [
           "valorisation exigeante",
           "bilan / génération de cash à surveiller"
-        ]
-      },
-      {
-        "ticker": "BBD",
-        "discovery_sources": [
-          "undervalued_large_caps"
-        ],
-        "preliminary_name": "Banco Bradesco Sa",
-        "preliminary_market_cap": 38054563840,
-        "preliminary_price": 3.6,
-        "name": "Banco Bradesco Sa",
-        "sector": "Financial Services",
-        "industry": "Banks - Regional",
-        "currency": "USD",
-        "market_cap": 38054563840.0,
-        "forward_pe": 6.62,
-        "trailing_pe": 8.37,
-        "ev_to_ebitda": null,
-        "price_to_book": 1.07,
-        "revenue_growth_pct": 7.2,
-        "earnings_growth_pct": 17.8,
-        "net_margin_pct": 26.07,
-        "operating_margin_pct": 34.52,
-        "roe_pct": 13.76,
-        "roa_pct": 1.07,
-        "debt_to_equity": null,
-        "current_ratio": null,
-        "free_cash_flow": null,
-        "free_cash_flow_margin_pct": null,
-        "beta": 0.22,
-        "last_price": 3.6,
-        "momentum_1m_pct": 12.63,
-        "momentum_3m_pct": 10.6,
-        "momentum_6m_pct": 0.34,
-        "momentum_12m_pct": 20.14,
-        "volatility_pct": 30.49,
-        "max_drawdown_1y_pct": -27.51,
-        "scores": {
-          "quality": 41.2,
-          "growth": 33.3,
-          "valuation": 100.0,
-          "balance_sheet": 45.0,
-          "momentum": 64.0,
-          "risk": 38.5
-        },
-        "score": 54.1,
-        "data_completeness_pct": 78.0,
-        "overheated": false,
-        "relay_candidate": false,
-        "why": "valorisation relativement attractive",
-        "risk_flags": [
-          "croissance récente faible ou négative"
         ]
       },
       {
@@ -1040,89 +1046,92 @@
         ]
       },
       {
-        "ticker": "ITUB",
+        "ticker": "AVGO",
         "discovery_sources": [
-          "undervalued_large_caps"
+          "growth_technology_stocks"
         ],
-        "preliminary_name": "Itau Unibanco Banco Holding SA",
-        "preliminary_market_cap": 91812192256,
-        "preliminary_price": 8.33,
-        "name": "Itau Unibanco Banco Holding SA",
-        "sector": "Financial Services",
-        "industry": "Banks - Regional",
+        "preliminary_name": "Broadcom Inc.",
+        "preliminary_market_cap": 1728006324224,
+        "preliminary_price": 361.99,
+        "name": "Broadcom Inc.",
+        "sector": "Technology",
+        "industry": "Semiconductors",
         "currency": "USD",
-        "market_cap": 91812192256.0,
-        "forward_pe": 8.43,
-        "trailing_pe": 10.16,
-        "ev_to_ebitda": null,
-        "price_to_book": 2.15,
-        "revenue_growth_pct": 17.5,
-        "earnings_growth_pct": 8.1,
-        "net_margin_pct": 32.58,
-        "operating_margin_pct": 39.07,
-        "roe_pct": 21.48,
-        "roa_pct": 1.58,
-        "debt_to_equity": null,
-        "current_ratio": null,
-        "free_cash_flow": null,
-        "free_cash_flow_margin_pct": null,
-        "beta": 0.14,
-        "last_price": 8.33,
-        "momentum_1m_pct": 12.61,
-        "momentum_3m_pct": 11.78,
-        "momentum_6m_pct": 2.91,
-        "momentum_12m_pct": 33.08,
-        "volatility_pct": 30.26,
-        "max_drawdown_1y_pct": -23.55,
+        "market_cap": 1728006324224.0,
+        "forward_pe": 18.67,
+        "trailing_pe": 46.05,
+        "ev_to_ebitda": 33.74,
+        "price_to_book": 17.34,
+        "revenue_growth_pct": 85.5,
+        "earnings_growth_pct": 215.3,
+        "net_margin_pct": 42.94,
+        "operating_margin_pct": 54.31,
+        "roe_pct": 44.25,
+        "roa_pct": 15.37,
+        "debt_to_equity": 59.6,
+        "current_ratio": 2.5,
+        "free_cash_flow": 30596499456.0,
+        "free_cash_flow_margin_pct": 34.34,
+        "beta": 1.46,
+        "last_price": 361.99,
+        "momentum_1m_pct": -12.99,
+        "momentum_3m_pct": -7.55,
+        "momentum_6m_pct": 9.18,
+        "momentum_12m_pct": 1.33,
+        "volatility_pct": 43.46,
+        "max_drawdown_1y_pct": -28.67,
         "scores": {
-          "quality": 61.2,
-          "growth": 20.0,
-          "valuation": 75.0,
-          "balance_sheet": 45.0,
-          "momentum": 69.8,
-          "risk": 46.4
+          "quality": 72.5,
+          "growth": 40.2,
+          "valuation": 28.6,
+          "balance_sheet": 50.8,
+          "momentum": 57.9,
+          "risk": 81.1
         },
-        "score": 53.4,
-        "data_completeness_pct": 78.0,
+        "score": 53.0,
+        "data_completeness_pct": 100.0,
         "overheated": false,
         "relay_candidate": false,
-        "why": "valorisation relativement attractive · tendance de marché constructive",
+        "why": "qualité opérationnelle élevée",
         "risk_flags": [
-          "croissance récente faible ou négative"
+          "valorisation exigeante"
         ]
       }
     ],
     "candidates_scored": 32,
-    "growth_eligible": 23
+    "growth_eligible": 24
   },
   "report": {
-    "executive_summary": "Le portefeuille affiche une valorisation totale de 15 554 CHF au 7 septembre 2026, structuré selon une architecture Core-Satellite conforme à la politique d'investissement. L'allocation repose principalement sur un socle d'actions mondiales (FWRA.SW à 65,67 %) et suisses (SPIA.SW à 26,12 %), complété par une poche satellite thématique IA (XAIX.SW à 7,32 %) et un volant de liquidités résiduel (0,89 %). Bien que le socle assure une diversification géographique satisfaisante, l'indice Herfindahl de 0,5049 reflète une concentration technique élevée sur deux lignes majeures, avec seulement 1,98 position effective. Les marchés globaux marquent une phase de consolidation à court terme (-1,18 % sur 1 mois pour le S&P 500), tandis que l'exposition actions reste exposée aux fluctuations du dollar face au franc suisse (USD/CHF à 0,8161). Aucune décision d'arbitrage immédiate n'est requise, mais l'intégration future de satellites individuels devra être conditionnée à une stricte discipline de valorisation et à une reconstitution préalable de la réserve de liquidités.",
-    "market_regime": "Le régime de marché se caractérise par une tendance haussière de fond sur 12 mois (+16,29 % pour le S&P 500 et +17,58 % pour le MSCI World proxy), tempérée par une consolidation récente à court terme (-1,18 % à 1 mois sur le S&P 500). L'or maintient une dynamique robuste (+19,74 % sur un an, volatilité annualisée de 25,37 %), signalant une recherche continue de couvertures contre les incertitudes macroéconomiques et les anticipations de politique monétaire de la Fed. Sur le plan des devises, le franc suisse reste fort face au dollar (USD/CHF à 0,8161, +2,18 % sur 1 an), ce qui impose de surveiller le risque de change sous-jacent pour un investisseur dont la devise de référence est le CHF.",
-    "portfolio_diagnosis": "Le portefeuille respecte la philosophie d'allocation globale avec un coeur d'ETF diversifié, mais présente des vulnérabilités structurelles identifiables. Premièrement, le chevauchement sectoriel est notable : le satellite XAIX.SW (7,32 %) amplifie l'exposition technologique déjà présente dans FWRA.SW, augmentant la sensibilité aux valorisations du secteur tech américain. Deuxièmement, la position domestique SPIA.SW (26,12 %) crée un biais géographique suisse marqué, bien qu'utile pour limiter le risque de change direct. Troisièmement, le niveau de liquidités disponible (138,75 CHF, soit 0,89 %) offre une flexibilité opérationnelle quasi nulle pour saisir de nouveaux points d'entrée sans réallouer le capital existant.",
-    "risk_watch": "Les risques prioritaires concernent : 1) La concentration thématique et la sensibilité aux valeurs technologiques/IA, accrues par le satellite XAIX.SW (volatilité annualisée de 26,83 %) et le poids des mégacapitalisations dans FWRA.SW. 2) Le risque de change implicite USD/CHF pesant sur les actifs libellés en devises étrangères sans couverture. 3) Le risque de liquidité opérationnelle, le solde de cash actuel (0,89 %) ne permettant aucun déploiement tactique sans arbitrage ou nouvel apport en capital.",
+    "executive_summary": "Le portefeuille affiche une valeur totale de 15 554 CHF, très fortement concentré sur son cœur passif mondial FWRA.SW (65,67 %) et son allocation suisse SPIA.SW (26,12 %). Les calculs indiquent un nombre effectif de positions de seulement 1,98 (indice HHI de 0,5049), confirmant une diversification réelle faible malgré la présence de multiples sous-jacents. Le contexte macroéconomique montre un marché d'actions en phase de consolidation mensuelle (S&P 500 à -1,18 %), tandis que l'or reste ferme (+19,74 % sur 1 an). Les liquidités disponibles sont très minimes (138,75 CHF, soit 0,89 %), limitant toute marge de manœuvre tactique. Le screener dynamique identifie Micron Technology (MU) comme le meilleur relais de croissance (score 78,3/100), alors que Petrobras (PBR) est identifié comme surchauffé. Aucune contrainte chiffrée personnelle n'étant définie dans la politique, tout rééquilibrage doit d'abord passer par la fixation de règles explicites d'allocation.",
+    "market_regime": "Faits observés : les indices mondiaux traversent une pause à court terme (MSCI World -1,28 % sur 1 mois, S&P 500 -1,18 %) après de solides gains annuels (+17,58 % et +16,29 %). Le cours de l'or se maintient à un niveau élevé ($4 408,90, stable sur 1 mois), traduisant une recherche active de couverture. Le taux USD/CHF s'établit à 0,8156 (+2,12 % sur 1 an). Les actualités soulignent la dépendance marquée des indices aux bénéfices du secteur de l'intelligence artificielle. Lecture analytique : nous évoluons dans un régime de marché haussier mûr mais assujetti à un risque de concentration sectorielle élevé, où la trajectoire des taux d'intérêt et les publications technologiques détermineront la poursuite de la dynamique.",
+    "portfolio_diagnosis": "Faits et calculs : les actifs financiers totalisent 15 413,52 CHF avec un gain non réalisé cumulé de 352 CHF. La poche Core Global (FWRA.SW) représente 65,67 %, la poche Core Suisse (SPIA.SW) 26,12 %, le satellite IA (XAIX.SW) 7,32 % et le cash 0,89 %. Diagnostic analytique : le portefeuille respecte la philosophie cœur-satellite, mais présente un chevauchement substantiel entre le cœur mondial FWRA et le satellite XAIX, qui détiennent tous deux les grands leaders technologiques américains. L'exposition au franc suisse est forte en apparence via la cotation des ETF, mais le risque de change sous-jacent USD/CHF est prédominant dans FWRA et XAIX. Enfin, les données d'investissement comportent plusieurs limites null (pas de seuil max personnel défini), ce qui signifie que la forte concentration observée est un constat technique et non une violation de règle formelle.",
+    "risk_watch": "1. Risque de concentration d'indexation : près de deux tiers du capital reposent sur FWRA.SW. 2. Risque de change implicite : forte exposition au dollar américain non couverte dans les lignes mondiales et thématiques. 3. Redondance des sous-jacents : chevauchement direct entre FWRA.SW et le satellite XAIX.SW sur les Megacaps Tech. 4. Illiquidité tactique : niveau de liquidité extrêmement bas (0,89 %), empêchant tout achat opportuniste sans vente préalable.",
     "action_plan": [
-      "Maintenir les positions ETF centrales actuelles (FWRA.SW et SPIA.SW) sans modification précipitée, l'allocation restant cohérente avec l'horizon de long terme.",
-      "Reconstituer progressivement une réserve de liquidités en CHF (via nouveaux apports) avant d'envisager l'ouverture d'une ligne de conviction individuelle.",
-      "Évaluer Micron Technology (MU) comme relais de croissance potentiel issu du screener uniquement si un repli technique valide un ratio rendement/risque asymétrique et si des liquidités fraîches sont allouées.",
-      "S'abstenir de toute intervention sur Petrobras (PBR), identifié comme surchauffé par le screener avec un momentum 1 mois de +22,87 %."
+      "Formaliser des limites personnelles explicites dans la politique d'investissement (ex. taille maximale d'une position satellite à 10 %, cash minimum à 3 %).",
+      "Considérer la constitution d'un matelas de cash en CHF lors des prochains apports de fonds pour restaurer la flexibilité tactique sans liquider les positions cœur.",
+      "Évaluer le titre Micron Technology (MU) pour un rôle de relais de croissance uniquement sous condition d'un repli technique et après capitalisation de liquidités.",
+      "Maintenir la watchlist personnelle (ex. ASML, Apple, VAT Group) en simple suivi de conviction, sans déclencher d'achat à ces niveaux de valorisation."
     ],
     "opportunities": [
-      "Micron Technology, Inc. (MU) : Qualifié de relais de croissance par le screener dynamique (score global de 78,3, qualité 82,6, croissance 100,0, valorisation 85,7) avec un forward P/E de 6,25 et une croissance des bénéfices de 1368,5 %, non surchauffé à court terme (+7,02 % sur 1 mois).",
-      "Kinross Gold Corporation (KGC) : Score global de 68,1 dans le secteur des matériaux de base, bénéficiant d'un bilan solide (debt/equity 7,73), d'une valorisation modérée (forward P/E de 9,52) et d'un free cash-flow margin de 35,36 %.",
-      "NVIDIA Corporation (NVDA) : Score de 67,0 soutenu par des marges nettes élevées (63,66 %) et une croissance robuste (105,9 %), bien que son multiple EV/EBITDA de 26,02 et son exposition déjà couverte via FWRA/XAIX incitent à la retenue."
+      "Micron Technology, Inc. (MU) : Qualifié comme relais de croissance (score 78,3/100). Valorisation modérée (Forward P/E de 6,25) et forte croissance opérationnelle, sans surchauffe récente (+7,02 % sur 1 mois).",
+      "Kinross Gold Corporation (KGC) : Option de diversification hors-technologie (score 68,2/100) combinant valorisation attractive (Forward P/E 9,52) et marge de cash-flow libre solide (35,36 %).",
+      "NVIDIA Corporation (NVDA) : Score de qualité élevé (94,5/100) avec un consolidation récente (-2,48 % sur 1 mois) ramenant le Forward P/E à 14,02.",
+      "Mise en garde sur le screener : Petroleo Brasileiro (PBR) est exclu des achats immédiats car classé overheated (+22,87 % sur 1 mois). OTP Bank (0M69.IL) présente des données fondamentales incomplètes (67 %)."
     ],
     "what_to_monitor": [
-      "Prochaine réunion et communications de politique monétaire de la Réserve fédérale américaine pour jauger l'impact sur les taux et l'USD/CHF.",
-      "Évolution du ratio USD/CHF autour du niveau de 0,8160 et son impact sur la valorisation en CHF du sleeve global FWRA.SW.",
-      "Comportement de l'ETF thématique XAIX.SW après sa hausse de +45,67 % sur un an face à une éventuelle rotation sectorielle.",
-      "Maintien de la solidité financière et des révisions de bénéfices sur les candidats du screener dynamique (notamment MU et KGC)."
+      "Évolution du taux de change USD/CHF (dernier cours 0,8156) impactant la valeur ressortante du portefeuille en CHF.",
+      "Publication des résultats et prévisions des géants des semi-conducteurs influençant XAIX.SW et FWRA.SW.",
+      "Niveau absolu des liquidités CHF disponibles pour la gestion du portefeuille.",
+      "Annonces de politique monétaire de la Réserve Fédérale et de la Banque Nationale Suisse."
     ]
   },
-  "warnings": [],
+  "warnings": [
+    "Fallback IA utilisé: gemini/gemini-3.6-flash après échec du moteur principal."
+  ],
   "errors": [],
   "methodology": {
     "market_data": "Yahoo Finance via yfinance",
-    "ai": "gemini / gemini-3.7-flash (free-only)",
+    "ai": "gemini / gemini-3.6-flash (free-only)",
     "fundamental_score": "Screener dynamique multi-facteurs: qualité 30 %, croissance 20 %, valorisation 20 %, bilan 15 %, momentum 10 %, risque 5 %, avec comparaison sectorielle et pénalité anti-chasse.",
     "disclaimer": "Outil d'aide à la décision. Aucune transaction n'est exécutée automatiquement."
   }
