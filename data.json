@@ -1,9 +1,9 @@
 {
   "schema_version": 3,
-  "status": "degraded",
-  "date_generation": "2026-09-19T12:14:18.039404Z",
-  "ai_provider": null,
-  "ai_model": null,
+  "status": "ok",
+  "date_generation": "2026-09-19T19:36:19.030073Z",
+  "ai_provider": "gemini",
+  "ai_model": "gemini-3.6-flash",
   "ai_attempts": [
     {
       "provider": "gemini",
@@ -14,14 +14,7 @@
     {
       "provider": "gemini",
       "model": "gemini-3.6-flash",
-      "status": "failed",
-      "reason": "ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
-    },
-    {
-      "provider": "groq",
-      "model": "openai/gpt-oss-120b",
-      "status": "skipped",
-      "reason": "GROQ_API_KEY absent"
+      "status": "success"
     }
   ],
   "ai_free_only": true,
@@ -195,6 +188,12 @@
   },
   "news": [
     {
+      "title": "Is Berkshire Hathaway Stock a Better Buy Than an S&P 500 Index Fund?",
+      "publisher": "Motley Fool",
+      "url": "https://www.fool.com/investing/2026/09/19/is-berkshire-hathaway-stock-a-better-buy-than-an/",
+      "published_at": "2026-09-19T16:05:00Z"
+    },
+    {
       "title": "VOO vs. SPY: Is There Actually a Difference?",
       "publisher": "Motley Fool",
       "url": "https://www.fool.com/investing/2026/09/19/voo-vs-spy-is-there-actually-a-difference/",
@@ -235,12 +234,6 @@
       "publisher": "24/7 Wall St.",
       "url": "https://247wallst.com/investing/2026/09/18/joby-aviation-just-dropped-20-in-a-month-is-it-time-to-sell/",
       "published_at": "2026-09-18T18:55:06Z"
-    },
-    {
-      "title": "Qualcomm Drops 6% as Past Month’s Rally Unwinds; Skyworks and Qorvo Slip",
-      "publisher": "24/7 Wall St.",
-      "url": "https://247wallst.com/investing/2026/09/18/qualcomm-drops-6-as-past-months-rally-unwinds-skyworks-and-qorvo-slip/",
-      "published_at": "2026-09-18T17:58:45Z"
     }
   ],
   "watchlist": [
@@ -853,7 +846,7 @@
         "currency": "USD",
         "market_cap": 65938898944.0,
         "forward_pe": 12.04,
-        "trailing_pe": 18.96,
+        "trailing_pe": 18.7,
         "ev_to_ebitda": null,
         "price_to_book": 4.98,
         "revenue_growth_pct": 52.1,
@@ -1103,14 +1096,36 @@
     "candidates_scored": 32,
     "growth_eligible": 25
   },
-  "report": null,
-  "warnings": [],
-  "errors": [
-    "Tous les moteurs IA gratuits disponibles ont échoué: gemini/gemini-3.7-flash: ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}} | gemini/gemini-3.6-flash: ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  "report": {
+    "executive_summary": "Le portefeuille affiche une valeur globale de 15 554 CHF, structurée autour d'un cœur d'ETF mondial (FWRA à 65,67 %) et suisse (SPIA à 26,12 %), complété par un satellite IA (XAIX à 7,32 %) et un solde de liquidités très faible de 0,89 % (138,75 CHF). L'indice d'Herfindahl élevé (0,5049), correspondant à 1,98 position effective, signale une forte concentration technique due aux poids dominants des deux ETF principaux. La structure globale respecte la philosophie d'investissement, mais le cumul implicite de biais technologiques et la forte exposition au dollar US via FWRA et XAIX méritent une attention particulière. On note une divergence temporelle entre l'instantané du portefeuille (07/09/2026) et les actualités récentes (18-19/09/2026) faisant état d'une volatilité accrue sur les taux et le pétrole. Compte tenu du faible niveau de cash, aucune allocation vers de nouvelles opportunités du screener ne doit être exécutée sans apport préalable ou arbitrage ciblé.",
+    "market_regime": "Le contexte macroéconomique reflète une phase de consolidation prudente avec un S&P 500 à 7 650,5 pts (-0,75 % sur 1 mois) et un MSCI World (URTH) en léger repli sur 1 mois (-1,17 %). Les actualités de mi-septembre soulignent la pire semaine depuis six mois pour le Dow Jones en raison de la tension sur les rendements obligataires et le pétrole. L'or conserve son rôle de valeur refuge avec une progression sur un an de 19,40 % à 4 424,90 USD. Du côté des devises, l'USD/CHF s'établit à 0,8218 (+3,01 % sur 1 mois), offrant un soutien de change temporaire aux positions libellées en USD lorsqu'elles sont converties en CHF. Données manquantes : La courbe des taux d'intérêt, les indices d'inflation récents et les décisions des banques centrales ne sont pas inclus dans le jeu de données fourni.",
+    "portfolio_diagnosis": "L'allocation reflète fidèlement l'objectif de croissance à long terme, mais présente une faible diversification effective au niveau du nombre de lignes (1,98 positions effectives). L'exposition au marché suisse via SPIA.SW (26,12 %) constitue un biais domestique fort au vu du poids réel de la Suisse dans les indices mondiaux, bien qu'il réduise le risque de change direct. La position satellite XAIX.SW (7,32 %) génère un chevauchement thématique significatif avec les composantes technologiques déjà intégrées dans FWRA.SW. Sur le plan fondamental, la volatilité annualisée de XAIX.SW (25,65 %) est plus de deux fois supérieure à celle de FWRA.SW (10,86 %). La contrainte majeure réside dans l'absence de marge de manœuvre en liquidités (0,89 %), ce qui bloque toute capacité de réaction tactique sans cession préalable.",
+    "risk_watch": "1. Risque d'illiquidité tactique : Le solde de 138,75 CHF empêche tout achat d'opportunité du screener sans apport extérieur ou vente forcée. 2. Risque de change (USD/CHF) : L'exposition sous-jacente au dollar américain expose la valeur du portefeuille aux fluctuations du franc suisse. 3. Risque de surconcentration thématique : Superposition des valeurs de la Tech / IA entre FWRA.SW et XAIX.SW. 4. Anachronisme des données : Décalage entre la date du snapshot du portefeuille (07/09/2026) et les données de marché ou actualités plus récentes.",
+    "action_plan": [
+      "Conserver la structure cœur actuelle (FWRA.SW et SPIA.SW) qui assure la couverture géographique globale et suisse sans sur-coût opérationnel.",
+      "Reconstituer une poche de liquidités opérationnelle (ex. viser 3 à 5 % du portefeuille) soit par un apport en CHF, soit en étudient un écrêtage partiel de XAIX.SW après sa forte progression sur un an (+46,33 %).",
+      "Définir des conditions d'entrée strictes (ordres limités) avant d'envisager toute diversification satellite sur les dossiers identifiés par le screener.",
+      "Éviter les achats impulsifs sur les convictions de la watchlist personnelle sans analyse préalable des valorisations (ex. FPE de 35,06x sur Apple ou 36,48x sur VAT Group)."
+    ],
+    "opportunities": [
+      "SKHY (SK hynix Inc.) : Meilleur score du screener (85,9). Présente une forte croissance des bénéfices (1272,4 %) et un FPE attractif (5,53x), mais enregistre une volatilité très élevée (115,43 %) nécessitant un point d'entrée prudent.",
+      "HMY (Harmony Gold) : Score de 77,6. Valorisation contenue (FPE 6,08x) et bénéficie du momentum du secteur aurifère, avec un drapeau de vigilance à maintenir sur la structure de son bilan (current ratio de 0,84).",
+      "NVDA (NVIDIA Corp.) : Score de 71,4. Profil de très haute qualité opérationnelle et FPE ramené à 14,17x selon le screener, tout en présentant un chevauchement direct avec le satellite XAIX.SW et le cœur FWRA.SW."
+    ],
+    "what_to_monitor": [
+      "Évolution des rendements obligataires et du cours du pétrole qui pèsent sur le sentiment général des marchés actions.",
+      "Trajectoire du franc suisse face au dollar (USD/CHF) autour du seuil des 0,82 CHF.",
+      "Mise à jour des états financiers et métriques manquantes sur certaines valeurs du screener (ex. EV/EBITDA et FCF non renseignés pour NU et ITUB).",
+      "Annonces de résultats et signaux de surchauffe sur le secteur des semi-conducteurs et de l'IA."
+    ]
+  },
+  "warnings": [
+    "Fallback IA utilisé: gemini/gemini-3.6-flash après échec du moteur principal."
   ],
+  "errors": [],
   "methodology": {
     "market_data": "Yahoo Finance via yfinance",
-    "ai": "IA indisponible (free-only)",
+    "ai": "gemini / gemini-3.6-flash (free-only)",
     "fundamental_score": "Screener dynamique multi-facteurs: qualité 30 %, croissance 20 %, valorisation 20 %, bilan 15 %, momentum 10 %, risque 5 %, avec comparaison sectorielle et pénalité anti-chasse.",
     "disclaimer": "Outil d'aide à la décision. Aucune transaction n'est exécutée automatiquement."
   }
