@@ -1,9 +1,9 @@
 {
   "schema_version": 3,
-  "status": "degraded",
-  "date_generation": "2026-09-20T12:49:30.546564Z",
-  "ai_provider": null,
-  "ai_model": null,
+  "status": "ok",
+  "date_generation": "2026-09-20T19:45:26.942109Z",
+  "ai_provider": "gemini",
+  "ai_model": "gemini-3.6-flash",
   "ai_attempts": [
     {
       "provider": "gemini",
@@ -14,14 +14,7 @@
     {
       "provider": "gemini",
       "model": "gemini-3.6-flash",
-      "status": "failed",
-      "reason": "ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
-    },
-    {
-      "provider": "groq",
-      "model": "openai/gpt-oss-120b",
-      "status": "skipped",
-      "reason": "GROQ_API_KEY absent"
+      "status": "success"
     }
   ],
   "ai_free_only": true,
@@ -195,6 +188,12 @@
   },
   "news": [
     {
+      "title": "How to Build $3,250 a Month in Dividend Income to Cover a Married Couple’s Social Security Checks, Starting From Zero",
+      "publisher": "24/7 Wall St.",
+      "url": "https://247wallst.com/personal-finance/2026/09/20/how-to-build-3250-a-month-in-dividend-income-to-cover-a-married-couples-social-security-checks-starting-from-zero/",
+      "published_at": "2026-09-20T13:06:20Z"
+    },
+    {
       "title": "If You Had Invested $500 a Month in VOO Since Its 2010 Launch, You Would Have About $330,000 Today",
       "publisher": "24/7 Wall St.",
       "url": "https://247wallst.com/investing/etf/2026/09/20/if-you-had-invested-500-a-month-in-voo-since-its-2010-launch-you-would-have-about-330000-today/",
@@ -235,12 +234,6 @@
       "publisher": "24/7 Wall St.",
       "url": "https://247wallst.com/investing/etf/2026/09/18/after-comparing-every-covered-call-etf-with-over-1-billion-in-assets-these-3-pay-up-to-8-percent-and-still-grew-your-principal/",
       "published_at": "2026-09-18T21:15:15Z"
-    },
-    {
-      "title": "A $10,000 Investment in SPY at Its 1993 Launch Is Worth This Much Today Without You Adding a Dime",
-      "publisher": "24/7 Wall St.",
-      "url": "https://247wallst.com/investing/etf/2026/09/18/a-10000-investment-in-spy-at-its-1993-launch-is-worth-this-much-today-without-you-adding-a-dime/",
-      "published_at": "2026-09-18T21:05:57Z"
     }
   ],
   "watchlist": [
@@ -569,21 +562,19 @@
         "volatility_pct": 59.34,
         "max_drawdown_1y_pct": -48.85,
         "scores": {
-          "quality": 83.7,
-          "growth": 83.3,
+          "quality": 79.1,
+          "growth": 62.0,
           "valuation": 98.1,
-          "balance_sheet": 33.8,
+          "balance_sheet": 53.3,
           "momentum": 80.7,
-          "risk": 61.4
+          "risk": 59.3
         },
-        "score": 77.6,
+        "score": 74.8,
         "data_completeness_pct": 100.0,
         "overheated": false,
         "relay_candidate": true,
-        "why": "qualité opérationnelle élevée · croissance supérieure aux pairs · valorisation relativement attractive · tendance de marché constructive",
-        "risk_flags": [
-          "bilan / génération de cash à surveiller"
-        ]
+        "why": "qualité opérationnelle élevée · valorisation relativement attractive · tendance de marché constructive",
+        "risk_flags": []
       },
       {
         "ticker": "NVDA",
@@ -633,6 +624,57 @@
         "overheated": false,
         "relay_candidate": true,
         "why": "qualité opérationnelle élevée · bilan / cash-flow solide · tendance de marché constructive",
+        "risk_flags": []
+      },
+      {
+        "ticker": "IAG",
+        "discovery_sources": [
+          "undervalued_growth_stocks",
+          "undervalued_large_caps"
+        ],
+        "preliminary_name": "Iamgold Corporation",
+        "preliminary_market_cap": 11619850240,
+        "preliminary_price": 20.35,
+        "name": "Iamgold Corporation",
+        "sector": "Basic Materials",
+        "industry": "Gold",
+        "currency": "USD",
+        "market_cap": 11619850240.0,
+        "forward_pe": 8.59,
+        "trailing_pe": 10.28,
+        "ev_to_ebitda": 5.71,
+        "price_to_book": 2.66,
+        "revenue_growth_pct": 47.5,
+        "earnings_growth_pct": 191.4,
+        "net_margin_pct": 31.4,
+        "operating_margin_pct": 44.98,
+        "roe_pct": 32.33,
+        "roa_pct": 19.33,
+        "debt_to_equity": 12.15,
+        "current_ratio": 1.71,
+        "free_cash_flow": 1216587520.0,
+        "free_cash_flow_margin_pct": 33.04,
+        "beta": 2.34,
+        "last_price": 20.35,
+        "momentum_1m_pct": 3.19,
+        "momentum_3m_pct": 12.49,
+        "momentum_6m_pct": -4.82,
+        "momentum_12m_pct": 79.45,
+        "volatility_pct": 58.54,
+        "max_drawdown_1y_pct": -43.3,
+        "scores": {
+          "quality": 79.8,
+          "growth": 56.9,
+          "valuation": 75.5,
+          "balance_sheet": 79.3,
+          "momentum": 53.9,
+          "risk": 29.3
+        },
+        "score": 69.2,
+        "data_completeness_pct": 100.0,
+        "overheated": false,
+        "relay_candidate": true,
+        "why": "qualité opérationnelle élevée · valorisation relativement attractive · bilan / cash-flow solide",
         "risk_flags": []
       },
       {
@@ -686,57 +728,6 @@
         "risk_flags": []
       },
       {
-        "ticker": "IAG",
-        "discovery_sources": [
-          "undervalued_growth_stocks",
-          "undervalued_large_caps"
-        ],
-        "preliminary_name": "Iamgold Corporation",
-        "preliminary_market_cap": 11619850240,
-        "preliminary_price": 20.35,
-        "name": "Iamgold Corporation",
-        "sector": "Basic Materials",
-        "industry": "Gold",
-        "currency": "USD",
-        "market_cap": 11619850240.0,
-        "forward_pe": 8.59,
-        "trailing_pe": 10.28,
-        "ev_to_ebitda": 5.71,
-        "price_to_book": 2.66,
-        "revenue_growth_pct": 47.5,
-        "earnings_growth_pct": 191.4,
-        "net_margin_pct": 31.4,
-        "operating_margin_pct": 44.98,
-        "roe_pct": 32.33,
-        "roa_pct": 19.33,
-        "debt_to_equity": 12.15,
-        "current_ratio": 1.71,
-        "free_cash_flow": 1216587520.0,
-        "free_cash_flow_margin_pct": 33.04,
-        "beta": 2.34,
-        "last_price": 20.35,
-        "momentum_1m_pct": 3.19,
-        "momentum_3m_pct": 12.49,
-        "momentum_6m_pct": -4.82,
-        "momentum_12m_pct": 79.45,
-        "volatility_pct": 58.54,
-        "max_drawdown_1y_pct": -43.3,
-        "scores": {
-          "quality": 80.8,
-          "growth": 50.0,
-          "valuation": 67.9,
-          "balance_sheet": 63.3,
-          "momentum": 53.9,
-          "risk": 46.5
-        },
-        "score": 65.0,
-        "data_completeness_pct": 100.0,
-        "overheated": false,
-        "relay_candidate": false,
-        "why": "qualité opérationnelle élevée · valorisation relativement attractive",
-        "risk_flags": []
-      },
-      {
         "ticker": "BMY",
         "discovery_sources": [
           "undervalued_growth_stocks"
@@ -774,18 +765,70 @@
         "scores": {
           "quality": 71.9,
           "growth": 28.3,
-          "valuation": 63.4,
-          "balance_sheet": 51.6,
+          "valuation": 64.9,
+          "balance_sheet": 52.7,
           "momentum": 79.2,
-          "risk": 67.5
+          "risk": 65.9
         },
-        "score": 58.9,
+        "score": 59.3,
         "data_completeness_pct": 100.0,
         "overheated": false,
         "relay_candidate": false,
         "why": "qualité opérationnelle élevée · tendance de marché constructive",
         "risk_flags": [
           "croissance récente faible ou négative"
+        ]
+      },
+      {
+        "ticker": "0M69.IL",
+        "discovery_sources": [
+          "europe_large_mid_caps"
+        ],
+        "preliminary_name": "OTP BANK NYRT OTP BANK ORD SHS",
+        "preliminary_market_cap": 17791501467648,
+        "preliminary_price": 47340.234,
+        "name": "OTP BANK NYRT OTP BANK ORD SHS",
+        "sector": "Financial Services",
+        "industry": "Banks - Regional",
+        "currency": "HUF",
+        "market_cap": 17791501467648.0,
+        "forward_pe": null,
+        "trailing_pe": 12.55,
+        "ev_to_ebitda": null,
+        "price_to_book": 3.24,
+        "revenue_growth_pct": 10.3,
+        "earnings_growth_pct": 28.7,
+        "net_margin_pct": 42.76,
+        "operating_margin_pct": 53.54,
+        "roe_pct": 27.28,
+        "roa_pct": 2.79,
+        "debt_to_equity": null,
+        "current_ratio": null,
+        "free_cash_flow": null,
+        "free_cash_flow_margin_pct": null,
+        "beta": 0.91,
+        "last_price": 12590.0,
+        "momentum_1m_pct": 0.0,
+        "momentum_3m_pct": 0.0,
+        "momentum_6m_pct": 9.85,
+        "momentum_12m_pct": 9.85,
+        "volatility_pct": 0.0,
+        "max_drawdown_1y_pct": 0.0,
+        "scores": {
+          "quality": 76.2,
+          "growth": 43.3,
+          "valuation": 45,
+          "balance_sheet": 45.0,
+          "momentum": 67.1,
+          "risk": 97.5
+        },
+        "score": 58.9,
+        "data_completeness_pct": 67.0,
+        "overheated": false,
+        "relay_candidate": false,
+        "why": "qualité opérationnelle élevée · tendance de marché constructive",
+        "risk_flags": [
+          "données fondamentales incomplètes"
         ]
       },
       {
@@ -891,6 +934,57 @@
         ]
       },
       {
+        "ticker": "CDE",
+        "discovery_sources": [
+          "undervalued_growth_stocks",
+          "undervalued_large_caps"
+        ],
+        "preliminary_name": "Coeur Mining, Inc.",
+        "preliminary_market_cap": 20311994368,
+        "preliminary_price": 19.76,
+        "name": "Coeur Mining, Inc.",
+        "sector": "Basic Materials",
+        "industry": "Gold",
+        "currency": "USD",
+        "market_cap": 20311994368.0,
+        "forward_pe": 9.74,
+        "trailing_pe": 16.61,
+        "ev_to_ebitda": 12.26,
+        "price_to_book": 1.95,
+        "revenue_growth_pct": 125.9,
+        "earnings_growth_pct": 7.6,
+        "net_margin_pct": 26.82,
+        "operating_margin_pct": 19.39,
+        "roe_pct": 12.85,
+        "roa_pct": 7.14,
+        "debt_to_equity": 6.85,
+        "current_ratio": 3.65,
+        "free_cash_flow": 796743616.0,
+        "free_cash_flow_margin_pct": 25.12,
+        "beta": 1.39,
+        "last_price": 19.76,
+        "momentum_1m_pct": -5.59,
+        "momentum_3m_pct": 5.16,
+        "momentum_6m_pct": -8.8,
+        "momentum_12m_pct": 13.56,
+        "volatility_pct": 67.93,
+        "max_drawdown_1y_pct": -47.79,
+        "scores": {
+          "quality": 55.6,
+          "growth": 53.8,
+          "valuation": 47.0,
+          "balance_sheet": 88.7,
+          "momentum": 49.5,
+          "risk": 49.0
+        },
+        "score": 57.5,
+        "data_completeness_pct": 100.0,
+        "overheated": false,
+        "relay_candidate": false,
+        "why": "bilan / cash-flow solide",
+        "risk_flags": []
+      },
+      {
         "ticker": "PLTR",
         "discovery_sources": [
           "growth_technology_stocks"
@@ -943,108 +1037,6 @@
         ]
       },
       {
-        "ticker": "PATH",
-        "discovery_sources": [
-          "undervalued_growth_stocks"
-        ],
-        "preliminary_name": "UiPath, Inc.",
-        "preliminary_market_cap": 6978271232,
-        "preliminary_price": 13.39,
-        "name": "UiPath, Inc.",
-        "sector": "Technology",
-        "industry": "Software - Infrastructure",
-        "currency": "USD",
-        "market_cap": 6978271232.0,
-        "forward_pe": 14.54,
-        "trailing_pe": 19.99,
-        "ev_to_ebitda": 31.28,
-        "price_to_book": 3.58,
-        "revenue_growth_pct": 13.4,
-        "earnings_growth_pct": 2280.8,
-        "net_margin_pct": 21.03,
-        "operating_margin_pct": 8.92,
-        "roe_pct": 20.03,
-        "roa_pct": 3.66,
-        "debt_to_equity": 4.09,
-        "current_ratio": 2.39,
-        "free_cash_flow": 474257632.0,
-        "free_cash_flow_margin_pct": 27.56,
-        "beta": 1.02,
-        "last_price": 13.39,
-        "momentum_1m_pct": -15.15,
-        "momentum_3m_pct": 27.28,
-        "momentum_6m_pct": 17.77,
-        "momentum_12m_pct": 12.81,
-        "volatility_pct": 68.92,
-        "max_drawdown_1y_pct": -51.37,
-        "scores": {
-          "quality": 47.5,
-          "growth": 50.0,
-          "valuation": 47.2,
-          "balance_sheet": 70.7,
-          "momentum": 74.4,
-          "risk": 77.2
-        },
-        "score": 55.6,
-        "data_completeness_pct": 100.0,
-        "overheated": false,
-        "relay_candidate": false,
-        "why": "bilan / cash-flow solide · tendance de marché constructive",
-        "risk_flags": []
-      },
-      {
-        "ticker": "SMCI",
-        "discovery_sources": [
-          "growth_technology_stocks",
-          "undervalued_growth_stocks",
-          "undervalued_large_caps"
-        ],
-        "preliminary_name": "Super Micro Computer, Inc.",
-        "preliminary_market_cap": 25286266880,
-        "preliminary_price": 39.09,
-        "name": "Super Micro Computer, Inc.",
-        "sector": "Technology",
-        "industry": "Computer Hardware",
-        "currency": "USD",
-        "market_cap": 25286266880.0,
-        "forward_pe": 7.34,
-        "trailing_pe": 11.99,
-        "ev_to_ebitda": 11.2,
-        "price_to_book": 2.5,
-        "revenue_growth_pct": 93.2,
-        "earnings_growth_pct": 434.7,
-        "net_margin_pct": 5.71,
-        "operating_margin_pct": 13.38,
-        "roe_pct": 21.47,
-        "roa_pct": 7.88,
-        "debt_to_equity": 63.95,
-        "current_ratio": 3.87,
-        "free_cash_flow": -8248783872.0,
-        "free_cash_flow_margin_pct": -21.12,
-        "beta": 2.0,
-        "last_price": 39.09,
-        "momentum_1m_pct": 6.86,
-        "momentum_3m_pct": 33.78,
-        "momentum_6m_pct": 26.5,
-        "momentum_12m_pct": -14.67,
-        "volatility_pct": 96.46,
-        "max_drawdown_1y_pct": -65.01,
-        "scores": {
-          "quality": 28.8,
-          "growth": 77.8,
-          "valuation": 94.4,
-          "balance_sheet": 38.3,
-          "momentum": 53.1,
-          "risk": 28.1
-        },
-        "score": 55.5,
-        "data_completeness_pct": 100.0,
-        "overheated": false,
-        "relay_candidate": false,
-        "why": "croissance supérieure aux pairs · valorisation relativement attractive",
-        "risk_flags": []
-      },
-      {
         "ticker": "NU",
         "discovery_sources": [
           "undervalued_growth_stocks",
@@ -1081,34 +1073,56 @@
         "volatility_pct": 39.5,
         "max_drawdown_1y_pct": -38.17,
         "scores": {
-          "quality": 86.2,
-          "growth": 67.9,
+          "quality": 81.2,
+          "growth": 100.0,
           "valuation": 0.0,
           "balance_sheet": 45.0,
           "momentum": 28.4,
           "risk": 48.4
         },
-        "score": 51.5,
+        "score": 56.4,
         "data_completeness_pct": 78.0,
         "overheated": false,
         "relay_candidate": false,
-        "why": "qualité opérationnelle élevée",
+        "why": "qualité opérationnelle élevée · croissance supérieure aux pairs",
         "risk_flags": [
           "valorisation exigeante"
         ]
       }
     ],
     "candidates_scored": 32,
-    "growth_eligible": 25
+    "growth_eligible": 26
   },
-  "report": null,
-  "warnings": [],
-  "errors": [
-    "Tous les moteurs IA gratuits disponibles ont échoué: gemini/gemini-3.7-flash: ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}} | gemini/gemini-3.6-flash: ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  "report": {
+    "executive_summary": "Le portefeuille présente un profil patrimonial à dominante indicielle, affichant une valeur nette de 15 554 CHF articulée autour d'un cœur diversifié au niveau mondial (FWRA, 65,67 %) et suisse (SPIA, 26,12 %). L'indice Herfindahl calculé à 0,5049 signale une forte concentration apparente sur deux ETF majeurs, bien que la diversification réelle sous-jacente soit large. Le satellite thématique dédié à l'IA (XAIX, 7,32 %) apporte un dynamisme ciblé mais génère un chevauchement d'exposition avec les mégacaps technologiques de l'indice mondial. Le niveau de cash extrêmement réduit (0,89 %, soit 138,75 CHF) interdit toute prise de position immédiate sans apport frais ou arbitrage. Les opportunités identifiées par le screener dynamique, telles que SK hynix (SKHY) et NVIDIA (NVDA), offrent des relais de croissance de qualité à considérer uniquement sous réserve de liquidités disponibles.",
+    "market_regime": "Le contexte macroéconomique global demeure porté par la hausse annuelle des marchés d'actions (MSCI World +15,91 %, S&P 500 +14,80 %), mais enregistre des tiraillements à court terme liés à la remontée des taux d'intérêt et des cours du pétrole. Le franc suisse fait face à une remontée mensuelle du dollar américain (USD/CHF à 0,8218, +3,01 % sur un mois), ce qui valorise l'exposition internationale en CHF tout en maintenant un risque de change de fond. La fermeté de l'or (+17,21 % sur un an) traduit la persistance de couvertures contre les incertitudes géopolitiques et l'inflation.",
+    "portfolio_diagnosis": "L'allocation respecte la structure Cœur-Satellite avec 91,79 % investis en indices larges et 7,32 % en satellite thématique. Le diagnostic technique met en évidence une concentration élevée d'instruments (1,98 positions effectives), bien que FWRA offre une dispersion géographique effective. L'exposition importante aux actions suisses via SPIA (26,12 %) tempère la volatilité globale (10,77 %) mais renforce le biais domestique sur la santé et les biens de consommation. Le principal point d'attention réside dans la sous-pondération extrême du cash (0,89 %), réduisant la flexibilité tactique du portefeuille.",
+    "risk_watch": "1. Risque de change USD/CHF : absence de couverture sur la part globale et technologique du portefeuille face à une éventuelle appréciation structurelle du franc suisse. 2. Risque de chevauchement sectoriel : surreprésentation des grandes valeurs technologiques américaines partagées entre FWRA et XAIX. 3. Risque d'impasse de liquidité : incapacité d'exploiter les opportunités de marché sans vendre des positions existantes.",
+    "action_plan": [
+      "Prioriser la reconstitution d'une poche de liquidités tactique (cible 3 à 5 %) lors des prochains flux d'épargne entrants.",
+      "Évaluer le rééquilibrage partiel du satellite XAIX si la surperformance technologique accentue exagérément son poids dans le portefeuille.",
+      "Maintenir le socle stratégique FWRA et SPIA sans modification, garantissant une exposition mondiale à faible coût."
+    ],
+    "opportunities": [
+      "SK hynix Inc. (SKHY - Score 84.9) : Relais de croissance majeur sur les semi-conducteurs et la mémoire IA, présentant un PER futur de 5,53x et une croissance des bénéfices exceptionnelle, à surveiller en raison de sa volatilité élevée.",
+      "Harmony Gold Mining Company (HMY - Score 74.8) : Option de diversification hors technologie avec un PER futur de 6,08x et une marge nette de 29,57 %, tirant profit du contexte porteur sur l'or.",
+      "NVIDIA Corporation (NVDA - Score 72.2) : Leader incontesté de l'infrastructure IA affichant un bilan très solide et un PER futur raisonnable de 14,17x au regard d'une croissance du chiffre d'affaires de 105,9 %.",
+      "Iamgold Corporation (IAG - Score 69.2) : Producteur d'or à valorisation modérée (PER futur 8,59x) générant une marge de cash-flow libre élevée de 33,04 %."
+    ],
+    "what_to_monitor": [
+      "Évolution du taux de change USD/CHF autour de 0,8218 CHF.",
+      "Comportement de la volatilité sur le satellite XAIX (24,95 % annualisé).",
+      "Tensions sur les taux d'intérêt obligataires américains et impact sur les valorisations Growth.",
+      "Niveau du solde de liquidités sur le compte d'investissement après les versements programmés."
+    ]
+  },
+  "warnings": [
+    "Fallback IA utilisé: gemini/gemini-3.6-flash après échec du moteur principal."
   ],
+  "errors": [],
   "methodology": {
     "market_data": "Yahoo Finance via yfinance",
-    "ai": "IA indisponible (free-only)",
+    "ai": "gemini / gemini-3.6-flash (free-only)",
     "fundamental_score": "Screener dynamique multi-facteurs: qualité 30 %, croissance 20 %, valorisation 20 %, bilan 15 %, momentum 10 %, risque 5 %, avec comparaison sectorielle et pénalité anti-chasse.",
     "disclaimer": "Outil d'aide à la décision. Aucune transaction n'est exécutée automatiquement."
   }
