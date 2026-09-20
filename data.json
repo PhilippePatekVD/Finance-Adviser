@@ -1,9 +1,9 @@
 {
   "schema_version": 3,
-  "status": "ok",
-  "date_generation": "2026-09-19T19:36:19.030073Z",
-  "ai_provider": "gemini",
-  "ai_model": "gemini-3.6-flash",
+  "status": "degraded",
+  "date_generation": "2026-09-20T12:49:30.546564Z",
+  "ai_provider": null,
+  "ai_model": null,
   "ai_attempts": [
     {
       "provider": "gemini",
@@ -14,7 +14,14 @@
     {
       "provider": "gemini",
       "model": "gemini-3.6-flash",
-      "status": "success"
+      "status": "failed",
+      "reason": "ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+    },
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "status": "skipped",
+      "reason": "GROQ_API_KEY absent"
     }
   ],
   "ai_free_only": true,
@@ -136,7 +143,7 @@
       "variation_5j_pct": 0.36,
       "variation_1m_pct": -2.65,
       "variation_3m_pct": 1.62,
-      "variation_1y_pct": 19.4,
+      "variation_1y_pct": 17.21,
       "volatilite_annualisee_pct": 22.88
     },
     "CHF=X": {
@@ -155,38 +162,44 @@
     "FWRA.SW": {
       "ticker": "FWRA.SW",
       "label": "Invesco FTSE All-World UCITS ETF",
-      "last": 7.808,
-      "variation_1j_pct": 0.94,
-      "variation_5j_pct": 1.76,
-      "variation_1m_pct": 2.09,
-      "variation_3m_pct": 3.76,
-      "variation_1y_pct": 22.19,
-      "volatilite_annualisee_pct": 10.86
+      "last": 7.771,
+      "variation_1j_pct": -0.47,
+      "variation_5j_pct": -0.03,
+      "variation_1m_pct": 2.05,
+      "variation_3m_pct": 2.93,
+      "variation_1y_pct": 21.61,
+      "volatilite_annualisee_pct": 10.74
     },
     "SPIA.SW": {
       "ticker": "SPIA.SW",
       "label": "UBS ETF SPI",
-      "last": 3.875,
-      "variation_1j_pct": 0.85,
-      "variation_5j_pct": 1.51,
-      "variation_1m_pct": -3.43,
-      "variation_3m_pct": 0.99,
-      "variation_1y_pct": 16.65,
-      "volatilite_annualisee_pct": 10.62
+      "last": 3.8395,
+      "variation_1j_pct": -0.92,
+      "variation_5j_pct": 0.27,
+      "variation_1m_pct": -3.54,
+      "variation_3m_pct": -0.01,
+      "variation_1y_pct": 15.58,
+      "volatilite_annualisee_pct": 10.77
     },
     "XAIX.SW": {
       "ticker": "XAIX.SW",
       "label": "Xtrackers Artificial Intelligence and Big Data UCITS ETF",
-      "last": 202.7,
-      "variation_1j_pct": 1.75,
-      "variation_5j_pct": 3.86,
-      "variation_1m_pct": 7.37,
-      "variation_3m_pct": 2.17,
-      "variation_1y_pct": 46.33,
-      "volatilite_annualisee_pct": 25.65
+      "last": 201.0,
+      "variation_1j_pct": -0.84,
+      "variation_5j_pct": 1.54,
+      "variation_1m_pct": 7.07,
+      "variation_3m_pct": 1.25,
+      "variation_1y_pct": 45.11,
+      "volatilite_annualisee_pct": 24.95
     }
   },
   "news": [
+    {
+      "title": "If You Had Invested $500 a Month in VOO Since Its 2010 Launch, You Would Have About $330,000 Today",
+      "publisher": "24/7 Wall St.",
+      "url": "https://247wallst.com/investing/etf/2026/09/20/if-you-had-invested-500-a-month-in-voo-since-its-2010-launch-you-would-have-about-330000-today/",
+      "published_at": "2026-09-20T09:59:02Z"
+    },
     {
       "title": "Is Berkshire Hathaway Stock a Better Buy Than an S&P 500 Index Fund?",
       "publisher": "Motley Fool",
@@ -228,12 +241,6 @@
       "publisher": "24/7 Wall St.",
       "url": "https://247wallst.com/investing/etf/2026/09/18/a-10000-investment-in-spy-at-its-1993-launch-is-worth-this-much-today-without-you-adding-a-dime/",
       "published_at": "2026-09-18T21:05:57Z"
-    },
-    {
-      "title": "Joby Aviation Just Dropped 20% in a Month. Is It Time to Sell?",
-      "publisher": "24/7 Wall St.",
-      "url": "https://247wallst.com/investing/2026/09/18/joby-aviation-just-dropped-20-in-a-month-is-it-time-to-sell/",
-      "published_at": "2026-09-18T18:55:06Z"
     }
   ],
   "watchlist": [
@@ -512,14 +519,14 @@
         "volatility_pct": 115.43,
         "max_drawdown_1y_pct": -34.62,
         "scores": {
-          "quality": 91.2,
-          "growth": 100.0,
+          "quality": 91.9,
+          "growth": 94.4,
           "valuation": 100.0,
-          "balance_sheet": 71.7,
+          "balance_sheet": 70.7,
           "momentum": 72.3,
           "risk": 11.8
         },
-        "score": 85.9,
+        "score": 84.9,
         "data_completeness_pct": 100.0,
         "overheated": false,
         "relay_candidate": true,
@@ -614,14 +621,14 @@
         "volatility_pct": 39.71,
         "max_drawdown_1y_pct": -20.21,
         "scores": {
-          "quality": 91.4,
-          "growth": 56.2,
-          "valuation": 53.6,
-          "balance_sheet": 71.8,
+          "quality": 91.7,
+          "growth": 55.6,
+          "valuation": 59.0,
+          "balance_sheet": 70.4,
           "momentum": 79.0,
           "risk": 66.4
         },
-        "score": 71.4,
+        "score": 72.2,
         "data_completeness_pct": 100.0,
         "overheated": false,
         "relay_candidate": true,
@@ -766,11 +773,11 @@
         "max_drawdown_1y_pct": -12.53,
         "scores": {
           "quality": 71.9,
-          "growth": 30.1,
-          "valuation": 60.7,
-          "balance_sheet": 52.7,
+          "growth": 28.3,
+          "valuation": 63.4,
+          "balance_sheet": 51.6,
           "momentum": 79.2,
-          "risk": 65.9
+          "risk": 67.5
         },
         "score": 58.9,
         "data_completeness_pct": 100.0,
@@ -817,12 +824,12 @@
         "volatility_pct": 42.93,
         "max_drawdown_1y_pct": -29.44,
         "scores": {
-          "quality": 72.5,
+          "quality": 75.3,
           "growth": 50.0,
-          "valuation": 40.2,
-          "balance_sheet": 55.0,
+          "valuation": 35.4,
+          "balance_sheet": 55.9,
           "momentum": 58.6,
-          "risk": 81.1
+          "risk": 81.8
         },
         "score": 58.0,
         "data_completeness_pct": 100.0,
@@ -830,59 +837,6 @@
         "relay_candidate": false,
         "why": "qualité opérationnelle élevée",
         "risk_flags": []
-      },
-      {
-        "ticker": "NU",
-        "discovery_sources": [
-          "undervalued_growth_stocks",
-          "undervalued_large_caps"
-        ],
-        "preliminary_name": "Nu Holdings Ltd.",
-        "preliminary_market_cap": 65938898944,
-        "preliminary_price": 13.65,
-        "name": "Nu Holdings Ltd.",
-        "sector": "Financial Services",
-        "industry": "Banks - Regional",
-        "currency": "USD",
-        "market_cap": 65938898944.0,
-        "forward_pe": 12.04,
-        "trailing_pe": 18.7,
-        "ev_to_ebitda": null,
-        "price_to_book": 4.98,
-        "revenue_growth_pct": 52.1,
-        "earnings_growth_pct": 66.3,
-        "net_margin_pct": 42.73,
-        "operating_margin_pct": 50.15,
-        "roe_pct": 31.63,
-        "roa_pct": 4.96,
-        "debt_to_equity": null,
-        "current_ratio": null,
-        "free_cash_flow": null,
-        "free_cash_flow_margin_pct": null,
-        "beta": 0.94,
-        "last_price": 13.65,
-        "momentum_1m_pct": -6.57,
-        "momentum_3m_pct": 7.31,
-        "momentum_6m_pct": -2.29,
-        "momentum_12m_pct": -15.58,
-        "volatility_pct": 39.5,
-        "max_drawdown_1y_pct": -38.17,
-        "scores": {
-          "quality": 86.2,
-          "growth": 100.0,
-          "valuation": 0.0,
-          "balance_sheet": 45.0,
-          "momentum": 28.4,
-          "risk": 48.4
-        },
-        "score": 57.9,
-        "data_completeness_pct": 78.0,
-        "overheated": false,
-        "relay_candidate": false,
-        "why": "qualité opérationnelle élevée · croissance supérieure aux pairs",
-        "risk_flags": [
-          "valorisation exigeante"
-        ]
       },
       {
         "ticker": "SHEL.L",
@@ -972,14 +926,14 @@
         "volatility_pct": 78.44,
         "max_drawdown_1y_pct": -48.22,
         "scores": {
-          "quality": 72.5,
-          "growth": 62.5,
+          "quality": 75.3,
+          "growth": 61.1,
           "valuation": 0.0,
           "balance_sheet": 96.7,
           "momentum": 52.8,
-          "risk": 45.4
+          "risk": 44.1
         },
-        "score": 56.3,
+        "score": 56.8,
         "data_completeness_pct": 100.0,
         "overheated": false,
         "relay_candidate": false,
@@ -987,6 +941,56 @@
         "risk_flags": [
           "valorisation exigeante"
         ]
+      },
+      {
+        "ticker": "PATH",
+        "discovery_sources": [
+          "undervalued_growth_stocks"
+        ],
+        "preliminary_name": "UiPath, Inc.",
+        "preliminary_market_cap": 6978271232,
+        "preliminary_price": 13.39,
+        "name": "UiPath, Inc.",
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "currency": "USD",
+        "market_cap": 6978271232.0,
+        "forward_pe": 14.54,
+        "trailing_pe": 19.99,
+        "ev_to_ebitda": 31.28,
+        "price_to_book": 3.58,
+        "revenue_growth_pct": 13.4,
+        "earnings_growth_pct": 2280.8,
+        "net_margin_pct": 21.03,
+        "operating_margin_pct": 8.92,
+        "roe_pct": 20.03,
+        "roa_pct": 3.66,
+        "debt_to_equity": 4.09,
+        "current_ratio": 2.39,
+        "free_cash_flow": 474257632.0,
+        "free_cash_flow_margin_pct": 27.56,
+        "beta": 1.02,
+        "last_price": 13.39,
+        "momentum_1m_pct": -15.15,
+        "momentum_3m_pct": 27.28,
+        "momentum_6m_pct": 17.77,
+        "momentum_12m_pct": 12.81,
+        "volatility_pct": 68.92,
+        "max_drawdown_1y_pct": -51.37,
+        "scores": {
+          "quality": 47.5,
+          "growth": 50.0,
+          "valuation": 47.2,
+          "balance_sheet": 70.7,
+          "momentum": 74.4,
+          "risk": 77.2
+        },
+        "score": 55.6,
+        "data_completeness_pct": 100.0,
+        "overheated": false,
+        "relay_candidate": false,
+        "why": "bilan / cash-flow solide · tendance de marché constructive",
+        "risk_flags": []
       },
       {
         "ticker": "SMCI",
@@ -1026,14 +1030,14 @@
         "volatility_pct": 96.46,
         "max_drawdown_1y_pct": -65.01,
         "scores": {
-          "quality": 25.6,
-          "growth": 81.2,
-          "valuation": 93.8,
+          "quality": 28.8,
+          "growth": 77.8,
+          "valuation": 94.4,
           "balance_sheet": 38.3,
           "momentum": 53.1,
-          "risk": 28.8
+          "risk": 28.1
         },
-        "score": 55.2,
+        "score": 55.5,
         "data_completeness_pct": 100.0,
         "overheated": false,
         "relay_candidate": false,
@@ -1041,91 +1045,70 @@
         "risk_flags": []
       },
       {
-        "ticker": "ITUB",
+        "ticker": "NU",
         "discovery_sources": [
+          "undervalued_growth_stocks",
           "undervalued_large_caps"
         ],
-        "preliminary_name": "Itau Unibanco Banco Holding SA",
-        "preliminary_market_cap": 90379345920,
-        "preliminary_price": 8.2,
-        "name": "Itau Unibanco Banco Holding SA",
+        "preliminary_name": "Nu Holdings Ltd.",
+        "preliminary_market_cap": 65938898944,
+        "preliminary_price": 13.65,
+        "name": "Nu Holdings Ltd.",
         "sector": "Financial Services",
         "industry": "Banks - Regional",
         "currency": "USD",
-        "market_cap": 90379345920.0,
-        "forward_pe": 8.3,
-        "trailing_pe": 10.0,
+        "market_cap": 65938898944.0,
+        "forward_pe": 12.04,
+        "trailing_pe": 18.7,
         "ev_to_ebitda": null,
-        "price_to_book": 2.12,
-        "revenue_growth_pct": 17.5,
-        "earnings_growth_pct": 8.1,
-        "net_margin_pct": 32.58,
-        "operating_margin_pct": 39.07,
-        "roe_pct": 21.48,
-        "roa_pct": 1.58,
+        "price_to_book": 4.98,
+        "revenue_growth_pct": 52.1,
+        "earnings_growth_pct": 66.3,
+        "net_margin_pct": 42.73,
+        "operating_margin_pct": 50.15,
+        "roe_pct": 31.63,
+        "roa_pct": 4.96,
         "debt_to_equity": null,
         "current_ratio": null,
         "free_cash_flow": null,
         "free_cash_flow_margin_pct": null,
-        "beta": 0.14,
-        "last_price": 8.2,
-        "momentum_1m_pct": 11.31,
-        "momentum_3m_pct": 4.22,
-        "momentum_6m_pct": 3.3,
-        "momentum_12m_pct": 24.57,
-        "volatility_pct": 29.37,
-        "max_drawdown_1y_pct": -23.55,
+        "beta": 0.94,
+        "last_price": 13.65,
+        "momentum_1m_pct": -6.57,
+        "momentum_3m_pct": 7.31,
+        "momentum_6m_pct": -2.29,
+        "momentum_12m_pct": -15.58,
+        "volatility_pct": 39.5,
+        "max_drawdown_1y_pct": -38.17,
         "scores": {
-          "quality": 61.2,
-          "growth": 20.0,
-          "valuation": 75.0,
+          "quality": 86.2,
+          "growth": 67.9,
+          "valuation": 0.0,
           "balance_sheet": 45.0,
-          "momentum": 67.4,
-          "risk": 46.4
+          "momentum": 28.4,
+          "risk": 48.4
         },
-        "score": 53.2,
+        "score": 51.5,
         "data_completeness_pct": 78.0,
         "overheated": false,
         "relay_candidate": false,
-        "why": "valorisation relativement attractive · tendance de marché constructive",
+        "why": "qualité opérationnelle élevée",
         "risk_flags": [
-          "croissance récente faible ou négative"
+          "valorisation exigeante"
         ]
       }
     ],
     "candidates_scored": 32,
     "growth_eligible": 25
   },
-  "report": {
-    "executive_summary": "Le portefeuille affiche une valeur globale de 15 554 CHF, structurée autour d'un cœur d'ETF mondial (FWRA à 65,67 %) et suisse (SPIA à 26,12 %), complété par un satellite IA (XAIX à 7,32 %) et un solde de liquidités très faible de 0,89 % (138,75 CHF). L'indice d'Herfindahl élevé (0,5049), correspondant à 1,98 position effective, signale une forte concentration technique due aux poids dominants des deux ETF principaux. La structure globale respecte la philosophie d'investissement, mais le cumul implicite de biais technologiques et la forte exposition au dollar US via FWRA et XAIX méritent une attention particulière. On note une divergence temporelle entre l'instantané du portefeuille (07/09/2026) et les actualités récentes (18-19/09/2026) faisant état d'une volatilité accrue sur les taux et le pétrole. Compte tenu du faible niveau de cash, aucune allocation vers de nouvelles opportunités du screener ne doit être exécutée sans apport préalable ou arbitrage ciblé.",
-    "market_regime": "Le contexte macroéconomique reflète une phase de consolidation prudente avec un S&P 500 à 7 650,5 pts (-0,75 % sur 1 mois) et un MSCI World (URTH) en léger repli sur 1 mois (-1,17 %). Les actualités de mi-septembre soulignent la pire semaine depuis six mois pour le Dow Jones en raison de la tension sur les rendements obligataires et le pétrole. L'or conserve son rôle de valeur refuge avec une progression sur un an de 19,40 % à 4 424,90 USD. Du côté des devises, l'USD/CHF s'établit à 0,8218 (+3,01 % sur 1 mois), offrant un soutien de change temporaire aux positions libellées en USD lorsqu'elles sont converties en CHF. Données manquantes : La courbe des taux d'intérêt, les indices d'inflation récents et les décisions des banques centrales ne sont pas inclus dans le jeu de données fourni.",
-    "portfolio_diagnosis": "L'allocation reflète fidèlement l'objectif de croissance à long terme, mais présente une faible diversification effective au niveau du nombre de lignes (1,98 positions effectives). L'exposition au marché suisse via SPIA.SW (26,12 %) constitue un biais domestique fort au vu du poids réel de la Suisse dans les indices mondiaux, bien qu'il réduise le risque de change direct. La position satellite XAIX.SW (7,32 %) génère un chevauchement thématique significatif avec les composantes technologiques déjà intégrées dans FWRA.SW. Sur le plan fondamental, la volatilité annualisée de XAIX.SW (25,65 %) est plus de deux fois supérieure à celle de FWRA.SW (10,86 %). La contrainte majeure réside dans l'absence de marge de manœuvre en liquidités (0,89 %), ce qui bloque toute capacité de réaction tactique sans cession préalable.",
-    "risk_watch": "1. Risque d'illiquidité tactique : Le solde de 138,75 CHF empêche tout achat d'opportunité du screener sans apport extérieur ou vente forcée. 2. Risque de change (USD/CHF) : L'exposition sous-jacente au dollar américain expose la valeur du portefeuille aux fluctuations du franc suisse. 3. Risque de surconcentration thématique : Superposition des valeurs de la Tech / IA entre FWRA.SW et XAIX.SW. 4. Anachronisme des données : Décalage entre la date du snapshot du portefeuille (07/09/2026) et les données de marché ou actualités plus récentes.",
-    "action_plan": [
-      "Conserver la structure cœur actuelle (FWRA.SW et SPIA.SW) qui assure la couverture géographique globale et suisse sans sur-coût opérationnel.",
-      "Reconstituer une poche de liquidités opérationnelle (ex. viser 3 à 5 % du portefeuille) soit par un apport en CHF, soit en étudient un écrêtage partiel de XAIX.SW après sa forte progression sur un an (+46,33 %).",
-      "Définir des conditions d'entrée strictes (ordres limités) avant d'envisager toute diversification satellite sur les dossiers identifiés par le screener.",
-      "Éviter les achats impulsifs sur les convictions de la watchlist personnelle sans analyse préalable des valorisations (ex. FPE de 35,06x sur Apple ou 36,48x sur VAT Group)."
-    ],
-    "opportunities": [
-      "SKHY (SK hynix Inc.) : Meilleur score du screener (85,9). Présente une forte croissance des bénéfices (1272,4 %) et un FPE attractif (5,53x), mais enregistre une volatilité très élevée (115,43 %) nécessitant un point d'entrée prudent.",
-      "HMY (Harmony Gold) : Score de 77,6. Valorisation contenue (FPE 6,08x) et bénéficie du momentum du secteur aurifère, avec un drapeau de vigilance à maintenir sur la structure de son bilan (current ratio de 0,84).",
-      "NVDA (NVIDIA Corp.) : Score de 71,4. Profil de très haute qualité opérationnelle et FPE ramené à 14,17x selon le screener, tout en présentant un chevauchement direct avec le satellite XAIX.SW et le cœur FWRA.SW."
-    ],
-    "what_to_monitor": [
-      "Évolution des rendements obligataires et du cours du pétrole qui pèsent sur le sentiment général des marchés actions.",
-      "Trajectoire du franc suisse face au dollar (USD/CHF) autour du seuil des 0,82 CHF.",
-      "Mise à jour des états financiers et métriques manquantes sur certaines valeurs du screener (ex. EV/EBITDA et FCF non renseignés pour NU et ITUB).",
-      "Annonces de résultats et signaux de surchauffe sur le secteur des semi-conducteurs et de l'IA."
-    ]
-  },
-  "warnings": [
-    "Fallback IA utilisé: gemini/gemini-3.6-flash après échec du moteur principal."
+  "report": null,
+  "warnings": [],
+  "errors": [
+    "Tous les moteurs IA gratuits disponibles ont échoué: gemini/gemini-3.7-flash: ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}} | gemini/gemini-3.6-flash: ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
   ],
-  "errors": [],
   "methodology": {
     "market_data": "Yahoo Finance via yfinance",
-    "ai": "gemini / gemini-3.6-flash (free-only)",
+    "ai": "IA indisponible (free-only)",
     "fundamental_score": "Screener dynamique multi-facteurs: qualité 30 %, croissance 20 %, valorisation 20 %, bilan 15 %, momentum 10 %, risque 5 %, avec comparaison sectorielle et pénalité anti-chasse.",
     "disclaimer": "Outil d'aide à la décision. Aucune transaction n'est exécutée automatiquement."
   }
