@@ -1,138 +1,236 @@
-# Portfolio Intelligence
+# Portfolio Intelligence · Research OS
 
-Anciennement **Finance Adviser**.
+Portfolio Intelligence est un outil personnel de recherche et de lecture de portefeuille.
 
-Le projet a été volontairement simplifié pour privilégier la confiance dans les données plutôt que la quantité de commentaires.
+Il ne cherche plus à remplacer Yahoo Finance. Il ajoute trois couches complémentaires :
 
-## Ce que fait le site
+1. **Portfolio** — ce que le portefeuille contient et comment il se comporte.
+2. **Radar** — ce qui émerge dans la robotique et le Physical AI.
+3. **Research** — mémoire, preuves, changements, hypothèses et audit des signaux.
 
-- valorise les positions configurées avec les dernières cotations Yahoo Finance disponibles ;
-- recalcule les poids actuels du portefeuille ;
-- estime le P&L journalier à partir des cotations ;
-- reconstruit l’évolution des **positions actuelles à quantités constantes** ;
-- compare cette reconstruction au FTSE All-World via `FWRA.SW` ;
-- calcule concentration, HHI, nombre de positions effectives, volatilité et drawdown ;
-- calcule les corrélations entre positions ;
-- suit une watchlist avec 1 mois / 3 mois / 1 an / distance au plus haut 52 semaines ;
-- produit seulement quelques constats déterministes et vérifiables.
+## Portfolio
 
-## Ce que le site ne fait plus
+- valorisation des positions configurées ;
+- poids actuels ;
+- performance reconstruite vs FTSE All-World ;
+- volatilité, drawdown, concentration, HHI ;
+- corrélations ;
+- watchlist factuelle ;
+- sources et fraîcheur visibles.
 
-- aucune analyse IA automatique ;
-- aucun appel Gemini ou Groq ;
-- aucun score opaque de type « 82/100 » ;
-- aucun screener présenté comme une recommandation ;
-- aucune actualité financière générale ;
-- aucun résumé macro généré ;
-- aucun commit automatique de données de marché dans le dépôt.
+La performance reconstruite n'est pas présentée comme la performance réelle IBKR tant que l'historique complet des transactions n'est pas disponible.
 
-## Sources
+## Catalyst Radar
 
-### Positions
-
-Les quantités sont actuellement lues depuis `portfolio.json`.
-
-Le fichier contient encore un snapshot manuel provenant d’Interactive Brokers. La date du snapshot est affichée directement sur le site pour éviter toute confusion.
-
-### Cotations
-
-Les cours et historiques proviennent de Yahoo Finance via `yfinance`.
-
-Ces données sont indicatives et peuvent être retardées ou ponctuellement indisponibles.
-
-### Performance
-
-La performance affichée est une **reconstruction des positions actuelles à quantités constantes**.
-
-Elle ne correspond pas à la performance réelle du compte IBKR, car le projet ne connaît pas encore tout l’historique des achats, ventes, apports et retraits.
-
-## Workflow
-
-Un seul workflow existe désormais :
-
-`.github/workflows/portfolio_intelligence.yml`
-
-Il s’exécute :
-
-- manuellement ;
-- lors d’une modification des fichiers principaux ;
-- une fois par heure les jours ouvrés entre 06:15 et 22:15 UTC.
-
-Une indisponibilité ponctuelle d’une donnée Yahoo est enregistrée comme avertissement dans le dashboard. Elle ne transforme plus automatiquement le run en échec.
-
-## Structure
-
-```text
-Finance-Adviser/
-├── index.html
-├── portfolio_intelligence.py
-├── portfolio.json
-├── watchlist.json
-├── requirements.txt
-└── .github/
-    └── workflows/
-        └── portfolio_intelligence.yml
-```
-
-## Étape suivante possible : IBKR
-
-L’amélioration la plus importante restante serait de remplacer le snapshot manuel par une source IBKR automatisée, par exemple via Flex Web Service.
-
-Tant que cette connexion n’est pas configurée, le site affiche explicitement la date du snapshot de positions et ne prétend pas être une copie temps réel du compte Interactive Brokers.
-
-## Confidentialité
-
-Le dépôt est actuellement public. Les fichiers `portfolio.json` et `watchlist.json` sont donc visibles publiquement.
-
-
-## Catalyst Radar — Robotique & Physical AI
-
-Le projet contient désormais un moteur de recherche de catalyseurs :
-
-- `catalyst_radar.py`
-- `research_config.json`
-- `radar.html`
-
-Le Radar collecte deux familles de preuves gratuites :
-
-1. **GDELT DOC 2.0** pour la couverture journalistique mondiale ;
-2. **SEC EDGAR** pour les filings récents des sociétés américaines / émetteurs couverts.
-
-Il surveille notamment :
+Le Radar surveille :
 
 - humanoïdes ;
 - robotique industrielle et cobots ;
 - logistique / AMR ;
-- motion control, servomoteurs, réducteurs et actuateurs ;
-- machine vision et capteurs ;
+- motion control / actuateurs / réducteurs ;
+- vision et capteurs ;
 - Physical AI / embodied AI.
 
-Les catalyseurs recherchés sont explicites : commandes/backlog, capacité/capex, partenariats, lancements, guidance, adoption client, contrats publics/défense et exposition robotique.
+### Sources actives
 
-### Priorité de recherche
+- **SEC EDGAR** — filings primaires ;
+- **GDELT DOC 2.0** — actualité mondiale ;
+- **Google News RSS** — fallback média ;
+- **Yahoo Finance / yfinance** — données de marché.
 
-Le Radar ne calcule pas de score d'investissement. Il classe uniquement les éléments en :
+### Signaux alternatifs
 
-- **Élevée**
-- **Moyenne**
-- **Veille**
+Le Radar recherche également des proxies explicites pour :
 
-La priorité dépend de critères visibles : source primaire, récence, type de catalyseur et corroboration par des sources indépendantes.
+- recrutements robotique ;
+- brevets ;
+- contrats publics / subventions / appels d'offres ;
+- nouvelles usines / capacité / mass production.
 
-### Gemini
+Ces éléments restent marqués comme **proxy**, jamais comme preuve primaire.
 
-Le code sait utiliser **Gemini 3.8 Flash** comme couche de synthèse des preuves déjà collectées.
+## Research OS
 
-Cette couche est **désactivée par défaut** dans GitHub Actions avec :
+`research_os.py` transforme les signaux du Radar en couche de recherche persistante.
+
+### Change Detection
+
+Chaque signal est comparé à la mémoire précédente et classé en :
+
+- **new**
+- **confirmation**
+- **acceleration**
+- **materialisation**
+- **invalidation**
+- **existing**
+
+### Evidence Packs
+
+Chaque signal prioritaire peut produire un dossier contenant :
+
+- preuve principale ;
+- corroborations ;
+- type de changement ;
+- matérialité financière connue / inconnue ;
+- questions ouvertes ;
+- conditions d'invalidation.
+
+### Research Memory
+
+La mémoire machine est conservée entre les runs via **GitHub Actions cache** dans `.research_state`.
+
+Elle n'est pas commitée dans le dépôt.
+
+Le système mémorise :
+
+- première apparition d'un signal ;
+- dernière apparition ;
+- fréquence ;
+- catégories observées ;
+- historique des runs ;
+- évolution des thèmes.
+
+### Company Dossiers
+
+Chaque société couverte dispose d'un dossier généré avec :
+
+- exposition thématique ;
+- signaux ;
+- preuves primaires ;
+- hypothèse de travail ;
+- anti-thèse ;
+- questions ouvertes ;
+- prochain élément à surveiller.
+
+Les **notes personnelles saisies dans Research OS restent dans le localStorage du navigateur**.
+
+### Knowledge Graph
+
+Le graphe relie :
+
+`société → sous-thème → composant technologique`
+
+Exemples de composants :
+
+- actuateurs ;
+- precision reducers ;
+- servo motors ;
+- force/torque sensing ;
+- machine vision ;
+- edge compute ;
+- simulation ;
+- robot learning.
+
+Le graphe décrit une exposition thématique. Il ne prétend pas prouver une relation fournisseur-client sans source.
+
+### Theme Emergence & Saturation
+
+Pour chaque sous-thème, le moteur suit :
+
+- nombre de signaux ;
+- signaux des 7 derniers jours ;
+- largeur des sociétés concernées ;
+- diversité des sources ;
+- variation par rapport au run précédent ;
+- saturation média ;
+- émergence / accélération / refroidissement.
+
+### Unknown Candidates
+
+Les titres hors univers sont analysés pour faire ressortir des entités récurrentes.
+
+Ces résultats sont marqués **candidate** : ils doivent être vérifiés avant d'être considérés comme sociétés cotées ou opportunités.
+
+### Signal Audit
+
+Avec le temps, un signal est réévalué :
+
+- confirmé par d'autres signaux ;
+- encore en attente ;
+- non confirmé après une période suffisante.
+
+Cela permet de mesurer quels types de signaux ont réellement été informatifs.
+
+## Lien avec le portefeuille
+
+Research OS relie le Radar :
+
+- aux positions directes ;
+- à la watchlist.
+
+Les expositions indirectes via ETF ne sont pas inventées : elles restent non disponibles tant qu'une source de composition fiable n'est pas connectée.
+
+## Gemini
+
+Le projet sait utiliser `gemini-3.8-flash` pour synthétiser des preuves déjà collectées.
+
+L'IA n'est jamais utilisée pour inventer des catalyseurs.
+
+Pipeline :
+
+`collecte → filtrage → preuves → mémoire → IA optionnelle`
+
+et non :
+
+`IA → recherche libre → conclusion`
+
+### Garde-fou coût
+
+Dans GitHub Actions :
 
 `ENABLE_GEMINI_FREE=0`
 
-Elle n'est pas nécessaire au fonctionnement du Radar.
+par défaut.
 
-Cette précaution est volontaire : un abonnement grand public Google AI Pro/Gemini et la facturation de la Gemini API sont distincts. Avant d'activer Gemini dans le workflow, il faut vérifier que la clé utilisée appartient bien à un projet API free-tier si l'objectif reste zéro coût API.
+L'application fonctionne entièrement sans Gemini.
 
-`Gemini 3.1 Pro Preview` et l'agent API Deep Research ne sont pas activés automatiquement.
+Gemini ne doit être activé que lorsque la clé API utilisée est confirmée sur un projet dont l'usage reste dans le **free tier**. Un abonnement Google AI Pro / Gemini grand public n'est pas traité comme une garantie de gratuité de la Gemini Developer API.
 
-### Fréquence
+## Workflow
 
-Le workflow unique met à jour Portfolio Intelligence et Catalyst Radar trois fois par jour, plus à la demande.
+Le workflow `portfolio_intelligence.yml` s'exécute :
+
+- trois fois par jour ;
+- manuellement ;
+- lors de modifications des fichiers principaux.
+
+Ordre :
+
+1. validation du code ;
+2. restauration de la mémoire Research OS ;
+3. build Portfolio ;
+4. build Catalyst Radar ;
+5. build Research OS ;
+6. validation des trois sorties ;
+7. déploiement GitHub Pages ;
+8. sauvegarde de la mémoire machine.
+
+## Pages
+
+- `index.html` — Portfolio
+- `radar.html` — Catalyst Radar
+- `research.html` — Research OS
+
+## Fichiers principaux
+
+```text
+Finance-Adviser/
+├── portfolio_intelligence.py
+├── catalyst_radar.py
+├── research_os.py
+├── research_config.json
+├── portfolio.json
+├── watchlist.json
+├── index.html
+├── radar.html
+├── research.html
+└── .github/workflows/portfolio_intelligence.yml
+```
+
+## Principe
+
+Une information importante doit toujours permettre de répondre à :
+
+> **Qu'est-ce qui a changé ? Pourquoi cela pourrait-il compter ? Quelle est la preuve ? Qu'est-ce qui invaliderait l'hypothèse ?**
+
+Aucun score d'achat, objectif de cours ou recommandation automatique n'est généré.
