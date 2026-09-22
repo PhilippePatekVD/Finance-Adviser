@@ -1,6 +1,8 @@
 import hashlib
 import html
 import json
+import xml.etree.ElementTree as ET
+from email.utils import parsedate_to_datetime
 import os
 import re
 import time
@@ -14,6 +16,7 @@ import requests
 
 ROOT = Path(__file__).resolve().parent
 GDELT = "https://api.gdeltproject.org/api/v2/doc/doc"
+GOOGLE_NEWS = "https://news.google.com/rss/search"
 SEC_TICKERS = "https://www.sec.gov/files/company_tickers.json"
 SEC_SUBMISSIONS = "https://data.sec.gov/submissions/CIK{cik}.json"
 SEC_ARCHIVES = "https://www.sec.gov/Archives/edgar/data/{cik}/{accession}/{document}"
@@ -104,6 +107,37 @@ def gdelt(query: str, days: int, maxrecords: int = 25) -> List[Dict[str, Any]]:
     return data.get("articles", []) if isinstance(data, dict) else []
 
 
+
+def google_news_rss(query: str, maxrecords: int = 60) -> List[Dict[str, Any]]:
+    params = {"q": query, "hl": "en-US", "gl": "US", "ceid": "US:en"}
+    r = session.get(GOOGLE_NEWS, params=params, timeout=12)
+    r.raise_for_status()
+    root = ET.fromstring(r.content)
+    out = []
+    for item in root.findall(".//item")[:maxrecords]:
+        title = clean_text(item.findtext("title"))
+        link = clean_text(item.findtext("link"))
+        pub = clean_text(item.findtext("pubDate"))
+        source_el = item.find("source")
+        source = clean_text(source_el.text if source_el is not None else "")
+        try:
+            dt = parsedate_to_datetime(pub)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            seen = dt.astimezone(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        except Exception:
+            seen = ""
+        if title and link:
+            out.append({
+                "title": title,
+                "url": link,
+                "seendate": seen,
+                "domain": source or "Google News",
+                "language": "English",
+                "sourcecountry": None,
+            })
+    return out
+
 def signal_id(*parts: Any) -> str:
     raw = "|".join(str(x or "") for x in parts)
     return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:14]
@@ -124,7 +158,7 @@ def news_signal(article: Dict[str, Any], company: Optional[Dict[str, Any]], subt
     return {
         "id": signal_id("news", url, title),
         "source_type": "news",
-        "source_name": domain_of(url) or article.get("domain") or "GDELT",
+        "source_name": article.get("domain") or domain_of(url) or "GDELT",
         "title": title,
         "url": url,
         "date": date,
@@ -322,6 +356,18 @@ def collect_theme_news(subthemes: List[Dict[str,Any]], companies: List[Dict[str,
     for st in subthemes:
         try:
             articles = gdelt(st["query"], 30, 100)
+            source_used = "GDELT"
+        except Exception as exc:
+            errors.append(f"GDELT {st['id']}: {type(exc).__name__}: {exc} · fallback Google News RSS")
+            try:
+                articles = google_news_rss(st["query"], 80)
+                source_used = "Google News RSS"
+            except Exception as rss_exc:
+                errors.append(f"Google News {st['id']}: {type(rss_exc).__name__}: {rss_exc}")
+                articles = []
+                source_used = "none"
+
+        try:
             for a in articles:
                 title = clean_text(a.get("title"))
                 if not title:
@@ -340,7 +386,7 @@ def collect_theme_news(subthemes: List[Dict[str,Any]], companies: List[Dict[str,
                     if cats & STRONG_CATEGORIES or "robotics_exposure" in cats:
                         discovery.append(s)
         except Exception as exc:
-            errors.append(f"GDELT {st['id']}: {type(exc).__name__}: {exc}")
+            errors.append(f"Parse {st['id']} ({source_used}): {type(exc).__name__}: {exc}")
         time.sleep(0.12)
 
     discovery.sort(key=lambda s:s.get("date") or "", reverse=True)
@@ -433,7 +479,7 @@ def main() -> None:
         "generated_at":datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),
         "theme":{"id":theme["id"],"label":theme["label"],"description":theme["description"]},
         "method":{
-            "news":"GDELT DOC 2.0 · titres et métadonnées publiques",
+            "news":"GDELT DOC 2.0 · fallback Google News RSS · titres et métadonnées publiques",
             "primary":"SEC EDGAR · filings récents pour les émetteurs couverts",
             "priority":"Règles transparentes basées sur récence, source primaire, type de catalyseur et corroboration",
             "note":"Une priorité de recherche n'est ni une recommandation d'achat ni une prévision de performance."
@@ -449,6 +495,8 @@ def main() -> None:
     (ROOT/"radar.json").write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding="utf-8")
     print(f"Catalyst Radar — {len(payload['signals'])} signaux · {len(payload['companies'])} sociétés · {len(discovery)} découvertes · {len(errors)} avertissement(s)")
     print("AI:", payload["ai"].get("status"), payload["ai"].get("model"))
+    for err in errors:
+        print("WARNING:", err)
 
 
 if __name__ == "__main__":
