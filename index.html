@@ -4,566 +4,168 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f5f7">
-<title>Finance Adviser — CIO Dashboard</title>
+<title>Portfolio Intelligence</title>
 <style>
-:root{
-  --bg:#f5f5f7;--card:#fff;--ink:#1d1d1f;--muted:#6e6e73;--line:rgba(0,0,0,.08);
-  --blue:#0071e3;--blue2:#eaf4ff;--green:#248a3d;--green2:#edf8ef;--orange:#b45f06;--orange2:#fff6e9;
-  --red:#d70015;--red2:#fff0f1;--shadow:0 8px 30px rgba(0,0,0,.06)
-}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
-body{padding-bottom:env(safe-area-inset-bottom)}
-button{font:inherit}
-.shell{max-width:1180px;margin:0 auto;padding:0 20px 60px}
-.topbar{position:sticky;top:0;z-index:10;margin:0 -20px 28px;padding:0 20px;min-height:58px;display:flex;align-items:center;justify-content:space-between;background:rgba(250,250,252,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.06)}
-.brand{display:flex;align-items:center;gap:10px}.mark{width:31px;height:31px;border-radius:9px;background:#1d1d1f;color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px}.brand strong{font-size:15px;letter-spacing:-.02em}.brand small{display:block;color:#86868b;font-size:10px;margin-top:1px}
-.top-actions{display:flex;align-items:center;gap:8px}.portfolio-btn{border:0;background:#1d1d1f;color:#fff;border-radius:999px;padding:8px 12px;font-size:11px;font-weight:600;cursor:pointer}.watch-btn{background:#e8e8ed;color:#1d1d1f}.portfolio-btn:active{transform:scale(.98)}.status{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:600;background:#eeeef2;color:#55555a}.dot{width:7px;height:7px;border-radius:50%;background:#8e8e93}.status.ok{background:var(--green2);color:#1e6b31}.status.ok .dot{background:var(--green)}.status.degraded{background:var(--orange2);color:#8c4b08}.status.degraded .dot{background:#d97706}
-.hero{background:#fff;border-radius:30px;padding:48px 44px;box-shadow:0 2px 8px rgba(0,0,0,.04);display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:end}
-.eyebrow{color:var(--blue);font-size:12px;font-weight:650;margin-bottom:11px}.hero h1{font-size:clamp(42px,6vw,70px);line-height:.98;letter-spacing:-.055em;margin:0 0 16px;font-weight:720}.hero p{margin:0;color:var(--muted);font-size:17px;line-height:1.5;max-width:680px}
-.hero-side{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:#f5f5f7;border-radius:19px;padding:18px}.metric b{display:block;font-size:27px;letter-spacing:-.04em}.metric span{display:block;color:var(--muted);font-size:11px;margin-top:6px;line-height:1.3}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:14px}.card{background:#fff;border-radius:24px;padding:25px;box-shadow:0 2px 8px rgba(0,0,0,.04)}.span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}.span12{grid-column:span 12}
-.card h2{font-size:22px;letter-spacing:-.035em;margin:0 0 6px}.card h3{font-size:15px;margin:0 0 8px}.sub{color:var(--muted);font-size:12px;margin:0 0 18px;line-height:1.45}
-.big{font-size:38px;font-weight:700;letter-spacing:-.045em}.label{font-size:11px;color:var(--muted);margin-top:5px}
-.alloc{display:grid;gap:13px}.alloc-row{display:grid;grid-template-columns:minmax(120px,1fr) 80px;gap:12px;align-items:center}.alloc-name{font-size:13px;font-weight:550}.alloc-meta{font-size:11px;color:var(--muted);margin-top:2px}.bar{height:8px;background:#eeeeF2;border-radius:999px;overflow:hidden;margin-top:7px}.bar span{height:100%;display:block;background:linear-gradient(90deg,#0071e3,#5ac8fa);border-radius:999px}.alloc-weight{text-align:right;font-size:15px;font-weight:650}
-.market-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.market{background:#f5f5f7;border-radius:17px;padding:15px}.market b{display:block;font-size:14px}.market-price{font-size:21px;font-weight:650;letter-spacing:-.03em;margin-top:7px}.market-changes{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;font-size:10px}.up{color:var(--green)}.down{color:var(--red)}.flat{color:var(--muted)}
-.report{font-size:14px;line-height:1.62;color:#333336;white-space:pre-line}.list{margin:0;padding-left:19px}.list li{margin:9px 0;line-height:1.5;font-size:14px}
-.news-list{display:grid;gap:9px}.news-item{padding:13px 0;border-top:1px solid var(--line)}.news-item:first-child{border-top:0;padding-top:0}.news-item a{color:var(--ink);text-decoration:none;font-weight:560;font-size:13px;line-height:1.4}.news-item a:hover{color:var(--blue)}.news-source{font-size:10px;color:var(--muted);margin-top:4px}
-.risk{display:flex;gap:8px;align-items:flex-start;padding:11px 12px;border-radius:14px;background:var(--orange2);color:#7d470c;font-size:12px;line-height:1.4;margin-top:8px}
-.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:650px}.table th,.table td{text-align:right;padding:11px 9px;border-bottom:1px solid var(--line);font-size:11px}.table th{text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}.table th:first-child,.table td:first-child{text-align:left}.score{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:26px;border-radius:999px;background:#f2f2f7;font-weight:650}.score.good{background:var(--green2);color:#1f6a31}.score.mid{background:var(--orange2);color:#8c4b08}
-.quote-list{display:grid;gap:8px}.quote-row{display:grid;grid-template-columns:minmax(120px,1fr) 92px 82px 110px;gap:10px;align-items:center;padding:12px 13px;background:#f7f7f9;border-radius:15px}.quote-row b{font-size:12px}.quote-row small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.quote-num{text-align:right;font-size:12px;font-weight:600}.live-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.live-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;background:var(--green2);color:#1f6a31;font-size:9px;font-weight:650}.live-badge i{width:6px;height:6px;background:var(--green);border-radius:50%}.relay-tag{display:inline-flex;padding:4px 7px;border-radius:999px;background:var(--green2);color:#1f6a31;font-size:8px;font-weight:700;margin-left:6px}.heat-tag{display:inline-flex;padding:4px 7px;border-radius:999px;background:var(--orange2);color:#8c4b08;font-size:8px;font-weight:700;margin-left:6px}.factor{display:inline-flex;min-width:32px;justify-content:center;padding:5px 6px;border-radius:8px;background:#f2f2f7;font-size:10px;font-weight:650}.why{font-size:9px;color:var(--muted);line-height:1.45;margin-top:5px;max-width:370px}.risk-mini{font-size:9px;color:#9a590b;line-height:1.4;margin-top:3px}.screener-meta{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}.meta-pill{padding:6px 9px;border-radius:999px;background:#f2f2f7;color:var(--muted);font-size:9px}.data-note{font-size:11px;color:var(--muted);line-height:1.55}.error-box{padding:14px 16px;border-radius:14px;background:var(--red2);color:#9b0010;font-size:12px;margin-top:10px}.warning-box{padding:14px 16px;border-radius:14px;background:var(--orange2);color:#80500d;font-size:12px;margin-top:10px}
-.local-banner{display:none;margin-top:14px;padding:13px 15px;border-radius:16px;background:var(--blue2);color:#14588f;font-size:12px;line-height:1.45}
-.local-banner.show{display:block}
-.modal-backdrop{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.30);display:none;align-items:flex-end;justify-content:center;padding:18px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.modal-backdrop.show{display:flex}
-.modal{width:min(920px,100%);max-height:88vh;overflow:auto;background:#f5f5f7;border-radius:28px 28px 22px 22px;box-shadow:0 30px 80px rgba(0,0,0,.22);padding:18px}
-.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:8px 8px 16px}
-.modal-head h2{margin:0;font-size:28px;letter-spacing:-.04em}.modal-head p{margin:5px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
-.close-btn{border:0;background:#e5e5ea;border-radius:50%;width:34px;height:34px;font-size:18px}
-.editor-card{background:#fff;border-radius:20px;padding:16px;margin-bottom:10px}
-.editor-grid{display:grid;grid-template-columns:1.1fr 1.8fr .75fr .9fr .8fr auto;gap:9px;align-items:end}
-.field label{display:block;color:var(--muted);font-size:10px;margin:0 0 5px}.field input,.field select{width:100%;border:0;background:#f2f2f7;border-radius:11px;padding:10px 11px;color:var(--ink);outline:0}.field input:focus,.field select:focus{box-shadow:0 0 0 3px rgba(0,113,227,.12)}
-.remove-btn{border:0;background:var(--red2);color:var(--red);border-radius:11px;width:40px;height:40px;font-size:17px}
-.editor-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.editor-actions button{border:0;border-radius:999px;padding:10px 14px;font-size:12px;font-weight:600}.btn-primary{background:var(--blue);color:#fff}.btn-secondary{background:#e8e8ed;color:var(--ink)}.btn-green{background:var(--green2);color:#1e6b31}
-.sync-box{background:#fff;border-radius:20px;padding:18px;margin-top:12px}.sync-box h3{margin:0 0 6px;font-size:17px}.sync-box p{margin:0 0 12px;color:var(--muted);font-size:11px;line-height:1.55}.sync-row{display:grid;grid-template-columns:1fr auto;gap:8px}.sync-row input{border:0;background:#f2f2f7;border-radius:12px;padding:11px 12px;min-width:0}.sync-status{margin-top:10px;font-size:11px;line-height:1.45}
-.footer{text-align:center;color:#86868b;font-size:10px;line-height:1.55;margin-top:34px}
-.skeleton{min-height:150px;animation:pulse 1.2s ease-in-out infinite alternate;background:linear-gradient(90deg,#fff,#f5f5f7,#fff);background-size:200% 100%}@keyframes pulse{to{background-position:-100% 0}}
-@media(max-width:900px){.hero{grid-template-columns:1fr}.span4,.span6,.span8{grid-column:span 12}.market-grid{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:760px){.quote-row{grid-template-columns:1fr 72px 72px}.quote-row .quote-value{display:none}.editor-grid{grid-template-columns:1fr 1fr}.remove-btn{width:100%}.sync-row{grid-template-columns:1fr}.top-actions{gap:5px}.portfolio-btn{padding:7px 10px}}@media(max-width:650px){.shell{padding:0 14px 42px}.topbar{margin:0 -14px 20px;padding:0 14px}.brand small{display:none}.hero{padding:34px 22px;border-radius:25px}.hero h1{font-size:45px}.hero p{font-size:15px}.hero-side{grid-template-columns:1fr 1fr}.metric{padding:15px}.metric b{font-size:23px}.card{padding:21px;border-radius:21px}.market-grid{grid-template-columns:1fr 1fr}.grid{gap:10px}.alloc-row{grid-template-columns:1fr 60px}}
+:root{--bg:#f5f5f7;--card:#fff;--ink:#1d1d1f;--muted:#6e6e73;--line:rgba(0,0,0,.075);--blue:#0071e3;--green:#248a3d;--red:#d70015;--orange:#9b5c00;--blue2:#eaf4ff;--green2:#edf8ef;--red2:#fff0f1;--orange2:#fff5e7}
+*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}.shell{max-width:1160px;margin:auto;padding:0 18px 50px}
+.top{height:62px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px}.mark{width:34px;height:34px;border-radius:10px;background:#1d1d1f;color:#fff;display:grid;place-items:center;font-size:11px;font-weight:750}.brand b{font-size:15px}.brand small{display:block;font-size:9px;color:var(--muted);margin-top:2px}.fresh{font-size:10px;color:var(--muted);background:#e8e8ed;padding:7px 10px;border-radius:999px}
+.hero{background:#fff;border-radius:30px;padding:42px;display:grid;grid-template-columns:1.3fr .7fr;gap:25px;box-shadow:0 2px 10px rgba(0,0,0,.04)}.eyebrow{font-size:10px;font-weight:700;color:var(--blue)}h1{font-size:clamp(42px,6vw,70px);line-height:.98;letter-spacing:-.055em;margin:10px 0 14px}.hero p{font-size:15px;color:var(--muted);line-height:1.55;max-width:670px}.hero-metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric{background:#f5f5f7;border-radius:18px;padding:17px}.metric strong{display:block;font-size:26px;letter-spacing:-.04em}.metric span{display:block;margin-top:5px;font-size:9px;color:var(--muted)}
+.sourcebar{margin-top:12px;background:#fff;border-radius:18px;padding:14px 16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}.sourceitem{font-size:10px;color:var(--muted)}.sourceitem b{color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:12px}.card{background:#fff;border-radius:24px;padding:23px;box-shadow:0 2px 9px rgba(0,0,0,.04)}.span4{grid-column:span 4}.span5{grid-column:span 5}.span6{grid-column:span 6}.span7{grid-column:span 7}.span8{grid-column:span 8}.span12{grid-column:span 12}.card h2{font-size:21px;letter-spacing:-.035em;margin:0 0 5px}.sub{font-size:11px;color:var(--muted);line-height:1.45;margin:0 0 16px}.big{font-size:37px;font-weight:720;letter-spacing:-.045em}.mini{font-size:10px;color:var(--muted);margin-top:5px}
+.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:720px}.table th,.table td{padding:11px 9px;border-bottom:1px solid var(--line);font-size:11px;text-align:right;white-space:nowrap}.table th{color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.035em}.table th:first-child,.table td:first-child{text-align:left}.table tr:last-child td{border-bottom:0}.ticker{font-weight:700}.name{font-size:9px;color:var(--muted);margin-top:2px;white-space:normal}.up{color:var(--green)}.down{color:var(--red)}.flat{color:var(--muted)}
+.perf{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.perfbox{background:#f5f5f7;border-radius:14px;padding:12px}.perfbox b{display:block;font-size:17px}.perfbox span{display:block;color:var(--muted);font-size:8px;margin-top:4px}.diff{font-size:9px;margin-top:6px}.riskgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.risk{background:#f5f5f7;border-radius:15px;padding:13px}.risk b{font-size:20px;display:block}.risk span{font-size:8px;color:var(--muted);display:block;margin-top:4px}
+.insights{display:grid;gap:8px}.insight{padding:13px 14px;border-radius:15px;background:#f7f7f9}.insight b{font-size:11px;display:block}.insight p{font-size:10px;line-height:1.45;color:var(--muted);margin:5px 0 0}
+.chart{height:250px;background:#fafafc;border-radius:18px;padding:12px;position:relative}.chart svg{width:100%;height:100%}.legend{display:flex;gap:14px;margin-top:10px;font-size:9px;color:var(--muted)}.legend i{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px}.legend .p{background:#1d1d1f}.legend .b{background:#0071e3}
+.watchlist{display:grid;gap:8px}.watch{display:grid;grid-template-columns:minmax(160px,1.4fr) repeat(5,minmax(65px,.55fr));gap:9px;align-items:center;background:#f7f7f9;border-radius:15px;padding:12px}.watch .wname b{font-size:11px}.watch .wname small{display:block;color:var(--muted);font-size:8px;margin-top:3px}.watch .num{text-align:right;font-size:10px}.tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}.tag{font-size:7px;padding:4px 6px;border-radius:999px;background:#e8e8ed;color:#555}.tag.warn{background:var(--orange2);color:var(--orange)}.tag.good{background:var(--green2);color:var(--green)}
+.corr{display:grid;gap:7px}.corrrow{display:grid;grid-template-columns:1fr 60px;gap:8px;align-items:center}.corrrow span{font-size:10px}.corrval{text-align:right;font-weight:650;font-size:11px}.bar{height:6px;background:#eee;border-radius:999px;overflow:hidden;margin-top:4px}.bar i{display:block;height:100%;background:#888;border-radius:inherit}
+.warning{padding:13px 14px;border-radius:14px;background:var(--orange2);color:#774600;font-size:10px;line-height:1.5;margin-top:8px}.error{background:var(--red2);color:#940011}.quality{display:grid;gap:9px}.quality div{font-size:10px;line-height:1.5;color:var(--muted)}.quality b{color:var(--ink)}.footer{text-align:center;color:#8e8e93;font-size:9px;line-height:1.55;margin-top:28px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.span4,.span5,.span6,.span7,.span8{grid-column:span 12}.perf{grid-template-columns:repeat(3,1fr)}}@media(max-width:700px){.shell{padding:0 12px 40px}.hero{padding:27px 21px}.hero h1{font-size:45px}.hero-metrics{grid-template-columns:1fr 1fr}.watch{grid-template-columns:1fr 70px 70px}.watch .hide-mobile{display:none}.perf{grid-template-columns:1fr 1fr}.sourcebar{display:block}.sourceitem{margin:5px 0}}
 </style>
 </head>
 <body>
 <main class="shell">
-  <header class="topbar">
-    <div class="brand"><div class="mark">FA</div><div><strong>Finance Adviser</strong><small>Personal CIO Dashboard</small></div></div>
-    <div class="top-actions"><button id="openWatchlist" class="portfolio-btn watch-btn">Watchlist</button><button id="openPortfolio" class="portfolio-btn">Portefeuille</button><div id="status" class="status"><span class="dot"></span><span>Chargement…</span></div></div>
-  </header>
+<header class="top">
+  <div class="brand"><div class="mark">PI</div><div><b>Portfolio Intelligence</b><small>Finance Adviser · transparent edition</small></div></div>
+  <div id="fresh" class="fresh">Chargement…</div>
+</header>
 
-  <section class="hero">
-    <div>
-      <div class="eyebrow">Portfolio Intelligence · CHF</div>
-      <h1>Décider avec plus de contexte.</h1>
-      <p>Un tableau de bord automatisé qui combine portefeuille, marchés, risque, fondamentaux et analyse IA — sans exécuter de transaction.</p>
-    </div>
-    <div class="hero-side">
-      <div class="metric"><b id="totalValue">—</b><span id="totalValueLabel">Valeur de portefeuille</span></div>
-      <div class="metric"><b id="topWeight">—</b><span>Plus grosse position</span></div>
-      <div class="metric"><b id="effectivePositions">—</b><span>Positions effectives</span></div>
-      <div class="metric"><b id="updatedAt">—</b><span>Dernière analyse</span></div>
-    </div>
-  </section><div id="localBanner" class="local-banner">Portefeuille local modifié sur cet appareil. Les analyses IA ci-dessous correspondent encore au dernier snapshot GitHub tant que vous ne synchronisez pas.</div>
+<section class="hero">
+  <div>
+    <div class="eyebrow">PORTFOLIO · CHF</div>
+    <h1>Ce que Yahoo ne sait pas sur ton portefeuille.</h1>
+    <p>Une vue personnelle des positions, de la performance reconstruite, du risque et de la watchlist. Pas de score opaque, pas de commentaire IA automatique.</p>
+  </div>
+  <div class="hero-metrics">
+    <div class="metric"><strong id="total">—</strong><span>Valeur estimée</span></div>
+    <div class="metric"><strong id="dayPnl">—</strong><span>P&L jour estimé</span></div>
+    <div class="metric"><strong id="largest">—</strong><span>Plus grosse position</span></div>
+    <div class="metric"><strong id="effective">—</strong><span>Positions effectives</span></div>
+  </div>
+</section>
 
-  <section class="grid">
-    <article class="card span6">
-      <h2>Allocation</h2>
-      <p class="sub">Répartition du portefeuille selon le dernier snapshot enregistré.</p>
-      <div id="allocation" class="alloc"></div>
-    </article>
+<section class="sourcebar">
+  <div class="sourceitem"><b>Positions :</b> <span id="positionsSource">—</span></div>
+  <div class="sourceitem"><b>Snapshot :</b> <span id="snapshotDate">—</span></div>
+  <div class="sourceitem"><b>Cours :</b> Yahoo Finance / yfinance</div>
+  <div class="sourceitem"><b>Dernier calcul :</b> <span id="generated">—</span></div>
+</section>
 
-    <article class="card span6">
-      <h2>Marchés</h2>
-      <p class="sub">Repères macro et multi-actifs issus de Yahoo Finance.</p>
-      <div id="markets" class="market-grid"></div>
-    </article>
-    <article class="card span6">
-      <div class="live-head"><div><h2>Mes positions · marché</h2><p class="sub" style="margin-bottom:0">Cotations indicatives rafraîchies sans IA.</p></div><span class="live-badge"><i></i><span id="quoteStamp">En attente</span></span></div>
-      <div id="livePositions" class="quote-list"><div class="data-note">Chargement des cotations…</div></div>
-    </article>
+<section class="grid">
+  <article class="card span12">
+    <h2>Positions actuelles</h2>
+    <p class="sub">Quantités issues du snapshot configuré ; valorisation recalculée avec les dernières cotations disponibles.</p>
+    <div class="table-wrap"><table class="table">
+      <thead><tr><th>Position</th><th>Qté</th><th>Cours</th><th>Jour</th><th>Valeur CHF</th><th>Poids</th><th>1 mois</th><th>3 mois</th><th>1 an</th><th>Vs plus haut</th></tr></thead>
+      <tbody id="positions"></tbody>
+    </table></div>
+  </article>
 
-    <article class="card span6">
-      <div class="live-head"><div><h2>Watchlist personnelle</h2><p class="sub" style="margin-bottom:0">Tes convictions restent suivies même lorsqu’elles ne ressortent pas du screener.</p></div><button id="editWatchlistInline" class="btn-secondary">Modifier</button></div>
-      <div id="watchlistQuotes" class="quote-list"><div class="data-note">Chargement de la watchlist…</div></div>
-    </article>
+  <article class="card span7">
+    <h2>Portefeuille vs benchmark</h2>
+    <p class="sub">Base 100 · reconstruction à quantités actuelles constantes. Benchmark : FTSE All-World (FWRA).</p>
+    <div id="chart" class="chart"></div>
+    <div class="legend"><span><i class="p"></i>Portefeuille reconstruit</span><span><i class="b"></i>FWRA</span></div>
+  </article>
 
-    <article class="card span8">
-      <h2>Executive Summary</h2>
-      <p class="sub">Lecture synthétique générée par le moteur d’analyse.</p>
-      <div id="summary" class="report">Chargement de l’analyse…</div>
-    </article>
+  <article class="card span5">
+    <h2>Performance reconstruite</h2>
+    <p class="sub">Ce n’est pas la performance réelle IBKR : apports, retraits et transactions historiques ne sont pas intégrés.</p>
+    <div id="performance" class="perf"></div>
+  </article>
 
-    <article class="card span4">
-      <h2>Risk Watch</h2>
-      <p class="sub">Signaux issus du moteur quantitatif et du diagnostic IA.</p>
-      <div id="riskFlags"></div>
-      <div id="riskText" class="report" style="margin-top:14px"></div>
-    </article>
+  <article class="card span4">
+    <h2>Risque</h2>
+    <p class="sub">Mesures calculées, sans interprétation IA.</p>
+    <div id="risk" class="riskgrid"></div>
+  </article>
 
-    <article class="card span6">
-      <h2>Régime de marché</h2>
-      <p class="sub">Macro, direction des actifs et contexte de risque.</p>
-      <div id="marketRegime" class="report"></div>
-    </article>
+  <article class="card span8">
+    <h2>Ce qui a changé</h2>
+    <p class="sub">Constats déterministes produits à partir des chiffres ci-dessus.</p>
+    <div id="insights" class="insights"></div>
+  </article>
 
-    <article class="card span6">
-      <h2>Diagnostic portefeuille</h2>
-      <p class="sub">Concentration, diversification, redondances et construction.</p>
-      <div id="portfolioDiagnosis" class="report"></div>
-    </article>
+  <article class="card span12">
+    <h2>Watchlist</h2>
+    <p class="sub">Prix, tendance et distance au plus haut 52 semaines. Aucun classement global.</p>
+    <div id="watchlist" class="watchlist"></div>
+  </article>
 
-    <article class="card span6">
-      <h2>Plan d’action</h2>
-      <p class="sub">Décisions à envisager, avec conditions et prudence.</p>
-      <ul id="actionPlan" class="list"></ul>
-    </article>
+  <article class="card span6">
+    <h2>Corrélations des positions</h2>
+    <p class="sub">Corrélation quotidienne sur l’historique disponible. Plus elle se rapproche de 1, plus les positions évoluent ensemble.</p>
+    <div id="correlations" class="corr"></div>
+  </article>
 
-    <article class="card span6">
-      <h2>À surveiller</h2>
-      <p class="sub">Variables importantes pour les prochaines séances.</p>
-      <ul id="monitorList" class="list"></ul>
-    </article>
+  <article class="card span6">
+    <h2>Qualité des données</h2>
+    <p class="sub">Ce bloc est volontairement visible : il indique ce que le site sait vraiment et ce qu’il ne sait pas.</p>
+    <div id="quality" class="quality"></div>
+    <div id="errors"></div>
+  </article>
+</section>
 
-    <article class="card span12">
-      <h2>Relais de croissance détectés</h2>
-      <p class="sub">Univers découvert automatiquement. Le moteur cherche de la qualité et de la croissance sans récompenser les envolées récentes.</p>
-      <div id="screenerMeta" class="screener-meta"></div>
-      <div class="table-wrap"><table class="table" style="min-width:980px">
-        <thead><tr><th># / Société</th><th>Score</th><th>Qualité</th><th>Croiss.</th><th>Valo.</th><th>Bilan</th><th>Mom.</th><th>3 mois</th><th>PER fwd</th></tr></thead>
-        <tbody id="screenerBody"></tbody>
-      </table></div>
-      <h3 style="margin-top:24px">Lecture IA des opportunités</h3>
-      <ul id="opportunities" class="list"></ul>
-    </article>
-
-    <article class="card span6">
-      <h2>Actualité financière</h2>
-      <p class="sub">Titres récents récupérés automatiquement. À vérifier à la source avant décision.</p>
-      <div id="news" class="news-list"></div>
-    </article>
-
-    <article class="card span6">
-      <h2>Qualité des données</h2>
-      <p class="sub">Transparence sur les limites et éventuelles erreurs du pipeline.</p>
-      <div id="warnings"></div>
-      <div id="methodology" class="data-note" style="margin-top:16px"></div>
-    </article>
-  </section>
-
-  <div class="footer">Finance Adviser est un outil personnel d’aide à la décision. Les données de marché peuvent être retardées ou incomplètes. Aucune transaction n’est exécutée automatiquement.</div>
+<div class="footer">Portfolio Intelligence est un outil personnel de lecture du portefeuille. Les cotations Yahoo peuvent être retardées. Les données IBKR restent la source de référence pour le compte réel.</div>
 </main>
 
-<div id="portfolioModal" class="modal-backdrop" aria-hidden="true">
-  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="portfolioTitle">
-    <div class="modal-head">
-      <div><h2 id="portfolioTitle">Mon portefeuille</h2><p>Modifiez vos positions. Les poids sont recalculés automatiquement à partir des valeurs CHF.</p></div>
-      <button id="closePortfolio" class="close-btn" aria-label="Fermer">×</button>
-    </div>
-    <div id="editorRows"></div>
-    <div class="editor-actions">
-      <button id="addPosition" class="btn-secondary">+ Ajouter une position</button>
-      <button id="addCash" class="btn-secondary">+ Ajouter du cash CHF</button>
-      <button id="saveLocal" class="btn-primary">Enregistrer sur cet appareil</button>
-      <button id="resetLocal" class="btn-secondary">Revenir au snapshot GitHub</button>
-      <button id="exportPortfolio" class="btn-secondary">Exporter JSON</button>
-      <label class="btn-secondary" style="display:inline-flex;align-items:center;cursor:pointer">Importer JSON<input id="importPortfolio" type="file" accept="application/json" style="display:none"></label>
-    </div>
-    <div class="sync-box">
-      <h3>Synchronisation GitHub — gratuite</h3>
-      <p>Pour rendre le changement permanent et relancer automatiquement Finance Adviser, utilisez un token GitHub finement limité au dépôt <b>Finance-Adviser</b> avec l’autorisation <b>Contents: Read and write</b>. Le token est utilisé uniquement pour cet envoi et n’est jamais enregistré par le site.</p>
-      <div class="sync-row">
-        <input id="githubToken" type="password" autocomplete="off" placeholder="github_pat_…">
-        <button id="syncGithub" class="btn-green">Synchroniser & relancer</button>
-      </div>
-      <div id="syncStatus" class="sync-status"></div>
-    </div>
-  </section>
-</div>
-
-<div id="watchlistModal" class="modal-backdrop" aria-hidden="true">
-  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="watchlistTitle">
-    <div class="modal-head">
-      <div><h2 id="watchlistTitle">Ma watchlist</h2><p>Ajoute toutes les sociétés que tu veux suivre. Elle reste volontairement séparée du screener dynamique.</p></div>
-      <button id="closeWatchlist" class="close-btn" aria-label="Fermer">×</button>
-    </div>
-    <div id="watchlistEditorRows"></div>
-    <div class="editor-actions">
-      <button id="addWatchItem" class="btn-secondary">+ Ajouter une société</button>
-      <button id="saveWatchLocal" class="btn-primary">Enregistrer sur cet appareil</button>
-      <button id="resetWatchLocal" class="btn-secondary">Revenir à GitHub</button>
-    </div>
-    <div class="sync-box">
-      <h3>Synchronisation GitHub — gratuite</h3>
-      <p>La synchronisation rend la watchlist permanente et relance l’analyse. Le token n’est jamais sauvegardé par le site.</p>
-      <div class="sync-row">
-        <input id="watchGithubToken" type="password" autocomplete="off" placeholder="github_pat_…">
-        <button id="syncWatchGithub" class="btn-green">Synchroniser</button>
-      </div>
-      <div id="watchSyncStatus" class="sync-status"></div>
-    </div>
-  </section>
-</div>
-
 <script>
-const $=id=>document.getElementById(id);
-const esc=value=>String(value??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
-const n=(v,d=2)=>Number.isFinite(Number(v))?Number(v).toLocaleString("fr-CH",{minimumFractionDigits:d,maximumFractionDigits:d}):"—";
-const pct=v=>Number.isFinite(Number(v))?n(v,2)+" %":"—";
-const chf=v=>Number.isFinite(Number(v))?Number(v).toLocaleString("fr-CH",{style:"currency",currency:"CHF",maximumFractionDigits:0}):"—";
-const cls=v=>Number(v)>0?"up":Number(v)<0?"down":"flat";
-const LOCAL_PORTFOLIO_KEY="finance_adviser_local_portfolio_v1";
-const LOCAL_WATCHLIST_KEY="finance_adviser_watchlist_v1";
-let serverData=null;
-let serverQuotes=null;
-let editorPortfolio=null;
-let editorWatchlist=null;
-const clone=x=>JSON.parse(JSON.stringify(x));
-const localPortfolio=()=>{try{return JSON.parse(localStorage.getItem(LOCAL_PORTFOLIO_KEY)||"null")}catch{return null}};
-const localWatchlist=()=>{try{return JSON.parse(localStorage.getItem(LOCAL_WATCHLIST_KEY)||"null")}catch{return null}};
-const todayLocal=()=>{const d=new Date();const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");return y+"-"+m+"-"+day};
-function normalizePortfolio(portfolio){
-  const p=clone(portfolio||{});
-  p.version=2;
-  p.snapshot_date=todayLocal();
-  p.market_values_are_manual_snapshot=true;
-  p.profil_investisseur=p.profil_investisseur||serverData?.portfolio?.profile||{horizon_placement:"Long terme",devise_reference:"CHF",objectif:"Croissance du capital"};
-  p.actifs_actuels=(p.actifs_actuels||[]).map(a=>({
-    ticker:String(a.ticker||"").trim().toUpperCase(),
-    nom:String(a.nom||a.ticker||"Position").trim(),
-    sleeve:a.sleeve||"satellite",
-    asset_class:a.asset_class||"Action / ETF",
-    currency:a.currency||"CHF",
-    poids_pourcentage:Number(a.poids_pourcentage)||0,
-    valeur_marche_chf:Number(a.valeur_marche_chf)||0,
-    quantite:Number(a.quantite)||0
-  }));
-  const total=p.actifs_actuels.reduce((s,a)=>s+(Number(a.valeur_marche_chf)||0),0);
-  p.actifs_actuels.forEach(a=>a.poids_pourcentage=total?Math.round((a.valeur_marche_chf/total)*10000)/100:0);
-  return p;
+const CHF=new Intl.NumberFormat("fr-CH",{style:"currency",currency:"CHF",maximumFractionDigits:0});
+const N2=new Intl.NumberFormat("fr-CH",{maximumFractionDigits:2});
+const pct=v=>v==null?"—":(v>0?"+":"")+N2.format(v)+" %";
+const cls=v=>v==null?"flat":v>0?"up":v<0?"down":"flat";
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+const ageText=iso=>{if(!iso)return"—";const ms=Date.now()-new Date(iso).getTime();const m=Math.max(0,Math.round(ms/60000));if(m<60)return m+" min";const h=Math.round(m/60);if(h<48)return h+" h";return Math.round(h/24)+" j"};
+function yahoo(t){return "https://finance.yahoo.com/quote/"+encodeURIComponent(t)}
+function drawChart(seriesA,seriesB){
+  const box=document.getElementById("chart"); const all=[...(seriesA||[]),...(seriesB||[])]; if(!all.length){box.innerHTML='<div class="sub">Historique indisponible.</div>';return}
+  const W=800,H=220,P=16;const vals=all.map(x=>x.value);const min=Math.min(...vals),max=Math.max(...vals);const rng=Math.max(1,max-min);
+  const path=(s)=>s.map((p,i)=>{const x=P+i*(W-2*P)/Math.max(1,s.length-1),y=H-P-(p.value-min)/rng*(H-2*P);return(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1)}).join(" ");
+  box.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none"><line x1="'+P+'" y1="'+(H-P)+'" x2="'+(W-P)+'" y2="'+(H-P)+'" stroke="#ddd"/><path d="'+path(seriesB||[])+'" fill="none" stroke="#0071e3" stroke-width="2.2"/><path d="'+path(seriesA||[])+'" fill="none" stroke="#1d1d1f" stroke-width="2.8"/></svg>';
 }
-function diagnosticsFromPositions(positions){
-  const total=positions.reduce((s,p)=>s+(Number(p.valeur_marche_chf)||0),0);
-  const normalized=positions.map(p=>total?Math.max(0,Number(p.valeur_marche_chf)||0)/total:0);
-  const hhi=normalized.reduce((s,w)=>s+w*w,0);
-  const largest=[...positions].sort((a,b)=>(Number(b.valeur_marche_chf)||0)-(Number(a.valeur_marche_chf)||0))[0]||{};
-  return {total_market_value_chf:total,largest_position:{weight_pct:total?((Number(largest.valeur_marche_chf)||0)/total*100):0},effective_positions:hhi?1/hhi:0};
-}
-function renderPortfolioSnapshot(positions,diag,reportedNet=null){
-  $("totalValue").textContent=chf(reportedNet ?? diag.total_market_value_chf);
-  $("topWeight").textContent=pct(diag.largest_position?.weight_pct);
-  $("effectivePositions").textContent=n(diag.effective_positions,2);
-  $("allocation").innerHTML=positions.map(p=>'<div class="alloc-row"><div><div class="alloc-name">'+esc(p.nom||p.ticker)+'</div><div class="alloc-meta">'+esc(p.sleeve||"")+' · '+esc(p.ticker||"")+'</div><div class="bar"><span style="width:'+Math.min(100,Math.max(0,Number(p.poids_pourcentage)||0))+'%"></span></div></div><div class="alloc-weight">'+pct(p.poids_pourcentage)+'</div></div>').join("");
-}
-function portfolioForEditor(){
-  const local=localPortfolio();
-  if(local)return normalizePortfolio(local);
-  return normalizePortfolio({
-    profil_investisseur:serverData?.portfolio?.profile||{},
-    actifs_actuels:clone(serverData?.portfolio?.positions||[])
-  });
-}
+async function main(){
+  const r=await fetch("data.json?ts="+Date.now(),{cache:"no-store"}); const d=await r.json(); const p=d.portfolio||{},risk=p.risk||{};
+  document.getElementById("fresh").textContent=d.status==="ok"?"Données · "+ageText(d.generated_at):"Mode dégradé";
+  document.getElementById("total").textContent=p.estimated_total_value_chf!=null?CHF.format(p.estimated_total_value_chf):"—";
+  document.getElementById("dayPnl").innerHTML='<span class="'+cls(p.estimated_day_pnl_chf)+'">'+(p.estimated_day_pnl_chf==null?"—":(p.estimated_day_pnl_chf>0?"+":"")+CHF.format(p.estimated_day_pnl_chf))+'</span>';
+  document.getElementById("largest").textContent=risk.largest_position_weight_pct!=null?N2.format(risk.largest_position_weight_pct)+" %":"—";
+  document.getElementById("effective").textContent=risk.effective_positions??"—";
+  document.getElementById("positionsSource").textContent=d.sources?.positions?.provider||"—";
+  document.getElementById("snapshotDate").textContent=d.sources?.positions?.snapshot_date||"—";
+  document.getElementById("generated").textContent=d.generated_at?new Date(d.generated_at).toLocaleString("fr-CH"):"—";
 
-function watchlistForEditor(){
-  const local=localWatchlist();
-  if(local)return clone(local);
-  const items=(serverData?.watchlist||[]).map(x=>({ticker:x.ticker,label:x.label||x.name||x.ticker,theme:x.theme||"",note:x.note||""}));
-  return {version:1,updated_at:todayLocal(),items};
-}
-function activeWatchItems(){
-  return (localWatchlist()?.items)||(serverData?.watchlist||[]).map(x=>({ticker:x.ticker,label:x.label||x.name||x.ticker,theme:x.theme||"",note:x.note||""}));
-}
-function quoteRow(x,isPortfolio=false){
-  const change=x?.day_change_pct;
-  const price=(x?.last==null?"—":n(x.last,2)+" "+esc(x.currency||""));
-  const value=isPortfolio&&x?.estimated_value_chf!=null?chf(x.estimated_value_chf):"";
-  return '<div class="quote-row"><div><b>'+esc(x.label||x.ticker)+'</b><small>'+esc(x.ticker||"")+(x.theme?' · '+esc(x.theme):'')+'</small></div><div class="quote-num">'+price+'</div><div class="quote-num '+cls(change)+'">'+(change==null?"—":(Number(change)>0?"+":"")+pct(change))+'</div><div class="quote-num quote-value">'+value+'</div></div>';
-}
-function renderQuotes(q){
-  serverQuotes=q;
-  if(!q||!q.portfolio)return;
-  const stamp=q.date_generation?new Date(q.date_generation):null;
-  $("quoteStamp").textContent=stamp?stamp.toLocaleTimeString("fr-CH",{hour:"2-digit",minute:"2-digit"}):"—";
-  const positions=q.portfolio.quotes||[];
-  $("livePositions").innerHTML=positions.length?positions.map(x=>quoteRow(x,true)).join(""):'<div class="data-note">Cotations indisponibles.</div>';
-  if(!localPortfolio()&&Number.isFinite(Number(q.portfolio.estimated_total_value_chf))){
-    $("totalValue").textContent=chf(q.portfolio.estimated_total_value_chf);
-    $("totalValueLabel").textContent="Valeur estimée · cotations";
-  }
+  document.getElementById("positions").innerHTML=(p.positions||[]).map(x=>'<tr><td><div class="ticker"><a href="'+yahoo(x.ticker)+'" target="_blank" rel="noopener">'+esc(x.ticker)+'</a></div><div class="name">'+esc(x.label)+'</div></td><td>'+N2.format(x.quantity||0)+'</td><td>'+(x.last==null?"—":N2.format(x.last)+" "+esc(x.currency||""))+'</td><td class="'+cls(x.day_change_pct)+'">'+pct(x.day_change_pct)+'</td><td>'+(x.estimated_value_chf==null?"—":CHF.format(x.estimated_value_chf))+'</td><td>'+pct(x.current_weight_pct)+'</td><td class="'+cls(x.return_1m_pct)+'">'+pct(x.return_1m_pct)+'</td><td class="'+cls(x.return_3m_pct)+'">'+pct(x.return_3m_pct)+'</td><td class="'+cls(x.return_1y_pct)+'">'+pct(x.return_1y_pct)+'</td><td class="'+cls(x.distance_52w_high_pct)+'">'+pct(x.distance_52w_high_pct)+'</td></tr>').join("");
 
-  const quoteMap=Object.fromEntries((q.watchlist||[]).map(x=>[x.ticker,x]));
-  const fundamentalMap=Object.fromEntries((serverData?.watchlist||[]).map(x=>[x.ticker,x]));
-  const items=activeWatchItems();
-  $("watchlistQuotes").innerHTML=items.length?items.map(item=>{
-    const qt=quoteMap[item.ticker]||{ticker:item.ticker,label:item.label,theme:item.theme};
-    const fd=fundamentalMap[item.ticker]||{};
-    const change=qt.day_change_pct;
-    const fundamentals=[fd.forward_pe!=null?'PER '+n(fd.forward_pe,1):'',fd.revenue_growth_pct!=null?'CA '+pct(fd.revenue_growth_pct):''].filter(Boolean).join(' · ');
-    return '<div class="quote-row"><div><b>'+esc(item.label||item.ticker)+'</b><small>'+esc(item.ticker)+(fundamentals?' · '+esc(fundamentals):'')+'</small></div><div class="quote-num">'+(qt.last==null?'—':n(qt.last,2)+' '+esc(qt.currency||''))+'</div><div class="quote-num '+cls(change)+'">'+(change==null?'—':(Number(change)>0?'+':'')+pct(change))+'</div><div class="quote-num quote-value"><a href="https://finance.yahoo.com/quote/'+encodeURIComponent(item.ticker)+'" target="_blank" rel="noopener" style="color:var(--blue);text-decoration:none">Yahoo ↗</a></div></div>';
-  }).join(""):'<div class="data-note">Watchlist vide.</div>';
-}
-async function refreshQuotes(){
-  try{
-    const r=await fetch("./quotes.json?ts="+Date.now(),{cache:"no-store"});
-    if(r.ok)renderQuotes(await r.json());
-  }catch{}
-}
+  const labels={ "1w":"1 semaine","1m":"1 mois","3m":"3 mois","6m":"6 mois","1y":"1 an"};
+  document.getElementById("performance").innerHTML=Object.entries(labels).map(([k,l])=>{const c=p.comparison?.[k]||{};return '<div class="perfbox"><b class="'+cls(c.portfolio_pct)+'">'+pct(c.portfolio_pct)+'</b><span>'+l+'</span><div class="diff '+cls(c.difference_pp)+'">vs FWRA '+pct(c.difference_pp)+' pt</div></div>'}).join("");
+  drawChart(p.series?.portfolio,p.series?.benchmark);
 
-function renderList(id,items){
-  $(id).innerHTML=(items&&items.length)?items.map(x=>"<li>"+esc(x)+"</li>").join(""):"<li class='data-note'>Aucune donnée disponible.</li>";
-}
-function marketCard(x){
-  return '<div class="market"><b>'+esc(x.label||x.ticker)+'</b><div class="market-price">'+n(x.last,2)+'</div><div class="market-changes"><span class="'+cls(x.variation_1m_pct)+'">1m '+pct(x.variation_1m_pct)+'</span><span class="'+cls(x.variation_3m_pct)+'">3m '+pct(x.variation_3m_pct)+'</span><span class="'+cls(x.variation_1y_pct)+'">1a '+pct(x.variation_1y_pct)+'</span></div></div>';
-}
-function scoreClass(v){return Number(v)>=70?"good":Number(v)>=55?"mid":""}
+  const riskItems=[
+    ["Poids max",pct(risk.largest_position_weight_pct)],
+    ["Positions effectives",risk.effective_positions??"—"],
+    ["Volatilité 60 j",pct(risk.volatility_60d_ann_pct)],
+    ["Drawdown 1 an",pct(risk.max_drawdown_1y_pct)],
+    ["Cash",pct(risk.cash_weight_pct)],
+    ["HHI",risk.hhi??"—"]
+  ];
+  document.getElementById("risk").innerHTML=riskItems.map(x=>'<div class="risk"><b>'+x[1]+'</b><span>'+x[0]+'</span></div>').join("");
 
-fetch("./data.json?ts="+Date.now(),{cache:"no-store"})
-.then(r=>{if(!r.ok)throw new Error("data.json indisponible");return r.json()})
-.then(data=>{
-  const status=data.status||"degraded";
-  $("status").className="status "+status;
-  $("status").innerHTML='<span class="dot"></span><span>'+(status==="ok"?"Analyse à jour":"Mode dégradé")+'</span>';
+  document.getElementById("insights").innerHTML=(d.insights||[]).map(x=>'<div class="insight"><b>'+esc(x.title)+'</b><p>'+esc(x.text)+'</p></div>').join("")||'<div class="insight"><p>Aucun constat particulier.</p></div>';
 
-  serverData=data;
-  const d=data.portfolio?.diagnostics||{};
-  const local=localPortfolio();
-  const activePortfolio=local?normalizePortfolio(local):normalizePortfolio({profil_investisseur:data.portfolio?.profile||{},actifs_actuels:data.portfolio?.positions||[]});
-  const activeDiagnostics=local?diagnosticsFromPositions(activePortfolio.actifs_actuels):d;
-  renderPortfolioSnapshot(activePortfolio.actifs_actuels,activeDiagnostics,local?null:(data.portfolio?.account_snapshot?.net_liquidation_chf ?? d.reported_net_liquidation_chf ?? null));
-  $("localBanner").classList.toggle("show",!!local);
-  $("updatedAt").textContent=data.date_generation?new Date(data.date_generation).toLocaleString("fr-CH",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}):"—";
-
-  $("markets").innerHTML=Object.values(data.market||{}).map(marketCard).join("");
-
-  const report=data.report||{};
-  $("summary").textContent=report.executive_summary||"Analyse IA indisponible ; les données quantitatives restent affichées.";
-  $("marketRegime").textContent=report.market_regime||"Donnée indisponible.";
-  $("portfolioDiagnosis").textContent=report.portfolio_diagnosis||"Donnée indisponible.";
-  $("riskText").textContent=report.risk_watch||"";
-  renderList("actionPlan",report.action_plan||[]);
-  renderList("opportunities",report.opportunities||[]);
-  renderList("monitorList",report.what_to_monitor||[]);
-
-  const flags=d.diagnostic_flags||[];
-  $("riskFlags").innerHTML=flags.length?flags.map(x=>'<div class="risk"><span>⚠︎</span><span>'+esc(x)+'</span></div>').join(""):'<div class="data-note">Aucun signal heuristique majeur détecté.</div>';
-
-  const screen=data.screener||{};
-  const rows=screen.results||[];
-  const discovery=screen.discovery||{};
-  $("screenerMeta").innerHTML=[
-    '<span class="meta-pill">'+esc(rows.length)+' meilleures valeurs affichées</span>',
-    '<span class="meta-pill">'+esc(screen.candidates_scored??0)+' candidats scorés</span>',
-    '<span class="meta-pill">'+esc(discovery.sources_succeeded??0)+' sources de marché</span>',
-    '<span class="meta-pill">anti-chasse 1m '+esc(screen.anti_chase?.max_1m_pct??"—")+' % · 3m '+esc(screen.anti_chase?.max_3m_pct??"—")+' %</span>'
-  ].join("");
-  $("screenerBody").innerHTML=rows.map((x,i)=>{
-    const s=x.scores||{}, risks=(x.risk_flags||[]).join(" · ");
-    return '<tr><td><b>'+(i+1)+'. '+esc(x.name||x.ticker)+'</b>'+(x.relay_candidate?'<span class="relay-tag">RELAIS</span>':'')+(x.overheated?'<span class="heat-tag">TENDU</span>':'')+'<div class="data-note">'+esc(x.ticker)+' · '+esc(x.sector||"—")+'</div><div class="why">'+esc(x.why||"")+'</div>'+(risks?'<div class="risk-mini">'+esc(risks)+'</div>':'')+'</td><td><span class="score '+scoreClass(x.score)+'">'+n(x.score,0)+'</span></td><td><span class="factor">'+n(s.quality,0)+'</span></td><td><span class="factor">'+n(s.growth,0)+'</span></td><td><span class="factor">'+n(s.valuation,0)+'</span></td><td><span class="factor">'+n(s.balance_sheet,0)+'</span></td><td><span class="factor">'+n(s.momentum,0)+'</span></td><td class="'+cls(x.momentum_3m_pct)+'">'+pct(x.momentum_3m_pct)+'</td><td>'+n(x.forward_pe,1)+'</td></tr>';
+  document.getElementById("watchlist").innerHTML=(d.watchlist||[]).map(x=>{
+    const tags=(x.tags||[]).map(t=>'<span class="tag '+(t.includes("correction")||t.includes("baisse")?"warn":"good")+'">'+esc(t)+'</span>').join("");
+    return '<div class="watch"><div class="wname"><b><a href="'+yahoo(x.ticker)+'" target="_blank" rel="noopener">'+esc(x.ticker)+'</a> · '+esc(x.label)+'</b><small>'+esc(x.theme||"")+'</small><div class="tags">'+tags+'</div></div><div class="num"><b>'+ (x.last==null?"—":N2.format(x.last))+'</b><small>'+esc(x.currency||"")+'</small></div><div class="num '+cls(x.day_change_pct)+'">'+pct(x.day_change_pct)+'</div><div class="num hide-mobile '+cls(x.return_1m_pct)+'">'+pct(x.return_1m_pct)+'</div><div class="num hide-mobile '+cls(x.return_3m_pct)+'">'+pct(x.return_3m_pct)+'</div><div class="num hide-mobile '+cls(x.distance_52w_high_pct)+'">'+pct(x.distance_52w_high_pct)+'</div></div>'
   }).join("");
 
-  const stories=data.news||[];
-  $("news").innerHTML=stories.length?stories.map(x=>{
-    const title=esc(x.title||"Sans titre"),publisher=esc(x.publisher||"Source non précisée");
-    return '<div class="news-item">'+(x.url?'<a href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer">'+title+'</a>':'<div style="font-weight:560;font-size:13px">'+title+'</div>')+'<div class="news-source">'+publisher+'</div></div>';
-  }).join(""):'<div class="data-note">Actualités indisponibles.</div>';
+  document.getElementById("correlations").innerHTML=(p.correlations||[]).map(x=>{const w=Math.max(0,Math.min(100,(x.correlation+1)/2*100));return '<div class="corrrow"><div><span>'+esc(x.a)+' / '+esc(x.b)+'</span><div class="bar"><i style="width:'+w+'%"></i></div></div><div class="corrval">'+N2.format(x.correlation)+'</div></div>'}).join("")||'<div class="sub">Pas assez de données.</div>';
 
-  const issues=[...(data.warnings||[]).map(x=>({t:"warning",x})),...(data.errors||[]).map(x=>({t:"error",x}))];
-  $("warnings").innerHTML=issues.length?issues.map(i=>'<div class="'+(i.t==="error"?"error-box":"warning-box")+'">'+esc(i.x)+'</div>').join(""):'<div class="data-note">Aucun avertissement remonté par le pipeline.</div>';
-
-  const m=data.methodology||{};
-  refreshQuotes();
-  setInterval(refreshQuotes,60000);
-  $("methodology").innerHTML='<b>Méthodologie</b><br>Données marché : '+esc(m.market_data||"—")+'<br>IA : '+esc(m.ai||"—")+'<br>Score fondamental : '+esc(m.fundamental_score||"—")+'<br><br>'+esc(m.disclaimer||"");
-})
-.catch(err=>{
-  $("status").className="status degraded";
-  $("status").innerHTML='<span class="dot"></span><span>Erreur de chargement</span>';
-  $("summary").textContent="Le dashboard ne peut pas charger le dernier rapport.";
-  $("warnings").innerHTML='<div class="error-box">'+esc(err.message)+'</div>';
-});
-
-function renderEditor(){
-  if(!editorPortfolio)editorPortfolio=portfolioForEditor();
-  const rows=editorPortfolio.actifs_actuels||[];
-  $("editorRows").innerHTML=rows.map((a,i)=>'<div class="editor-card"><div class="editor-grid">'+
-    '<div class="field"><label>Ticker</label><input data-i="'+i+'" data-k="ticker" value="'+esc(a.ticker||"")+'"></div>'+
-    '<div class="field"><label>Nom</label><input data-i="'+i+'" data-k="nom" value="'+esc(a.nom||"")+'"></div>'+
-    '<div class="field"><label>Quantité</label><input data-i="'+i+'" data-k="quantite" inputmode="decimal" value="'+esc(a.quantite??0)+'"></div>'+
-    '<div class="field"><label>Valeur CHF</label><input data-i="'+i+'" data-k="valeur_marche_chf" inputmode="decimal" value="'+esc(a.valeur_marche_chf??0)+'"></div>'+
-    '<div class="field"><label>Catégorie</label><select data-i="'+i+'" data-k="sleeve">'+
-      ["core_global","core_swiss","satellite","satellite_ai","cash"].map(x=>'<option value="'+x+'" '+(a.sleeve===x?"selected":"")+'>'+x+'</option>').join("")+
-    '</select></div>'+
-    '<button class="remove-btn" data-remove="'+i+'" aria-label="Supprimer">−</button></div></div>').join("");
-  document.querySelectorAll("[data-i]").forEach(el=>el.oninput=e=>{
-    const i=Number(e.target.dataset.i),k=e.target.dataset.k;
-    editorPortfolio.actifs_actuels[i][k]=["quantite","valeur_marche_chf"].includes(k)?Number(String(e.target.value).replace(",","."))||0:e.target.value;
-  });
-  document.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>{editorPortfolio.actifs_actuels.splice(Number(b.dataset.remove),1);renderEditor()});
+  const snap=d.sources?.positions?.snapshot_date; let snapAge="—"; if(snap){const days=Math.floor((Date.now()-new Date(snap+"T12:00:00").getTime())/86400000);snapAge=days+" jour(s)"}
+  document.getElementById("quality").innerHTML=
+    '<div><b>Positions</b> · '+esc(d.sources?.positions?.provider||"—")+' · âge du snapshot : '+snapAge+'.</div>'+
+    '<div><b>Cours</b> · '+esc(d.sources?.prices?.provider||"—")+' · générés '+ageText(d.generated_at)+' auparavant.</div>'+
+    '<div><b>Performance</b> · '+esc(d.sources?.performance?.method||"—")+'. '+esc(d.sources?.performance?.note||"")+'</div>';
+  document.getElementById("errors").innerHTML=(d.errors||[]).map(e=>'<div class="warning error">'+esc(e)+'</div>').join("");
 }
-function openEditor(){
-  editorPortfolio=portfolioForEditor();
-  renderEditor();
-  $("portfolioModal").classList.add("show");
-  $("portfolioModal").setAttribute("aria-hidden","false");
-}
-function closeEditor(){
-  $("portfolioModal").classList.remove("show");
-  $("portfolioModal").setAttribute("aria-hidden","true");
-}
-$("openPortfolio").onclick=openEditor;
-$("closePortfolio").onclick=closeEditor;
-$("portfolioModal").onclick=e=>{if(e.target===$("portfolioModal"))closeEditor()};
-$("addPosition").onclick=()=>{
-  editorPortfolio.actifs_actuels.push({ticker:"",nom:"Nouvelle position",sleeve:"satellite",asset_class:"Action / ETF",currency:"CHF",poids_pourcentage:0,valeur_marche_chf:0,quantite:0});
-  renderEditor();
-};
-$("addCash").onclick=()=>{
-  editorPortfolio.actifs_actuels.push({ticker:"CASH_CHF",nom:"Liquidités CHF",sleeve:"cash",asset_class:"Cash",currency:"CHF",poids_pourcentage:0,valeur_marche_chf:0,quantite:0});
-  renderEditor();
-};
-$("saveLocal").onclick=()=>{
-  const p=normalizePortfolio(editorPortfolio);
-  localStorage.setItem(LOCAL_PORTFOLIO_KEY,JSON.stringify(p));
-  editorPortfolio=p;
-  const d=diagnosticsFromPositions(p.actifs_actuels);
-  renderPortfolioSnapshot(p.actifs_actuels,d);
-  $("localBanner").classList.add("show");
-  $("syncStatus").textContent="Enregistré localement sur cet appareil.";
-};
-$("resetLocal").onclick=()=>{
-  localStorage.removeItem(LOCAL_PORTFOLIO_KEY);
-  editorPortfolio=portfolioForEditor();
-  renderEditor();
-  $("localBanner").classList.remove("show");
-  if(serverData)renderPortfolioSnapshot(serverData.portfolio?.positions||[],serverData.portfolio?.diagnostics||{},serverData.portfolio?.account_snapshot?.net_liquidation_chf ?? null);
-  $("syncStatus").textContent="Snapshot GitHub restauré.";
-};
-$("exportPortfolio").onclick=()=>{
-  const p=normalizePortfolio(editorPortfolio);
-  const blob=new Blob([JSON.stringify(p,null,2)],{type:"application/json"});
-  const url=URL.createObjectURL(blob),a=document.createElement("a");
-  a.href=url;a.download="portfolio.json";a.click();URL.revokeObjectURL(url);
-};
-$("importPortfolio").onchange=async e=>{
-  const file=e.target.files?.[0];if(!file)return;
-  try{editorPortfolio=normalizePortfolio(JSON.parse(await file.text()));renderEditor();$("syncStatus").textContent="Fichier importé. Enregistrez localement ou synchronisez GitHub."}
-  catch{$("syncStatus").textContent="Fichier JSON invalide."}
-  e.target.value="";
-};
-function base64Utf8(text){
-  const bytes=new TextEncoder().encode(text);
-  let binary="";for(const byte of bytes)binary+=String.fromCharCode(byte);
-  return btoa(binary);
-}
-$("syncGithub").onclick=async()=>{
-  const token=$("githubToken").value.trim();
-  if(!token){$("syncStatus").textContent="Ajoutez d’abord votre token GitHub finement limité.";return}
-  const p=normalizePortfolio(editorPortfolio);
-  $("syncStatus").textContent="Synchronisation GitHub…";
-  try{
-    const api="https://api.github.com/repos/PhilippePatekVD/Finance-Adviser/contents/portfolio.json";
-    const headers={"Accept":"application/vnd.github+json","Authorization":"Bearer "+token,"X-GitHub-Api-Version":"2022-11-28"};
-    const current=await fetch(api,{headers,cache:"no-store"});
-    if(!current.ok)throw new Error("Lecture GitHub refusée ("+current.status+")");
-    const currentJson=await current.json();
-    const put=await fetch(api,{method:"PUT",headers:{...headers,"Content-Type":"application/json"},body:JSON.stringify({
-      message:"chore: update portfolio from dashboard",
-      content:base64Utf8(JSON.stringify(p,null,2)),
-      sha:currentJson.sha,
-      branch:"main"
-    })});
-    if(!put.ok){const detail=await put.text();throw new Error("Écriture GitHub refusée ("+put.status+"): "+detail.slice(0,180))}
-    localStorage.removeItem(LOCAL_PORTFOLIO_KEY);
-    $("githubToken").value="";
-    $("localBanner").classList.remove("show");
-    $("syncStatus").textContent="✓ Portefeuille synchronisé. GitHub Actions relance maintenant l’analyse automatiquement.";
-  }catch(err){
-    $("syncStatus").textContent="Erreur : "+err.message;
-  }
-};
-
-function renderWatchEditor(){
-  if(!editorWatchlist)editorWatchlist=watchlistForEditor();
-  $("watchlistEditorRows").innerHTML=(editorWatchlist.items||[]).map((x,i)=>'<div class="editor-card"><div class="editor-grid" style="grid-template-columns:1fr 1.4fr 1.3fr 1.6fr auto">'+
-    '<div class="field"><label>Ticker</label><input data-wi="'+i+'" data-wk="ticker" value="'+esc(x.ticker||"")+'"></div>'+
-    '<div class="field"><label>Nom</label><input data-wi="'+i+'" data-wk="label" value="'+esc(x.label||"")+'"></div>'+
-    '<div class="field"><label>Thème</label><input data-wi="'+i+'" data-wk="theme" value="'+esc(x.theme||"")+'"></div>'+
-    '<div class="field"><label>Note</label><input data-wi="'+i+'" data-wk="note" value="'+esc(x.note||"")+'"></div>'+
-    '<button class="remove-btn" data-wremove="'+i+'">−</button></div></div>').join("");
-  document.querySelectorAll("[data-wi]").forEach(el=>el.oninput=e=>{
-    editorWatchlist.items[Number(e.target.dataset.wi)][e.target.dataset.wk]=e.target.value;
-  });
-  document.querySelectorAll("[data-wremove]").forEach(b=>b.onclick=()=>{editorWatchlist.items.splice(Number(b.dataset.wremove),1);renderWatchEditor()});
-}
-function openWatchEditor(){
-  editorWatchlist=watchlistForEditor();
-  renderWatchEditor();
-  $("watchlistModal").classList.add("show");
-  $("watchlistModal").setAttribute("aria-hidden","false");
-}
-function closeWatchEditor(){
-  $("watchlistModal").classList.remove("show");
-  $("watchlistModal").setAttribute("aria-hidden","true");
-}
-$("openWatchlist").onclick=openWatchEditor;
-$("editWatchlistInline").onclick=openWatchEditor;
-$("closeWatchlist").onclick=closeWatchEditor;
-$("watchlistModal").onclick=e=>{if(e.target===$("watchlistModal"))closeWatchEditor()};
-$("addWatchItem").onclick=()=>{
-  editorWatchlist.items.push({ticker:"",label:"Nouvelle société",theme:"",note:""});
-  renderWatchEditor();
-};
-$("saveWatchLocal").onclick=()=>{
-  editorWatchlist.updated_at=todayLocal();
-  editorWatchlist.items=editorWatchlist.items.map(x=>({...x,ticker:String(x.ticker||"").trim().toUpperCase()})).filter(x=>x.ticker);
-  localStorage.setItem(LOCAL_WATCHLIST_KEY,JSON.stringify(editorWatchlist));
-  renderWatchEditor();
-  if(serverQuotes)renderQuotes(serverQuotes);
-  $("watchSyncStatus").textContent="Watchlist enregistrée localement.";
-};
-$("resetWatchLocal").onclick=()=>{
-  localStorage.removeItem(LOCAL_WATCHLIST_KEY);
-  editorWatchlist=watchlistForEditor();
-  renderWatchEditor();
-  if(serverQuotes)renderQuotes(serverQuotes);
-  $("watchSyncStatus").textContent="Watchlist GitHub restaurée.";
-};
-$("syncWatchGithub").onclick=async()=>{
-  const token=$("watchGithubToken").value.trim();
-  if(!token){$("watchSyncStatus").textContent="Ajoutez d’abord votre token GitHub finement limité.";return}
-  const payload=clone(editorWatchlist||watchlistForEditor());
-  payload.version=1;payload.updated_at=todayLocal();
-  payload.items=(payload.items||[]).map(x=>({...x,ticker:String(x.ticker||"").trim().toUpperCase()})).filter(x=>x.ticker);
-  $("watchSyncStatus").textContent="Synchronisation…";
-  try{
-    const api="https://api.github.com/repos/PhilippePatekVD/Finance-Adviser/contents/watchlist.json";
-    const headers={"Accept":"application/vnd.github+json","Authorization":"Bearer "+token,"X-GitHub-Api-Version":"2022-11-28"};
-    const current=await fetch(api,{headers,cache:"no-store"});
-    if(!current.ok)throw new Error("Lecture GitHub refusée ("+current.status+")");
-    const currentJson=await current.json();
-    const put=await fetch(api,{method:"PUT",headers:{...headers,"Content-Type":"application/json"},body:JSON.stringify({
-      message:"chore: update watchlist from dashboard",
-      content:base64Utf8(JSON.stringify(payload,null,2)),
-      sha:currentJson.sha,
-      branch:"main"
-    })});
-    if(!put.ok)throw new Error("Écriture GitHub refusée ("+put.status+")");
-    localStorage.removeItem(LOCAL_WATCHLIST_KEY);
-    $("watchGithubToken").value="";
-    $("watchSyncStatus").textContent="✓ Watchlist synchronisée. Les cotations et fondamentaux seront rafraîchis automatiquement.";
-  }catch(err){
-    $("watchSyncStatus").textContent="Erreur : "+err.message;
-  }
-};
-
-refreshQuotes();
+main().catch(e=>{document.getElementById("fresh").textContent="Erreur de chargement";document.getElementById("errors").innerHTML='<div class="warning error">'+esc(e.message)+'</div>'});
 </script>
 </body>
 </html>
