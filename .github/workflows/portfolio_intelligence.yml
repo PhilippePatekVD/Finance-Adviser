@@ -99,11 +99,14 @@ jobs:
           assert data.get("schema_version") == 4
           assert "portfolio" in data
 
-          assert radar.get("schema_version") == 1
+          assert radar.get("schema_version") == 2
           assert radar.get("theme", {}).get("id") == "robotics"
           assert isinstance(radar.get("companies"), list)
           assert isinstance(radar.get("signals"), list)
+          assert isinstance(radar.get("provider_status"), dict)
           assert len(radar.get("companies", [])) >= 30, "Radar fallback/empty company universe"
+          assert len(radar.get("signals", [])) + len(radar.get("discovery", [])) >= 10, "Radar has no usable research data"
+          assert radar.get("provider_status", {}).get("sec", {}).get("mapping_request_removed") is True, "SEC ticker-map dependency returned"
 
           assert research.get("schema_version") == 1
           assert isinstance(research.get("changes"), list)
@@ -118,6 +121,10 @@ jobs:
           print("Radar companies:", len(radar.get("companies", [])))
           print("Radar signals:", len(radar.get("signals", [])))
           print("Radar discoveries:", len(radar.get("discovery", [])))
+          print("GDELT status:", radar.get("provider_status", {}).get("gdelt", {}).get("status"))
+          print("SEC status:", radar.get("provider_status", {}).get("sec", {}).get("status"))
+          print("Google RSS status:", radar.get("provider_status", {}).get("google_news", {}).get("status"))
+          print("Served previous success:", radar.get("served_from_previous_success"))
           print("Research changes:", len(research.get("changes", [])))
           print("Evidence packs:", len(research.get("evidence_packs", [])))
           print("Research memory runs:", research.get("memory", {}).get("historical_run_count"))
