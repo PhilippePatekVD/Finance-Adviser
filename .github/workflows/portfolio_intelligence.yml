@@ -53,13 +53,14 @@ jobs:
           from pathlib import Path
           import re
 
-          scripts = []
           for name in ("index.html", "radar.html"):
               html = Path(name).read_text(encoding="utf-8")
-              scripts.extend(re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", html, flags=re.I))
-          Path("/tmp/portfolio-intelligence.js").write_text("\n".join(scripts), encoding="utf-8")
+              scripts = re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", html, flags=re.I)
+              out = Path("/tmp") / (Path(name).stem + "-inline.js")
+              out.write_text("\n".join(scripts), encoding="utf-8")
           PY
-          node --check /tmp/portfolio-intelligence.js
+          node --check /tmp/index-inline.js
+          node --check /tmp/radar-inline.js
 
       - name: Build portfolio data
         run: python portfolio_intelligence.py
