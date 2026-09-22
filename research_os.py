@@ -525,29 +525,38 @@ def main() -> None:
             })
     new_changes = new_changes[:80]
 
-    radar_errors = [str(x) for x in radar.get("errors", [])]
-    sec_degraded = any(x.startswith("SEC ") or x.startswith("SEC mapping") for x in radar_errors)
-    gdelt_degraded = any(x.startswith("GDELT ") for x in radar_errors)
-    google_degraded = any(x.startswith("Google News ") for x in radar_errors)
+    providers = radar.get("provider_status") or {}
+    gdelt = providers.get("gdelt") or {}
+    google = providers.get("google_news") or {}
+    sec = providers.get("sec") or {}
 
     source_coverage = [
         {
             "source": "SEC EDGAR",
-            "status": "degraded" if sec_degraded else "active",
+            "status": sec.get("status", "unknown"),
             "purpose": "filings primaires et détection de changements",
-            "note": "bloqué ou partiellement indisponible sur ce run" if sec_degraded else "collecte disponible"
+            "note": (
+                f"CIK embarqués · {sec.get('network_successes', 0)}/{sec.get('network_attempts', 0)} appels réseau réussis · "
+                f"{sec.get('fresh_cache_hits', 0)} cache frais · circuit breaker {'ouvert' if sec.get('circuit_breaker_open') else 'fermé'}"
+            )
         },
         {
             "source": "GDELT",
-            "status": "degraded" if gdelt_degraded else "active",
+            "status": gdelt.get("status", "unknown"),
             "purpose": "actualité mondiale et corroboration",
-            "note": "rate limit / fallback utilisé sur ce run" if gdelt_degraded else "collecte disponible"
+            "note": (
+                f"{gdelt.get('successful_batches', 0)}/{gdelt.get('requests', 0)} lots réussis · "
+                f"{gdelt.get('cache_fallbacks', 0)} cache · {gdelt.get('google_fallbacks', 0)} fallback Google"
+            )
         },
         {
             "source": "Google News RSS",
-            "status": "degraded" if google_degraded else ("fallback" if gdelt_degraded else "standby"),
+            "status": google.get("status", "unknown"),
             "purpose": "fallback média et signaux alternatifs",
-            "note": "fallback actif" if gdelt_degraded and not google_degraded else "source de continuité"
+            "note": (
+                f"{google.get('successful_batches', 0)}/{google.get('requests', 0)} lots alternatifs réussis · "
+                f"{google.get('cache_fallbacks', 0)} cache"
+            )
         },
         {"source": "Yahoo Finance / yfinance", "status": "active", "purpose": "prix et historique marché", "note": "cotations indicatives"},
         {"source": "Job postings", "status": "proxy_only", "purpose": "proxy via presse/RSS", "note": "pas de source directe"},
