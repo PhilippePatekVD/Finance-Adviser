@@ -485,7 +485,7 @@ def sec_document_signals(company: Dict[str, Any], days: int,
     for filed_dt, form, accession, document in candidates[:2]:
         cik_num = str(int(cik))
         url = SEC_ARCHIVES.format(cik=cik_num, accession=accession.replace("-", ""), document=document)
-        text = request_text(session, url, timeout=12, attempts=2, host_header="www.sec.gov")
+        text = request_text(sec_archive_session, url, timeout=12, attempts=2)
         cats = catalyst_categories(text[:2_500_000], terms)
         if "robotics_exposure" not in cats:
             time.sleep(0.15)
@@ -789,6 +789,22 @@ def main() -> None:
         "errors": errors,
     }
     payload["ai"] = optional_gemini_summary(payload)
+
+    last_good_path = STATE_DIR / "last_good_radar.json"
+    usable_count = len(payload["signals"]) + len(payload["discovery"])
+    if usable_count < 10 and last_good_path.exists():
+        previous = json.loads(last_good_path.read_text(encoding="utf-8"))
+        previous["generated_at"] = now_iso()
+        previous["served_from_previous_success"] = True
+        previous["provider_status"] = provider_status
+        previous["errors"] = list(dict.fromkeys((previous.get("errors") or []) + errors + [
+            "Collecte courante insuffisante : dernière sortie robuste servie depuis le cache persistant."
+        ]))
+        previous["ai"] = optional_gemini_summary(previous)
+        payload = previous
+    elif usable_count >= 10:
+        payload["served_from_previous_success"] = False
+        last_good_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
     (ROOT / "radar.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
