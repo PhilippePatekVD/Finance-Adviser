@@ -525,6 +525,36 @@ def main() -> None:
             })
     new_changes = new_changes[:80]
 
+    radar_errors = [str(x) for x in radar.get("errors", [])]
+    sec_degraded = any(x.startswith("SEC ") or x.startswith("SEC mapping") for x in radar_errors)
+    gdelt_degraded = any(x.startswith("GDELT ") for x in radar_errors)
+    google_degraded = any(x.startswith("Google News ") for x in radar_errors)
+
+    source_coverage = [
+        {
+            "source": "SEC EDGAR",
+            "status": "degraded" if sec_degraded else "active",
+            "purpose": "filings primaires et détection de changements",
+            "note": "bloqué ou partiellement indisponible sur ce run" if sec_degraded else "collecte disponible"
+        },
+        {
+            "source": "GDELT",
+            "status": "degraded" if gdelt_degraded else "active",
+            "purpose": "actualité mondiale et corroboration",
+            "note": "rate limit / fallback utilisé sur ce run" if gdelt_degraded else "collecte disponible"
+        },
+        {
+            "source": "Google News RSS",
+            "status": "degraded" if google_degraded else ("fallback" if gdelt_degraded else "standby"),
+            "purpose": "fallback média et signaux alternatifs",
+            "note": "fallback actif" if gdelt_degraded and not google_degraded else "source de continuité"
+        },
+        {"source": "Yahoo Finance / yfinance", "status": "active", "purpose": "prix et historique marché", "note": "cotations indicatives"},
+        {"source": "Job postings", "status": "proxy_only", "purpose": "proxy via presse/RSS", "note": "pas de source directe"},
+        {"source": "Patents", "status": "proxy_only", "purpose": "proxy via presse/RSS", "note": "pas de registre direct connecté"},
+        {"source": "Tenders / grants", "status": "proxy_only", "purpose": "proxy via presse/filings", "note": "pas de registre universel direct"}
+    ]
+
     result = {
         "schema_version": 1,
         "generated_at": now_iso(),
@@ -543,15 +573,7 @@ def main() -> None:
         "portfolio_links": portfolio_links(data, radar, config),
         "dossiers": dossiers,
         "signal_audit": audit_signals(state),
-        "source_coverage": [
-            {"source": "SEC EDGAR", "status": "active", "purpose": "filings primaires et détection de changements"},
-            {"source": "GDELT", "status": "active", "purpose": "actualité mondiale et corroboration"},
-            {"source": "Google News RSS", "status": "fallback", "purpose": "continuité si GDELT est indisponible"},
-            {"source": "Yahoo Finance / yfinance", "status": "active", "purpose": "prix et historique marché"},
-            {"source": "Job postings", "status": "proxy_only", "purpose": "détectables via presse/RSS, pas encore source directe"},
-            {"source": "Patents", "status": "not_connected", "purpose": "aucune source directe fiable activée"},
-            {"source": "Tenders / grants", "status": "proxy_only", "purpose": "détectables via presse/filings, pas encore registre universel direct"}
-        ],
+        "source_coverage": source_coverage,
         "method_note": "Les classements décrivent la priorité de recherche et la nouveauté des preuves. Ils ne constituent ni une recommandation, ni une prévision de rendement."
     }
 
