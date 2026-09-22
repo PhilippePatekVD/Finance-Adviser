@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f7">
+<title>Research OS · Portfolio Intelligence</title>
+<style>
+:root{--bg:#f5f5f7;--card:#fff;--ink:#1d1d1f;--muted:#6e6e73;--line:rgba(0,0,0,.075);--blue:#0071e3;--green:#248a3d;--orange:#a95500;--red:#d70015;--purple:#7253c6;--blue2:#eaf4ff;--green2:#edf8ef;--orange2:#fff5e7;--red2:#fff0f1;--purple2:#f2edff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}.shell{max-width:1200px;margin:auto;padding:0 18px 60px}
+.top{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none}.mark{width:34px;height:34px;border-radius:10px;background:#1d1d1f;color:#fff;display:grid;place-items:center;font-size:10px;font-weight:750}.brand b{font-size:15px}.brand small{display:block;color:var(--muted);font-size:9px;margin-top:2px}.nav{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.nav a,.fresh{font-size:10px;color:var(--muted);text-decoration:none;background:#e8e8ed;border-radius:999px;padding:8px 11px}.nav a.on{background:#1d1d1f;color:#fff}
+.hero{background:#fff;border-radius:30px;padding:42px;display:grid;grid-template-columns:1.25fr .75fr;gap:26px;box-shadow:0 2px 10px rgba(0,0,0,.04)}.eyebrow{font-size:10px;font-weight:700;color:var(--blue)}h1{font-size:clamp(42px,6vw,68px);line-height:.98;letter-spacing:-.055em;margin:10px 0 14px}.hero p{font-size:15px;color:var(--muted);line-height:1.55;max-width:720px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric{background:#f5f5f7;border-radius:18px;padding:17px}.metric strong{display:block;font-size:27px;letter-spacing:-.04em}.metric span{display:block;font-size:8px;color:var(--muted);margin-top:5px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:12px}.card{background:#fff;border-radius:24px;padding:23px;box-shadow:0 2px 9px rgba(0,0,0,.04)}.span12{grid-column:span 12}.span8{grid-column:span 8}.span7{grid-column:span 7}.span6{grid-column:span 6}.span5{grid-column:span 5}.span4{grid-column:span 4}.card h2{font-size:21px;letter-spacing:-.035em;margin:0 0 5px}.sub{font-size:11px;color:var(--muted);line-height:1.5;margin:0 0 16px}
+.changes,.packs,.dossiers,.unknowns,.audit{display:grid;gap:8px}.change,.pack,.dossier,.unknown,.audit-row{border:1px solid var(--line);border-radius:16px;padding:14px}.rowtop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.rowtop b{font-size:11px;line-height:1.35}.meta{font-size:8px;color:var(--muted);margin-top:4px;line-height:1.45}.badge{font-size:7px;font-weight:700;padding:5px 7px;border-radius:999px;white-space:nowrap}.new{background:var(--blue2);color:var(--blue)}.confirmation{background:var(--green2);color:var(--green)}.acceleration{background:var(--purple2);color:var(--purple)}.materialisation{background:var(--green2);color:#116b2a}.invalidation{background:var(--red2);color:var(--red)}.existing,.pending{background:#ececf1;color:var(--muted)}.high{background:var(--red2);color:var(--red)}.medium{background:var(--orange2);color:var(--orange)}.monitor{background:#ececf1;color:var(--muted)}
+.tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}.tag{font-size:7px;padding:4px 6px;border-radius:999px;background:#e8e8ed;color:#555}.reason{font-size:9px;color:var(--muted);line-height:1.45;margin-top:8px}.reason b{color:var(--ink)}
+.themes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.theme{background:#f7f7f9;border-radius:16px;padding:14px}.theme b{font-size:11px}.theme .nums{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:9px}.theme .nums div{background:#fff;border-radius:10px;padding:8px}.theme .nums strong{display:block;font-size:16px}.theme .nums span{font-size:7px;color:var(--muted)}.status{font-size:8px;margin-top:8px;color:var(--muted)}
+.pack h3{font-size:13px;line-height:1.35;margin:0}.proofs{display:grid;gap:5px;margin-top:10px}.proof{background:#f7f7f9;border-radius:10px;padding:9px}.proof a{font-size:9px;color:inherit;text-decoration:none;font-weight:650}.proof small{display:block;color:var(--muted);font-size:7px;margin-top:3px}.questions{margin:9px 0 0;padding-left:17px;color:var(--muted);font-size:9px;line-height:1.5}
+.graph{height:470px;border-radius:18px;background:#fafafc;overflow:hidden}.graph svg{width:100%;height:100%}.graph-label{font-size:8px;fill:#4b4b50}.graph-note{font-size:9px;color:var(--muted);margin-top:8px}
+.dossier-head{display:flex;justify-content:space-between;gap:10px}.dossier h3{font-size:13px;margin:0}.hyp{font-size:9px;line-height:1.5;margin-top:9px}.hyp b{display:block;margin-bottom:2px}.counter{color:var(--muted)}.notearea{width:100%;min-height:72px;border:1px solid var(--line);border-radius:12px;padding:10px;font:inherit;font-size:9px;resize:vertical;margin-top:10px;background:#fafafc}.save{border:0;background:#1d1d1f;color:#fff;border-radius:999px;padding:7px 10px;font-size:8px;margin-top:6px;cursor:pointer}
+.exposure{display:grid;grid-template-columns:1fr 1fr;gap:8px}.exposure-box{background:#f7f7f9;border-radius:15px;padding:13px}.exposure-box b{font-size:11px;display:block}.exposure-box span{font-size:8px;color:var(--muted);display:block;margin-top:4px}
+.coverage{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.coverage-item{padding:11px;border-radius:13px;background:#f7f7f9}.coverage-item b{font-size:9px}.coverage-item span{display:block;color:var(--muted);font-size:8px;line-height:1.4;margin-top:3px}.active{color:var(--green)!important}.fallback{color:var(--orange)!important}.not_connected{color:var(--red)!important}.proxy_only{color:var(--orange)!important}
+.unknown a{font-size:10px;color:inherit;text-decoration:none;font-weight:650}.unknown small{display:block;font-size:8px;color:var(--muted);margin-top:3px}.audit-row{display:grid;grid-template-columns:100px 1fr auto;gap:9px;align-items:start}.audit-row b{font-size:9px}.audit-row span{font-size:8px;color:var(--muted)}.confirmed{background:var(--green2);color:var(--green)}.unconfirmed{background:var(--red2);color:var(--red)}
+.footer{text-align:center;color:#8e8e93;font-size:9px;line-height:1.5;margin-top:28px}
+@media(max-width:950px){.hero{grid-template-columns:1fr}.span8,.span7,.span6,.span5,.span4{grid-column:span 12}.themes{grid-template-columns:1fr 1fr}}@media(max-width:650px){.shell{padding:0 12px 45px}.top{align-items:flex-start;padding:10px 0}.hero{padding:28px 21px}.hero h1{font-size:44px}.themes,.coverage,.exposure{grid-template-columns:1fr}.audit-row{grid-template-columns:1fr}.graph{height:390px}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header class="top">
+  <a class="brand" href="index.html"><div class="mark">PI</div><div><b>Portfolio Intelligence</b><small>Research OS</small></div></a>
+  <div class="nav"><a href="index.html">Portfolio</a><a href="radar.html">Radar</a><a class="on" href="research.html">Research</a><span id="fresh" class="fresh">—</span></div>
+</header>
+
+<section class="hero">
+  <div><div class="eyebrow">RESEARCH OS · MEMORY + EVIDENCE + CHANGE DETECTION</div><h1>Comprendre ce qui change, et s’en souvenir.</h1><p>Une couche de mémoire entre les publications, les signaux, la chaîne de valeur et ton portefeuille. Chaque hypothèse reste séparée de la preuve.</p></div>
+  <div class="metrics">
+    <div class="metric"><strong id="known">—</strong><span>signaux mémorisés</span></div>
+    <div class="metric"><strong id="packsN">—</strong><span>Evidence Packs</span></div>
+    <div class="metric"><strong id="changesN">—</strong><span>changements actifs</span></div>
+    <div class="metric"><strong id="runsN">—</strong><span>runs historiques</span></div>
+  </div>
+</section>
+
+<section class="grid">
+  <article class="card span8"><h2>What changed</h2><p class="sub">Nouveau · confirmation · accélération · matérialisation · invalidation. Le système compare chaque run à sa mémoire.</p><div id="changes" class="changes"></div></article>
+  <article class="card span4"><h2>Portfolio link</h2><p class="sub">Exposition directe uniquement. Les ETF ne sont pas décomposés sans données fiables.</p><div id="exposure" class="exposure"></div></article>
+
+  <article class="card span12"><h2>Theme emergence & saturation</h2><p class="sub">Activité des signaux, diversité des sources, largeur des sociétés et évolution par rapport au run précédent.</p><div id="themes" class="themes"></div></article>
+
+  <article class="card span7"><h2>Evidence Packs</h2><p class="sub">Preuve principale, corroboration, matérialité connue, questions ouvertes et conditions d’invalidation.</p><div id="packs" class="packs"></div></article>
+  <article class="card span5"><h2>Knowledge Graph</h2><p class="sub">Sociétés → sous-thèmes → composants. La taille d’une société augmente avec le nombre de signaux observés.</p><div id="graph" class="graph"></div><div class="graph-note">Le graphe décrit une exposition thématique, pas une relation fournisseur-client prouvée.</div></article>
+
+  <article class="card span8"><h2>Company Dossiers</h2><p class="sub">Mémoire machine + hypothèse de travail + anti-thèse + questions ouvertes. Tes notes personnelles restent uniquement dans ce navigateur.</p><div id="dossiers" class="dossiers"></div></article>
+  <article class="card span4"><h2>Unknown candidates</h2><p class="sub">Entités extraites automatiquement de titres hors univers. Elles doivent être vérifiées avant d’être traitées comme sociétés.</p><div id="unknowns" class="unknowns"></div></article>
+
+  <article class="card span6"><h2>Signal Audit</h2><p class="sub">Après 30/90 jours : le signal a-t-il reçu des confirmations ultérieures sur le même thème ?</p><div id="audit" class="audit"></div></article>
+  <article class="card span6"><h2>Source coverage</h2><p class="sub">Aucune source n’est prétendue active si elle ne l’est pas réellement.</p><div id="coverage" class="coverage"></div></article>
+</section>
+<div class="footer">Research OS organise la preuve et la mémoire de recherche. Il ne formule pas de recommandation d’investissement et ne prédit pas les rendements.</div>
+</main>
+
+<script>
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+const ago=iso=>{if(!iso)return"—";const d=Math.max(0,Math.round((Date.now()-new Date(iso).getTime())/864e5));return d===0?"aujourd’hui":d+" j"};
+const labelChange=x=>({new:"NOUVEAU",confirmation:"CONFIRMÉ",acceleration:"ACCÉLÈRE",materialisation:"MATÉRIALISE",invalidation:"INVALIDATION",existing:"CONNU"}[x]||x);
+const labelEmergence=x=>({accelerating:"accélération",early:"émergence précoce",cooling:"refroidissement",steady:"stable"}[x]||x);
+const labelSat=x=>({high:"forte visibilité",medium:"visibilité moyenne",low:"faible visibilité"}[x]||x);
+let D=null;
+
+function renderChanges(){
+  document.getElementById("changes").innerHTML=(D.changes||[]).slice(0,30).map(x=>'<div class="change"><div class="rowtop"><div><b>'+esc(x.company_name||x.company_ticker||"Signal thématique")+' · '+esc(x.title)+'</b><div class="meta">'+esc(x.source||"")+' · '+ago(x.date)+'</div></div><span class="badge '+esc(x.change_type)+'">'+esc(labelChange(x.change_type))+'</span></div><div class="tags">'+(x.categories||[]).map(c=>'<span class="tag">'+esc(c)+'</span>').join("")+'</div><div class="reason"><b>Pourquoi :</b> '+esc((x.reasons||[]).join(" · "))+'</div></div>').join("")||'<div class="sub">Pas de nouveau changement depuis la mémoire disponible.</div>';
+}
+function renderThemes(){
+  document.getElementById("themes").innerHTML=(D.themes||[]).map(x=>'<div class="theme"><b>'+esc(x.label)+'</b><div class="nums"><div><strong>'+x.signal_count+'</strong><span>signaux</span></div><div><strong>'+x.company_breadth+'</strong><span>sociétés</span></div><div><strong>'+x.recent_7d+'</strong><span>7 jours</span></div><div><strong>'+x.source_diversity+'</strong><span>sources</span></div></div><div class="status">'+esc(labelEmergence(x.emergence))+' · '+esc(labelSat(x.media_saturation))+(x.delta_vs_previous_run_pct==null?"":" · "+(x.delta_vs_previous_run_pct>0?"+":"")+x.delta_vs_previous_run_pct+" % vs précédent")+'</div></div>').join("");
+}
+function renderPacks(){
+  document.getElementById("packs").innerHTML=(D.evidence_packs||[]).slice(0,18).map(x=>'<div class="pack"><div class="rowtop"><div><h3>'+esc(x.company_name||x.company_ticker||"Signal")+' · '+esc(x.headline)+'</h3><div class="meta">'+ago(x.date)+' · '+(x.primary_source?"source primaire":"source secondaire")+' · '+esc(x.financial_materiality?.note||"")+'</div></div><span class="badge '+esc(x.priority)+'">'+esc(x.priority.toUpperCase())+'</span></div><div class="tags"><span class="tag">'+esc(labelChange(x.change_type))+'</span>'+(x.categories||[]).map(c=>'<span class="tag">'+esc(c)+'</span>').join("")+'</div><div class="proofs">'+(x.proofs||[]).map(p=>'<div class="proof"><a href="'+esc(p.url||"#")+'" target="_blank" rel="noopener">'+esc(p.title)+'</a><small>'+esc(p.source)+' · '+ago(p.date)+(p.primary?" · PRIMAIRE":"")+'</small></div>').join("")+'</div><ul class="questions">'+(x.open_questions||[]).slice(0,3).map(q=>'<li>'+esc(q)+'</li>').join("")+'</ul></div>').join("");
+}
+function renderExposure(){
+  const p=D.portfolio_links||{},direct=p.direct_positions||[],watch=p.watchlist_links||[];
+  let html='<div class="exposure-box"><b>Positions directes</b><span>'+(direct.length?direct.map(x=>esc(x.ticker)+" · "+(x.weight_pct??"—")+" % · "+esc(x.priority||"veille")).join("<br>"):"Aucune société du Radar détenue directement.")+'</span></div>';
+  html+='<div class="exposure-box"><b>Watchlist</b><span>'+(watch.length?watch.map(x=>esc(x.ticker)+" · "+esc(x.priority||"veille")+" · "+x.signals_30d+" signal(s)").join("<br>"):"Aucune correspondance.")+'</span></div>';
+  html+='<div class="exposure-box" style="grid-column:1/-1"><b>ETF look-through</b><span>'+esc(p.note||"")+'</span></div>';
+  document.getElementById("exposure").innerHTML=html;
+}
+function renderDossiers(){
+  document.getElementById("dossiers").innerHTML=(D.dossiers||[]).filter(x=>x.signal_count>0).slice(0,18).map(x=>{const key="research-note:"+x.ticker;const note=localStorage.getItem(key)||"";return '<div class="dossier"><div class="dossier-head"><div><h3>'+esc(x.name)+' · '+esc(x.ticker)+'</h3><div class="meta">'+x.signal_count+' signaux · '+x.primary_evidence_count+' preuve(s) primaire(s) · dernier '+ago(x.latest_signal)+'</div></div><div class="tags">'+(x.subthemes||[]).slice(0,3).map(s=>'<span class="tag">'+esc(s)+'</span>').join("")+'</div></div><div class="hyp"><b>Hypothèse de travail</b>'+esc(x.working_hypothesis)+'</div><div class="hyp counter"><b>Anti-thèse</b>'+esc(x.counter_hypothesis)+'</div><ul class="questions">'+(x.open_questions||[]).slice(0,3).map(q=>'<li>'+esc(q)+'</li>').join("")+'</ul><textarea class="notearea" data-note="'+esc(x.ticker)+'" placeholder="Mes notes personnelles…">'+esc(note)+'</textarea><button class="save" data-save="'+esc(x.ticker)+'">Sauvegarder ma note</button></div>'}).join("")||'<div class="sub">Les dossiers apparaîtront avec les signaux.</div>';
+  document.querySelectorAll("[data-save]").forEach(b=>b.onclick=()=>{const t=b.dataset.save,area=document.querySelector('[data-note="'+CSS.escape(t)+'"]');localStorage.setItem("research-note:"+t,area.value);b.textContent="Sauvegardé ✓";setTimeout(()=>b.textContent="Sauvegarder ma note",1200)});
+}
+function renderUnknowns(){
+  document.getElementById("unknowns").innerHTML=(D.unknown_candidates||[]).slice(0,20).map(x=>'<div class="unknown"><div class="rowtop"><b>'+esc(x.entity)+'</b><span class="badge monitor">'+x.mentions+'×</span></div><small>'+esc((x.subthemes||[]).join(", "))+' · à vérifier</small>'+(x.examples?.[0]?'<div style="margin-top:7px"><a href="'+esc(x.examples[0].url||"#")+'" target="_blank" rel="noopener">'+esc(x.examples[0].title)+'</a></div>':'')+'</div>').join("")||'<div class="sub">Aucune entité candidate extraite.</div>';
+}
+function renderAudit(){
+  document.getElementById("audit").innerHTML=(D.signal_audit||[]).slice(0,30).map(x=>'<div class="audit-row"><div><span class="badge '+esc(x.outcome)+'">'+esc(x.outcome.toUpperCase())+'</span></div><div><b>'+esc(x.company_ticker||"—")+' · '+esc(x.title)+'</b><span>'+x.age_days+' jours · '+x.follow_up_signals+' confirmation(s) ultérieure(s)</span></div><span>'+esc(x.first_seen?.slice(0,10)||"")+'</span></div>').join("")||'<div class="sub">L’audit deviendra utile après plusieurs semaines de mémoire.</div>';
+}
+function renderCoverage(){
+  document.getElementById("coverage").innerHTML=(D.source_coverage||[]).map(x=>'<div class="coverage-item"><b>'+esc(x.source)+'</b><span class="'+esc(x.status)+'">'+esc(x.status)+'</span><span>'+esc(x.purpose)+'</span></div>').join("");
+}
+function drawGraph(){
+  const g=D.knowledge_graph||{},nodes=g.nodes||[],edges=g.edges||[];const box=document.getElementById("graph");if(!nodes.length){box.innerHTML='<div class="sub">Graphe indisponible.</div>';return}
+  const W=760,H=450;
+  const themes=nodes.filter(n=>n.kind==="subtheme"),comps=nodes.filter(n=>n.kind==="component"),companies=nodes.filter(n=>n.kind==="company").sort((a,b)=>(b.signals||0)-(a.signals||0)).slice(0,26);
+  const pos={};
+  themes.forEach((n,i)=>pos[n.id]={x:W*.48,y:45+i*(H-90)/Math.max(1,themes.length-1)});
+  comps.forEach((n,i)=>pos[n.id]={x:W*.76,y:28+i*(H-56)/Math.max(1,comps.length-1)});
+  companies.forEach((n,i)=>pos[n.id]={x:W*.16,y:25+i*(H-50)/Math.max(1,companies.length-1)});
+  const visible=new Set(Object.keys(pos));
+  let svg='<svg viewBox="0 0 '+W+' '+H+'">';
+  edges.filter(e=>visible.has(e.source)&&visible.has(e.target)).forEach(e=>{const a=pos[e.source],b=pos[e.target];svg+='<line x1="'+a.x+'" y1="'+a.y+'" x2="'+b.x+'" y2="'+b.y+'" stroke="#ddd" stroke-width="0.7"/>'});
+  nodes.filter(n=>visible.has(n.id)).forEach(n=>{const p=pos[n.id],r=n.kind==="company"?Math.min(7,3+(n.signals||0)*.4):n.kind==="subtheme"?6:3.5;const fill=n.kind==="company"?"#1d1d1f":n.kind==="subtheme"?"#0071e3":"#b8b8bd";svg+='<circle cx="'+p.x+'" cy="'+p.y+'" r="'+r+'" fill="'+fill+'"/><text class="graph-label" x="'+(p.x+(n.kind==="company"?9:7))+'" y="'+(p.y+3)+'">'+esc(n.kind==="company"?(n.ticker||n.label):n.label)+'</text>'});
+  svg+='</svg>';box.innerHTML=svg;
+}
+async function main(){
+  const r=await fetch("research.json?ts="+Date.now(),{cache:"no-store"});D=await r.json();
+  document.getElementById("fresh").textContent=ago(D.generated_at);
+  document.getElementById("known").textContent=D.memory?.known_signal_count??0;
+  document.getElementById("packsN").textContent=(D.evidence_packs||[]).length;
+  document.getElementById("changesN").textContent=(D.changes||[]).length;
+  document.getElementById("runsN").textContent=D.memory?.historical_run_count??0;
+  renderChanges();renderExposure();renderThemes();renderPacks();drawGraph();renderDossiers();renderUnknowns();renderAudit();renderCoverage();
+}
+main().catch(e=>{document.getElementById("fresh").textContent="Erreur";document.getElementById("changes").innerHTML='<div class="sub">'+esc(e.message)+'</div>'});
+</script>
+</body>
+</html>
