@@ -10,7 +10,7 @@
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}.shell{max-width:1160px;margin:auto;padding:0 18px 50px}
 .top{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}.mark{width:34px;height:34px;border-radius:10px;background:#1d1d1f;color:#fff;display:grid;place-items:center;font-size:10px;font-weight:750}.brand b{font-size:15px}.brand small{display:block;font-size:9px;color:var(--muted);margin-top:2px}.nav{display:flex;align-items:center;gap:7px}.nav a,.fresh{font-size:10px;text-decoration:none;color:var(--muted);background:#e8e8ed;padding:8px 11px;border-radius:999px}.nav a.on{background:#1d1d1f;color:#fff}
 .hero{background:#fff;border-radius:30px;padding:42px;display:grid;grid-template-columns:1.25fr .75fr;gap:26px;box-shadow:0 2px 10px rgba(0,0,0,.04)}.eyebrow{font-size:10px;font-weight:700;color:var(--blue)}h1{font-size:clamp(42px,6vw,68px);line-height:.98;letter-spacing:-.055em;margin:10px 0 14px}.hero p{font-size:15px;color:var(--muted);line-height:1.55;max-width:700px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric{background:#f5f5f7;border-radius:18px;padding:17px}.metric strong{display:block;font-size:27px;letter-spacing:-.04em}.metric span{display:block;font-size:8px;color:var(--muted);margin-top:5px}
-.bar{margin-top:12px;background:#fff;border-radius:18px;padding:14px 16px;display:flex;gap:14px;flex-wrap:wrap}.bar span{font-size:9px;color:var(--muted)}.bar b{color:var(--ink)}
+.bar{margin-top:12px;background:#fff;border-radius:18px;padding:14px 16px;display:flex;gap:14px;flex-wrap:wrap}.bar span{font-size:9px;color:var(--muted)}.bar b{color:var(--ink)}.source-pill{display:inline-flex;align-items:center;gap:5px}.dot{width:7px;height:7px;border-radius:50%;display:inline-block;background:#a7a7ad}.dot.active{background:var(--green)}.dot.degraded,.dot.fallback,.dot.cache{background:var(--orange)}.dot.unavailable{background:var(--red)}
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:12px}.card{background:#fff;border-radius:24px;padding:23px;box-shadow:0 2px 9px rgba(0,0,0,.04)}.span12{grid-column:span 12}.span8{grid-column:span 8}.span4{grid-column:span 4}.card h2{font-size:21px;letter-spacing:-.035em;margin:0 0 5px}.sub{font-size:11px;color:var(--muted);line-height:1.5;margin:0 0 16px}
 .ai{padding:14px 15px;border-radius:16px;background:var(--blue2);font-size:10px;line-height:1.5}.ai.off{background:#f2f2f7;color:var(--muted)}.ai.ok{background:var(--green2);color:#1c6630}
 .filters{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 16px}.filter{border:0;background:#e8e8ed;border-radius:999px;padding:7px 10px;font-size:9px;cursor:pointer}.filter.on{background:#1d1d1f;color:#fff}
@@ -37,7 +37,7 @@
   </div>
 </section>
 
-<section class="bar"><span><b>News :</b> GDELT DOC 2.0</span><span><b>Sources primaires :</b> SEC EDGAR</span><span><b>Priorité :</b> règles explicites</span><span><b>Dernière recherche :</b> <span id="generated">—</span></span></section>
+<section class="bar"><span class="source-pill"><i id="gdeltDot" class="dot"></i><b>GDELT</b> <span id="gdeltState">—</span></span><span class="source-pill"><i id="secDot" class="dot"></i><b>SEC EDGAR</b> <span id="secState">—</span></span><span class="source-pill"><i id="googleDot" class="dot"></i><b>Google RSS</b> <span id="googleState">—</span></span><span><b>Dernière recherche :</b> <span id="generated">—</span></span></section>
 
 <section class="grid">
   <article class="card span12"><h2>Couche IA</h2><p class="sub">Le radar fonctionne sans IA. Gemini ne sert qu’à synthétiser les preuves déjà collectées.</p><div id="ai" class="ai off">—</div></article>
@@ -75,6 +75,15 @@ async function main(){
   const r=await fetch("radar.json?ts="+Date.now(),{cache:"no-store"});DATA=await r.json();
   document.getElementById("fresh").textContent=ago(DATA.generated_at);
   document.getElementById("generated").textContent=DATA.generated_at?new Date(DATA.generated_at).toLocaleString("fr-CH"):"—";
+  const ps=DATA.provider_status||{};
+  const provider=(key,dotId,stateId)=>{
+    const p=ps[key]||{},status=p.status||"unknown";
+    const dot=document.getElementById(dotId);dot.className="dot "+status;
+    document.getElementById(stateId).textContent=status;
+  };
+  provider("gdelt","gdeltDot","gdeltState");
+  provider("sec","secDot","secState");
+  provider("google_news","googleDot","googleState");
   const cs=DATA.companies||[];
   document.getElementById("high").textContent=cs.filter(x=>x.priority==="high").length;
   document.getElementById("medium").textContent=cs.filter(x=>x.priority==="medium").length;
