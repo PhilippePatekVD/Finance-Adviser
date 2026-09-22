@@ -83,3 +83,56 @@ Tant que cette connexion n’est pas configurée, le site affiche explicitement 
 ## Confidentialité
 
 Le dépôt est actuellement public. Les fichiers `portfolio.json` et `watchlist.json` sont donc visibles publiquement.
+
+
+## Catalyst Radar — Robotique & Physical AI
+
+Le projet contient désormais un moteur de recherche de catalyseurs :
+
+- `catalyst_radar.py`
+- `research_config.json`
+- `radar.html`
+
+Le Radar collecte deux familles de preuves gratuites :
+
+1. **GDELT DOC 2.0** pour la couverture journalistique mondiale ;
+2. **SEC EDGAR** pour les filings récents des sociétés américaines / émetteurs couverts.
+
+Il surveille notamment :
+
+- humanoïdes ;
+- robotique industrielle et cobots ;
+- logistique / AMR ;
+- motion control, servomoteurs, réducteurs et actuateurs ;
+- machine vision et capteurs ;
+- Physical AI / embodied AI.
+
+Les catalyseurs recherchés sont explicites : commandes/backlog, capacité/capex, partenariats, lancements, guidance, adoption client, contrats publics/défense et exposition robotique.
+
+### Priorité de recherche
+
+Le Radar ne calcule pas de score d'investissement. Il classe uniquement les éléments en :
+
+- **Élevée**
+- **Moyenne**
+- **Veille**
+
+La priorité dépend de critères visibles : source primaire, récence, type de catalyseur et corroboration par des sources indépendantes.
+
+### Gemini
+
+Le code sait utiliser **Gemini 3.8 Flash** comme couche de synthèse des preuves déjà collectées.
+
+Cette couche est **désactivée par défaut** dans GitHub Actions avec :
+
+`ENABLE_GEMINI_FREE=0`
+
+Elle n'est pas nécessaire au fonctionnement du Radar.
+
+Cette précaution est volontaire : un abonnement grand public Google AI Pro/Gemini et la facturation de la Gemini API sont distincts. Avant d'activer Gemini dans le workflow, il faut vérifier que la clé utilisée appartient bien à un projet API free-tier si l'objectif reste zéro coût API.
+
+`Gemini 3.1 Pro Preview` et l'agent API Deep Research ne sont pas activés automatiquement.
+
+### Fréquence
+
+Le workflow unique met à jour Portfolio Intelligence et Catalyst Radar trois fois par jour, plus à la demande.
