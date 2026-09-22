@@ -98,7 +98,7 @@ def gdelt(query: str, days: int, maxrecords: int = 25) -> List[Dict[str, Any]]:
         "timespan": f"{days}d",
         "sort": "datedesc",
     }
-    r = session.get(GDELT, params=params, timeout=25)
+    r = session.get(GDELT, params=params, timeout=12)
     r.raise_for_status()
     data = r.json()
     return data.get("articles", []) if isinstance(data, dict) else []
@@ -141,7 +141,7 @@ def news_signal(article: Dict[str, Any], company: Optional[Dict[str, Any]], subt
 
 
 def sec_cik_map() -> Dict[str, str]:
-    r = session.get(SEC_TICKERS, timeout=25)
+    r = session.get(SEC_TICKERS, timeout=12)
     r.raise_for_status()
     data = r.json()
     out = {}
@@ -158,7 +158,7 @@ def recent_sec_signals(company: Dict[str, Any], cik_map: Dict[str,str], days: in
     cik = cik_map.get(ticker)
     if not cik:
         return []
-    r = session.get(SEC_SUBMISSIONS.format(cik=cik), timeout=25)
+    r = session.get(SEC_SUBMISSIONS.format(cik=cik), timeout=12)
     r.raise_for_status()
     recent = (r.json().get("filings") or {}).get("recent") or {}
     forms = recent.get("form", [])
@@ -179,7 +179,7 @@ def recent_sec_signals(company: Dict[str, Any], cik_map: Dict[str,str], days: in
         cik_num = str(int(cik))
         url = SEC_ARCHIVES.format(cik=cik_num, accession=accession.replace("-",""), document=document)
         try:
-            fr = session.get(url, timeout=25)
+            fr = session.get(url, timeout=12)
             fr.raise_for_status()
             text = clean_text(fr.text[:2_000_000])
             cats = catalyst_categories(text, terms)
@@ -313,30 +313,38 @@ def company_summaries(companies: List[Dict[str,Any]], signals: List[Dict[str,Any
     return sorted(out, key=lambda x:(order.get(x["priority"],9), -(x.get("signal_count_30d") or 0), x["name"]))
 
 
-def broad_discovery(subthemes: List[Dict[str,Any]], companies: List[Dict[str,Any]], days: int, terms: Dict[str,List[str]]) -> List[Dict[str,Any]]:
-    items = []
+def collect_theme_news(subthemes: List[Dict[str,Any]], companies: List[Dict[str,Any]], terms: Dict[str,List[str]]) -> tuple[List[Dict[str,Any]], List[Dict[str,Any]], List[str]]:
+    known: List[Dict[str,Any]] = []
+    discovery: List[Dict[str,Any]] = []
+    errors: List[str] = []
     seen = set()
+
     for st in subthemes:
         try:
-            articles = gdelt(st["query"], min(days,30), 35)
+            articles = gdelt(st["query"], 30, 100)
             for a in articles:
                 title = clean_text(a.get("title"))
                 if not title:
                     continue
-                known = alias_match(title, companies)
-                if known:
-                    continue
-                s = news_signal(a, None, st["id"], terms)
+                company = alias_match(title, companies)
+                s = news_signal(a, company, st["id"], terms)
                 if s["id"] in seen:
                     continue
                 seen.add(s["id"])
-                cats = set(s.get("categories") or [])
-                if cats & STRONG_CATEGORIES or "robotics_exposure" in cats:
-                    items.append(s)
-        except Exception:
-            continue
-        time.sleep(0.15)
-    return sorted(items, key=lambda s:s.get("date") or "", reverse=True)[:50]
+                if company:
+                    if st["id"] not in s["subthemes"]:
+                        s["subthemes"].append(st["id"])
+                    known.append(s)
+                else:
+                    cats = set(s.get("categories") or [])
+                    if cats & STRONG_CATEGORIES or "robotics_exposure" in cats:
+                        discovery.append(s)
+        except Exception as exc:
+            errors.append(f"GDELT {st['id']}: {type(exc).__name__}: {exc}")
+        time.sleep(0.12)
+
+    discovery.sort(key=lambda s:s.get("date") or "", reverse=True)
+    return known, discovery[:60], errors
 
 
 def optional_gemini_summary(payload: Dict[str,Any]) -> Dict[str,Any]:
@@ -392,16 +400,9 @@ def main() -> None:
     errors = []
     signals: List[Dict[str,Any]] = []
 
-    theme_query = "(" + " OR ".join(qphrase(x) for x in [
-        "robotics","robot","automation","humanoid","cobot","machine vision","actuator","servo motor","warehouse automation","physical AI"
-    ]) + ")"
-
-    for company in companies:
-        try:
-            signals.extend(company_news(company, theme_query, days, terms))
-        except Exception as exc:
-            errors.append(f"GDELT {company['ticker']}: {type(exc).__name__}: {exc}")
-        time.sleep(0.12)
+    news_signals, discovery, news_errors = collect_theme_news(theme["subthemes"], companies, terms)
+    signals.extend(news_signals)
+    errors.extend(news_errors)
 
     try:
         cik_map = sec_cik_map()
