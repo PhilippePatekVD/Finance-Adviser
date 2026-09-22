@@ -1,107 +1,85 @@
-# Finance Adviser
+# Portfolio Intelligence
 
-Tableau de bord financier personnel automatisé, construit autour d'un portefeuille en CHF.
+Anciennement **Finance Adviser**.
 
-## Objectif
+Le projet a été volontairement simplifié pour privilégier la confiance dans les données plutôt que la quantité de commentaires.
 
-Finance Adviser combine quatre couches :
+## Ce que fait le site
 
-1. **Portefeuille** — positions, poids, sleeves et profil d'investissement.
-2. **Marchés** — performances multi-horizons, volatilité et repères macro via Yahoo Finance.
-3. **Moteur de diagnostic** — concentration, diversification effective, exposition thématique et screener qualité/valorisation.
-4. **Analyse IA** — synthèse structurée par Google Gemini, strictement ancrée dans les données collectées.
+- valorise les positions configurées avec les dernières cotations Yahoo Finance disponibles ;
+- recalcule les poids actuels du portefeuille ;
+- estime le P&L journalier à partir des cotations ;
+- reconstruit l’évolution des **positions actuelles à quantités constantes** ;
+- compare cette reconstruction au FTSE All-World via `FWRA.SW` ;
+- calcule concentration, HHI, nombre de positions effectives, volatilité et drawdown ;
+- calcule les corrélations entre positions ;
+- suit une watchlist avec 1 mois / 3 mois / 1 an / distance au plus haut 52 semaines ;
+- produit seulement quelques constats déterministes et vérifiables.
 
-Le site est publié automatiquement sur GitHub Pages.
+## Ce que le site ne fait plus
 
-## Architecture
+- aucune analyse IA automatique ;
+- aucun appel Gemini ou Groq ;
+- aucun score opaque de type « 82/100 » ;
+- aucun screener présenté comme une recommandation ;
+- aucune actualité financière générale ;
+- aucun résumé macro généré ;
+- aucun commit automatique de données de marché dans le dépôt.
 
-- `portfolio.json` : source de vérité des positions et du snapshot manuel.
-- `investment_policy.json` : doctrine d'investissement et règles méthodologiques.
-- `config.json` : modèle IA, univers macro, screener et seuils heuristiques.
-- `analyze.py` : collecte, calculs, screener et génération du rapport.
-- `data.json` : sortie structurée consommée par le dashboard.
-- `index.html` : interface statique du CIO Dashboard.
-- `.github/workflows/ai_analyst.yml` : automatisation, publication et health check.
+## Sources
 
-## Statuts du pipeline
+### Positions
 
-- `ok` : données collectées et analyse IA générée.
-- `degraded` : le dashboard reste exploitable avec les données quantitatives, mais une partie du pipeline (notamment l'IA) a échoué.
+Les quantités sont actuellement lues depuis `portfolio.json`.
 
-Le workflow publie le dashboard même en mode dégradé puis termine en erreur pour rendre la panne visible dans GitHub Actions.
+Le fichier contient encore un snapshot manuel provenant d’Interactive Brokers. La date du snapshot est affichée directement sur le site pour éviter toute confusion.
 
-## Gemini
+### Cotations
 
-Le modèle est défini dans `config.json`. La clé API doit exister dans GitHub Actions sous le secret :
+Les cours et historiques proviennent de Yahoo Finance via `yfinance`.
 
-`GEMINI_API_KEY`
+Ces données sont indicatives et peuvent être retardées ou ponctuellement indisponibles.
 
-La clé ne doit jamais être écrite dans le dépôt.
+### Performance
 
-## Philosophie
+La performance affichée est une **reconstruction des positions actuelles à quantités constantes**.
 
-Le moteur distingue :
-- les données observées ;
-- les calculs déterministes ;
-- les heuristiques de diagnostic ;
-- le jugement de l'IA.
+Elle ne correspond pas à la performance réelle du compte IBKR, car le projet ne connaît pas encore tout l’historique des achats, ventes, apports et retraits.
 
-Aucune transaction n'est exécutée automatiquement. Les seuils du moteur ne sont pas considérés comme des contraintes personnelles tant qu'ils ne sont pas explicitement définis dans la politique d'investissement.
+## Workflow
 
-## Mise à jour du portefeuille
+Un seul workflow existe désormais :
 
-Modifier `portfolio.json` puis pousser sur `main`. Le workflow se relance automatiquement.
+`.github/workflows/portfolio_intelligence.yml`
 
-Les valeurs de marché du fichier sont considérées comme un snapshot manuel ; les variations de prix sont récupérées séparément par le moteur.
+Il s’exécute :
 
-## Limites
+- manuellement ;
+- lors d’une modification des fichiers principaux ;
+- une fois par heure les jours ouvrés entre 06:15 et 22:15 UTC.
 
-Yahoo Finance n'est pas une source institutionnelle garantie et certaines données peuvent être retardées, manquantes ou structurées différemment selon le titre. Le score qualité/valorisation est une heuristique de tri, pas un modèle de valorisation intrinsèque.
+Une indisponibilité ponctuelle d’une donnée Yahoo est enregistrée comme avertissement dans le dashboard. Elle ne transforme plus automatiquement le run en échec.
 
+## Structure
 
-## Politique IA zéro coût
+```text
+Finance-Adviser/
+├── index.html
+├── portfolio_intelligence.py
+├── portfolio.json
+├── watchlist.json
+├── requirements.txt
+└── .github/
+    └── workflows/
+        └── portfolio_intelligence.yml
+```
 
-Finance Adviser est volontairement configuré en mode `free_only`.
+## Étape suivante possible : IBKR
 
-Chaîne actuelle :
-1. `gemini-3.7-flash` via le Free Tier Gemini ;
-2. `openai/gpt-oss-120b` via le Free Plan Groq, uniquement si un secret `GROQ_API_KEY` est présent.
+L’amélioration la plus importante restante serait de remplacer le snapshot manuel par une source IBKR automatisée, par exemple via Flex Web Service.
 
-Le code contient une liste blanche interne. Un modèle ou fournisseur non explicitement autorisé est refusé avant tout appel réseau.
+Tant que cette connexion n’est pas configurée, le site affiche explicitement la date du snapshot de positions et ne prétend pas être une copie temps réel du compte Interactive Brokers.
 
-**Important :** cette protection empêche Finance Adviser d'appeler volontairement un modèle non approuvé comme gratuit. Elle ne peut pas vérifier le statut de facturation externe d'un compte Google/Groq. Pour garantir zéro dépense, les projets API correspondants doivent rester sur leurs offres gratuites et ne pas être configurés pour une facturation payante.
+## Confidentialité
 
-Aucune clé API n'est stockée dans le dépôt.
-
-
-## Screener dynamique et watchlist
-
-Le screener n'est plus une liste de tickers imposés.
-
-Il découvre automatiquement des candidats via les screeners Yahoo Finance/yfinance et un univers européen, puis enrichit les meilleures valeurs avec leurs fondamentaux et leur historique de marché.
-
-Score multi-facteurs :
-- qualité : 30 %
-- croissance : 20 %
-- valorisation : 20 %
-- bilan / cash-flow : 15 %
-- momentum : 10 %
-- risque : 5 %
-
-Le moteur applique aussi :
-- comparaison relative au secteur lorsque l'échantillon le permet ;
-- taille minimale de capitalisation ;
-- exigence de croissance minimale ;
-- pénalité lorsque le cours a déjà trop accéléré à 1 ou 3 mois ;
-- exclusion de certains faux positifs de type REIT ou cotations exotiques ;
-- déduplication des doubles cotations d'une même société.
-
-`watchlist.json` est totalement séparé du screener. Une société peut donc rester suivie parce qu'elle fait partie des convictions personnelles même si elle ne ressort pas comme opportunité du jour.
-
-## Cotations des positions
-
-`quotes.py` produit un snapshot léger des positions personnelles et de la watchlist, sans aucun appel IA.
-
-Le workflow `Market Quotes` le rafraîchit toutes les 30 minutes en semaine entre 06:00 et 22:59 UTC, puis republie le dashboard sans toucher au rapport IA.
-
-Les cours sont indicatifs et peuvent être retardés. Interactive Brokers reste la source de référence pour la valeur officielle du compte.
+Le dépôt est actuellement public. Les fichiers `portfolio.json` et `watchlist.json` sont donc visibles publiquement.
