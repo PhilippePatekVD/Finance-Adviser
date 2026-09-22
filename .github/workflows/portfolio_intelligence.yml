@@ -3,12 +3,15 @@ name: Portfolio Intelligence
 on:
   workflow_dispatch:
   schedule:
-    - cron: '15 6-22 * * 1-5'
+    - cron: '15 7,13,19 * * *'
   push:
     branches: ["main"]
     paths:
       - "portfolio_intelligence.py"
+      - "catalyst_radar.py"
+      - "research_config.json"
       - "index.html"
+      - "radar.html"
       - "portfolio.json"
       - "watchlist.json"
       - "requirements.txt"
@@ -45,19 +48,28 @@ jobs:
 
       - name: Validate code
         run: |
-          python -m py_compile portfolio_intelligence.py
+          python -m py_compile portfolio_intelligence.py catalyst_radar.py
           python - <<'PY'
           from pathlib import Path
           import re
 
-          html = Path("index.html").read_text(encoding="utf-8")
-          scripts = re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", html, flags=re.I)
+          scripts = []
+          for name in ("index.html", "radar.html"):
+              html = Path(name).read_text(encoding="utf-8")
+              scripts.extend(re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", html, flags=re.I))
           Path("/tmp/portfolio-intelligence.js").write_text("\n".join(scripts), encoding="utf-8")
           PY
           node --check /tmp/portfolio-intelligence.js
 
-      - name: Build current data
+      - name: Build portfolio data
         run: python portfolio_intelligence.py
+
+      - name: Build Catalyst Radar
+        env:
+          ENABLE_GEMINI_FREE: "0"
+          GEMINI_MODEL: "gemini-3.8-flash"
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python catalyst_radar.py
 
       - name: Validate output
         run: |
@@ -66,12 +78,22 @@ jobs:
           from pathlib import Path
 
           data = json.loads(Path("data.json").read_text(encoding="utf-8"))
+          radar = json.loads(Path("radar.json").read_text(encoding="utf-8"))
+
           assert data.get("schema_version") == 4
-          assert "generated_at" in data
           assert "portfolio" in data
-          print("Status:", data.get("status"))
+          assert radar.get("schema_version") == 1
+          assert radar.get("theme", {}).get("id") == "robotics"
+          assert isinstance(radar.get("companies"), list)
+          assert isinstance(radar.get("signals"), list)
+
+          print("Portfolio status:", data.get("status"))
           print("Positions:", len(data.get("portfolio", {}).get("positions", [])))
-          print("Warnings:", len(data.get("errors", [])))
+          print("Radar companies:", len(radar.get("companies", [])))
+          print("Radar signals:", len(radar.get("signals", [])))
+          print("Radar discoveries:", len(radar.get("discovery", [])))
+          print("Radar warnings:", len(radar.get("errors", [])))
+          print("Gemini:", radar.get("ai", {}).get("status"))
           PY
 
       - name: Prepare site
@@ -79,7 +101,9 @@ jobs:
           rm -rf site
           mkdir -p site
           cp index.html site/index.html
+          cp radar.html site/radar.html
           cp data.json site/data.json
+          cp radar.json site/radar.json
           touch site/.nojekyll
 
       - name: Configure Pages
