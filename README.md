@@ -234,3 +234,59 @@ Une information importante doit toujours permettre de répondre à :
 > **Qu'est-ce qui a changé ? Pourquoi cela pourrait-il compter ? Quelle est la preuve ? Qu'est-ce qui invaliderait l'hypothèse ?**
 
 Aucun score d'achat, objectif de cours ou recommandation automatique n'est généré.
+
+
+## Robustesse des sources — v3
+
+La collecte a été retravaillée pour éviter qu'une API publique instable ne rende le projet inutilisable.
+
+### GDELT
+
+Le Radar n'effectue plus une requête par sous-thème. Il utilise désormais **deux requêtes agrégées** :
+
+- robotique cœur : humanoïdes, industrie, cobots, logistique ;
+- technologies habilitantes : actuateurs, réducteurs, servos, vision, capteurs et Physical AI.
+
+Les articles sont ensuite reclassés localement dans les six sous-thèmes.
+
+En cas de 429, timeout ou erreur serveur :
+
+1. réessai court ;
+2. cache GDELT persistant ;
+3. Google News RSS ;
+4. cache Google RSS.
+
+### SEC EDGAR
+
+Le Radar ne télécharge plus `company_tickers.json` pendant les GitHub Actions.
+
+Les sociétés SEC suivies disposent de leur **CIK embarqué dans `research_config.json`**. Le moteur appelle donc directement les submissions de la société.
+
+Chaque société possède un cache dédié. Une entrée SEC fraîche est réutilisée pendant environ 20 heures.
+
+Pour respecter les services publics et raccourcir les runs :
+
+- au maximum **6 sociétés SEC** sont rafraîchies par run ;
+- les autres utilisent leur cache ;
+- les trois runs quotidiens font naturellement tourner l'univers ;
+- après plusieurs échecs consécutifs, un **circuit breaker** arrête les appels SEC du run.
+
+### Last-good result
+
+`.research_state/last_good_radar.json` mémorise la dernière collecte suffisamment riche.
+
+Si toutes les sources externes se dégradent simultanément, le site conserve la dernière sortie robuste au lieu de remplacer le Radar par un écran presque vide. L'interface indique que cette sortie vient du cache.
+
+### Provider health
+
+`radar.json` expose désormais un objet `provider_status` structuré.
+
+Les pages Radar et Research montrent donc l'état réel de :
+
+- GDELT ;
+- SEC EDGAR ;
+- Google News RSS.
+
+Un fournisseur peut être `active`, `degraded`, `fallback`, `cache` ou `unavailable`.
+
+La présence d'un fallback n'est plus assimilée à un échec du projet.
