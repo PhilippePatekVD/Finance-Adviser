@@ -427,7 +427,6 @@ def main() -> None:
 
     order = {"high":0,"medium":1,"monitor":2}
     signals.sort(key=lambda s:(order.get(s.get("priority",{}).get("level","monitor"),9), s.get("age_days") if s.get("age_days") is not None else 999))
-    discovery = broad_discovery(theme["subthemes"], companies, days, terms)
 
     payload = {
         "schema_version":1,
