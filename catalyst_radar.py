@@ -221,7 +221,7 @@ def snippet_around(text: str, needles: List[str], width: int = 360) -> str:
 
 def google_news_rss(query: str, maxrecords: int = 80) -> List[Dict[str, Any]]:
     params = {"q": query, "hl": "en-US", "gl": "US", "ceid": "US:en"}
-    r = session.get(GOOGLE_NEWS, params=params, timeout=12)
+    r = session.get(GOOGLE_NEWS, params=params, timeout=8)
     r.raise_for_status()
     root = ET.fromstring(r.content)
     out = []
@@ -259,7 +259,7 @@ def gdelt(query: str, days: int = 30, maxrecords: int = 150) -> List[Dict[str, A
         "timespan": f"{days}d",
         "sort": "datedesc",
     }
-    data, _ = request_json(session, GDELT, params=params, timeout=12, attempts=2)
+    data, _ = request_json(session, GDELT, params=params, timeout=8, attempts=2)
     return data.get("articles", []) if isinstance(data, dict) else []
 
 
@@ -462,7 +462,7 @@ def sec_document_signals(company: Dict[str, Any], days: int,
     if not cik.strip("0"):
         return []
 
-    data, _ = request_json(sec_session, SEC_SUBMISSIONS.format(cik=cik), timeout=12, attempts=2)
+    data, _ = request_json(sec_session, SEC_SUBMISSIONS.format(cik=cik), timeout=7, attempts=1)
     recent = (data.get("filings") or {}).get("recent") or {}
     forms = recent.get("form", [])
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
@@ -485,7 +485,7 @@ def sec_document_signals(company: Dict[str, Any], days: int,
     for filed_dt, form, accession, document in candidates[:2]:
         cik_num = str(int(cik))
         url = SEC_ARCHIVES.format(cik=cik_num, accession=accession.replace("-", ""), document=document)
-        text = request_text(sec_archive_session, url, timeout=12, attempts=2)
+        text = request_text(sec_archive_session, url, timeout=7, attempts=1)
         cats = catalyst_categories(text[:2_500_000], terms)
         if "robotics_exposure" not in cats:
             time.sleep(0.15)
