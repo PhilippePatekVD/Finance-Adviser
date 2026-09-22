@@ -10,32 +10,82 @@
       {
         "id": "humanoids",
         "label": "Humanoïdes",
-        "query": "(\"humanoid robot\" OR \"humanoid robotics\" OR \"dexterous robot\")"
+        "query": "(\"humanoid robot\" OR \"humanoid robotics\" OR \"dexterous robot\")",
+        "keywords": [
+          "humanoid",
+          "dexterous robot",
+          "biped",
+          "robot hand",
+          "robotics foundation model"
+        ]
       },
       {
         "id": "industrial",
         "label": "Robotique industrielle & cobots",
-        "query": "(\"industrial robot\" OR \"collaborative robot\" OR cobot OR \"robotics automation\")"
+        "query": "(\"industrial robot\" OR \"collaborative robot\" OR cobot OR \"robotics automation\")",
+        "keywords": [
+          "industrial robot",
+          "collaborative robot",
+          "cobot",
+          "factory automation",
+          "robot arm",
+          "robotics automation"
+        ]
       },
       {
         "id": "logistics",
         "label": "Logistique & AMR",
-        "query": "(\"warehouse automation\" OR \"autonomous mobile robot\" OR \"mobile robotics\")"
+        "query": "(\"warehouse automation\" OR \"autonomous mobile robot\" OR \"mobile robotics\")",
+        "keywords": [
+          "warehouse automation",
+          "autonomous mobile robot",
+          "mobile robot",
+          "amr",
+          "as/rs",
+          "warehouse robot"
+        ]
       },
       {
         "id": "motion",
         "label": "Motion control & actuateurs",
-        "query": "(\"robot actuator\" OR \"harmonic drive\" OR \"precision reducer\" OR \"servo motor\" OR \"motion control\")"
+        "query": "(\"robot actuator\" OR \"harmonic drive\" OR \"precision reducer\" OR \"servo motor\" OR \"motion control\")",
+        "keywords": [
+          "robot actuator",
+          "actuator",
+          "harmonic drive",
+          "precision reducer",
+          "servo motor",
+          "motion control",
+          "encoder",
+          "linear motion"
+        ]
       },
       {
         "id": "vision",
         "label": "Vision & capteurs",
-        "query": "(\"machine vision\" OR \"robot vision\" OR \"3D vision\" OR \"force torque sensor\")"
+        "query": "(\"machine vision\" OR \"robot vision\" OR \"3D vision\" OR \"force torque sensor\")",
+        "keywords": [
+          "machine vision",
+          "robot vision",
+          "3d vision",
+          "force torque sensor",
+          "vision sensor",
+          "camera inspection"
+        ]
       },
       {
         "id": "physical_ai",
         "label": "Physical AI & embodied AI",
-        "query": "(\"physical AI\" OR \"embodied AI\" OR \"robotics foundation model\" OR \"robot foundation model\")"
+        "query": "(\"physical AI\" OR \"embodied AI\" OR \"robotics foundation model\" OR \"robot foundation model\")",
+        "keywords": [
+          "physical ai",
+          "embodied ai",
+          "robot learning",
+          "robot foundation model",
+          "simulation",
+          "digital twin",
+          "isaac robotics"
+        ]
       }
     ],
     "catalyst_terms": {
@@ -127,7 +177,8 @@
         "industrial",
         "motion"
       ],
-      "sec_ticker": "ABB"
+      "sec_ticker": "ABB",
+      "sec_cik": "0001091587"
     },
     {
       "ticker": "6954.T",
@@ -256,7 +307,8 @@
         "industrial",
         "logistics"
       ],
-      "sec_ticker": "TER"
+      "sec_ticker": "TER",
+      "sec_cik": "0000097210"
     },
     {
       "ticker": "CGNX",
@@ -268,7 +320,8 @@
         "vision",
         "industrial"
       ],
-      "sec_ticker": "CGNX"
+      "sec_ticker": "CGNX",
+      "sec_cik": "0000851205"
     },
     {
       "ticker": "ROK",
@@ -280,7 +333,8 @@
       "subthemes": [
         "industrial"
       ],
-      "sec_ticker": "ROK"
+      "sec_ticker": "ROK",
+      "sec_cik": "0001024478"
     },
     {
       "ticker": "ZBRA",
@@ -293,7 +347,8 @@
         "logistics",
         "vision"
       ],
-      "sec_ticker": "ZBRA"
+      "sec_ticker": "ZBRA",
+      "sec_cik": "0000877212"
     },
     {
       "ticker": "SYM",
@@ -304,7 +359,8 @@
       "subthemes": [
         "logistics"
       ],
-      "sec_ticker": "SYM"
+      "sec_ticker": "SYM",
+      "sec_cik": "0001837240"
     },
     {
       "ticker": "AUTO.OL",
@@ -370,7 +426,8 @@
         "industrial",
         "vision"
       ],
-      "sec_ticker": "ISRG"
+      "sec_ticker": "ISRG",
+      "sec_cik": "0001035267"
     },
     {
       "ticker": "SYK",
@@ -383,7 +440,8 @@
         "industrial",
         "vision"
       ],
-      "sec_ticker": "SYK"
+      "sec_ticker": "SYK",
+      "sec_cik": "0000310764"
     },
     {
       "ticker": "MDT",
@@ -396,7 +454,8 @@
         "industrial",
         "vision"
       ],
-      "sec_ticker": "MDT"
+      "sec_ticker": "MDT",
+      "sec_cik": "0001613103"
     },
     {
       "ticker": "TSLA",
@@ -409,7 +468,8 @@
         "humanoids",
         "physical_ai"
       ],
-      "sec_ticker": "TSLA"
+      "sec_ticker": "TSLA",
+      "sec_cik": "0001318605"
     },
     {
       "ticker": "NVDA",
@@ -423,7 +483,8 @@
         "physical_ai",
         "humanoids"
       ],
-      "sec_ticker": "NVDA"
+      "sec_ticker": "NVDA",
+      "sec_cik": "0001045810"
     },
     {
       "ticker": "QCOM",
@@ -435,7 +496,8 @@
         "physical_ai",
         "vision"
       ],
-      "sec_ticker": "QCOM"
+      "sec_ticker": "QCOM",
+      "sec_cik": "0000804328"
     },
     {
       "ticker": "PTC",
@@ -448,7 +510,8 @@
         "physical_ai",
         "industrial"
       ],
-      "sec_ticker": "PTC"
+      "sec_ticker": "PTC",
+      "sec_cik": "0000857005"
     },
     {
       "ticker": "AMBA",
@@ -460,7 +523,8 @@
         "vision",
         "physical_ai"
       ],
-      "sec_ticker": "AMBA"
+      "sec_ticker": "AMBA",
+      "sec_cik": "0001280263"
     },
     {
       "ticker": "TEL",
@@ -472,7 +536,8 @@
         "motion",
         "vision"
       ],
-      "sec_ticker": "TEL"
+      "sec_ticker": "TEL",
+      "sec_cik": "0001385157"
     },
     {
       "ticker": "PH",
@@ -485,7 +550,8 @@
         "motion",
         "industrial"
       ],
-      "sec_ticker": "PH"
+      "sec_ticker": "PH",
+      "sec_cik": "0000076334"
     },
     {
       "ticker": "RRX",
@@ -497,7 +563,8 @@
         "motion",
         "industrial"
       ],
-      "sec_ticker": "RRX"
+      "sec_ticker": "RRX",
+      "sec_cik": "0000082811"
     },
     {
       "ticker": "BSL.DE",
@@ -512,5 +579,21 @@
       ]
     }
   ],
-  "pipeline_revision": "research-os-v2"
+  "pipeline_revision": "research-os-v3-resilient-sources",
+  "providers": {
+    "gdelt": {
+      "batch_queries": 2,
+      "refresh_hours": 5,
+      "stale_cache_hours": 72
+    },
+    "google_news": {
+      "refresh_hours": 5,
+      "stale_cache_hours": 72
+    },
+    "sec": {
+      "refresh_hours": 20,
+      "stale_cache_hours": 168,
+      "circuit_breaker_failures": 2
+    }
+  }
 }
