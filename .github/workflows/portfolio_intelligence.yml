@@ -9,9 +9,11 @@ on:
     paths:
       - "portfolio_intelligence.py"
       - "catalyst_radar.py"
+      - "research_os.py"
       - "research_config.json"
       - "index.html"
       - "radar.html"
+      - "research.html"
       - "portfolio.json"
       - "watchlist.json"
       - "requirements.txt"
@@ -46,14 +48,22 @@ jobs:
       - name: Dependencies
         run: pip install -r requirements.txt
 
+      - name: Restore Research OS memory
+        uses: actions/cache/restore@v4
+        with:
+          path: .research_state
+          key: research-state-${{ github.run_id }}
+          restore-keys: |
+            research-state-
+
       - name: Validate code
         run: |
-          python -m py_compile portfolio_intelligence.py catalyst_radar.py
+          python -m py_compile portfolio_intelligence.py catalyst_radar.py research_os.py
           python - <<'PY'
           from pathlib import Path
           import re
 
-          for name in ("index.html", "radar.html"):
+          for name in ("index.html", "radar.html", "research.html"):
               html = Path(name).read_text(encoding="utf-8")
               scripts = re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", html, flags=re.I)
               out = Path("/tmp") / (Path(name).stem + "-inline.js")
@@ -61,6 +71,7 @@ jobs:
           PY
           node --check /tmp/index-inline.js
           node --check /tmp/radar-inline.js
+          node --check /tmp/research-inline.js
 
       - name: Build portfolio data
         run: python portfolio_intelligence.py
@@ -72,6 +83,9 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python catalyst_radar.py
 
+      - name: Build Research OS
+        run: python research_os.py
+
       - name: Validate output
         run: |
           python - <<'PY'
@@ -80,21 +94,34 @@ jobs:
 
           data = json.loads(Path("data.json").read_text(encoding="utf-8"))
           radar = json.loads(Path("radar.json").read_text(encoding="utf-8"))
+          research = json.loads(Path("research.json").read_text(encoding="utf-8"))
 
           assert data.get("schema_version") == 4
           assert "portfolio" in data
+
           assert radar.get("schema_version") == 1
           assert radar.get("theme", {}).get("id") == "robotics"
           assert isinstance(radar.get("companies"), list)
           assert isinstance(radar.get("signals"), list)
           assert len(radar.get("companies", [])) >= 30, "Radar fallback/empty company universe"
 
+          assert research.get("schema_version") == 1
+          assert isinstance(research.get("changes"), list)
+          assert isinstance(research.get("evidence_packs"), list)
+          assert isinstance(research.get("themes"), list)
+          assert isinstance(research.get("dossiers"), list)
+          assert len(research.get("dossiers", [])) >= 30, "Research OS company dossiers missing"
+          assert research.get("knowledge_graph", {}).get("nodes"), "Knowledge graph empty"
+
           print("Portfolio status:", data.get("status"))
           print("Positions:", len(data.get("portfolio", {}).get("positions", [])))
           print("Radar companies:", len(radar.get("companies", [])))
           print("Radar signals:", len(radar.get("signals", [])))
           print("Radar discoveries:", len(radar.get("discovery", [])))
-          print("Radar warnings:", len(radar.get("errors", [])))
+          print("Research changes:", len(research.get("changes", [])))
+          print("Evidence packs:", len(research.get("evidence_packs", [])))
+          print("Research memory runs:", research.get("memory", {}).get("historical_run_count"))
+          print("Unknown candidates:", len(research.get("unknown_candidates", [])))
           print("Gemini:", radar.get("ai", {}).get("status"))
           PY
 
@@ -104,8 +131,10 @@ jobs:
           mkdir -p site
           cp index.html site/index.html
           cp radar.html site/radar.html
+          cp research.html site/research.html
           cp data.json site/data.json
           cp radar.json site/radar.json
+          cp research.json site/research.json
           touch site/.nojekyll
 
       - name: Configure Pages
@@ -119,3 +148,10 @@ jobs:
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+      - name: Save Research OS memory
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .research_state
+          key: research-state-${{ github.run_id }}
