@@ -241,7 +241,7 @@ def compute_portfolio(portfolio: Dict[str, Any]) -> Dict[str, Any]:
     combined = pd.Series(dtype=float)
     correlations: List[Dict[str, Any]] = []
     if position_series:
-        frame = pd.concat(position_series, axis=1).sort_index().ffill().dropna(how="all")
+        frame = pd.concat(position_series, axis=1, sort=False).sort_index().ffill().dropna(how="all")
         combined = frame.sum(axis=1)
         returns = frame.pct_change().dropna()
         if len(returns) >= 20 and len(returns.columns) > 1:
