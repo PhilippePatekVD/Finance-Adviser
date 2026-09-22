@@ -87,6 +87,7 @@ jobs:
           assert radar.get("theme", {}).get("id") == "robotics"
           assert isinstance(radar.get("companies"), list)
           assert isinstance(radar.get("signals"), list)
+          assert len(radar.get("companies", [])) >= 30, "Radar fallback/empty company universe"
 
           print("Portfolio status:", data.get("status"))
           print("Positions:", len(data.get("portfolio", {}).get("positions", [])))
