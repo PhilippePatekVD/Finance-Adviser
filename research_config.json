@@ -1,0 +1,515 @@
+{
+  "version": 1,
+  "theme": {
+    "id": "robotics",
+    "label": "Robotique & Physical AI",
+    "description": "Radar de catalyseurs sur la robotique, l'automatisation, les humanoïdes et leur chaîne de valeur.",
+    "lookback_days": 90,
+    "recent_days": 30,
+    "subthemes": [
+      {
+        "id": "humanoids",
+        "label": "Humanoïdes",
+        "query": "(\"humanoid robot\" OR \"humanoid robotics\" OR \"dexterous robot\")"
+      },
+      {
+        "id": "industrial",
+        "label": "Robotique industrielle & cobots",
+        "query": "(\"industrial robot\" OR \"collaborative robot\" OR cobot OR \"robotics automation\")"
+      },
+      {
+        "id": "logistics",
+        "label": "Logistique & AMR",
+        "query": "(\"warehouse automation\" OR \"autonomous mobile robot\" OR \"mobile robotics\")"
+      },
+      {
+        "id": "motion",
+        "label": "Motion control & actuateurs",
+        "query": "(\"robot actuator\" OR \"harmonic drive\" OR \"precision reducer\" OR \"servo motor\" OR \"motion control\")"
+      },
+      {
+        "id": "vision",
+        "label": "Vision & capteurs",
+        "query": "(\"machine vision\" OR \"robot vision\" OR \"3D vision\" OR \"force torque sensor\")"
+      },
+      {
+        "id": "physical_ai",
+        "label": "Physical AI & embodied AI",
+        "query": "(\"physical AI\" OR \"embodied AI\" OR \"robotics foundation model\" OR \"robot foundation model\")"
+      }
+    ],
+    "catalyst_terms": {
+      "orders_backlog": [
+        "backlog",
+        "order intake",
+        "new order",
+        "purchase order",
+        "contract award",
+        "framework agreement",
+        "bookings"
+      ],
+      "capacity_capex": [
+        "capacity expansion",
+        "new factory",
+        "new plant",
+        "production capacity",
+        "capex",
+        "capital expenditure",
+        "manufacturing expansion"
+      ],
+      "partnerships": [
+        "partnership",
+        "strategic collaboration",
+        "joint development",
+        "memorandum of understanding",
+        "supplier agreement",
+        "selected as supplier"
+      ],
+      "product_launch": [
+        "launch",
+        "new product",
+        "introduced",
+        "unveiled",
+        "platform launch",
+        "commercial release",
+        "mass production"
+      ],
+      "guidance": [
+        "guidance",
+        "outlook",
+        "forecast",
+        "raises guidance",
+        "reaffirms guidance",
+        "lowers guidance"
+      ],
+      "robotics_exposure": [
+        "robotics",
+        "robotic",
+        "humanoid",
+        "automation",
+        "cobot",
+        "autonomous mobile robot",
+        "machine vision",
+        "servo",
+        "actuator",
+        "harmonic drive",
+        "embodied ai",
+        "physical ai"
+      ],
+      "customer_adoption": [
+        "customer adoption",
+        "pilot program",
+        "deployment",
+        "rollout",
+        "production program",
+        "design win",
+        "qualification"
+      ],
+      "government_defense": [
+        "government contract",
+        "defense contract",
+        "grant",
+        "subsidy",
+        "industrial policy",
+        "reshoring"
+      ]
+    }
+  },
+  "companies": [
+    {
+      "ticker": "ABBN.SW",
+      "name": "ABB",
+      "aliases": [
+        "ABB Robotics",
+        "ABB"
+      ],
+      "subthemes": [
+        "industrial",
+        "motion"
+      ],
+      "sec_ticker": "ABB"
+    },
+    {
+      "ticker": "6954.T",
+      "name": "FANUC",
+      "aliases": [
+        "FANUC"
+      ],
+      "subthemes": [
+        "industrial",
+        "motion"
+      ]
+    },
+    {
+      "ticker": "6506.T",
+      "name": "Yaskawa Electric",
+      "aliases": [
+        "Yaskawa",
+        "Yaskawa Electric"
+      ],
+      "subthemes": [
+        "industrial",
+        "motion"
+      ]
+    },
+    {
+      "ticker": "6861.T",
+      "name": "Keyence",
+      "aliases": [
+        "Keyence"
+      ],
+      "subthemes": [
+        "vision",
+        "industrial"
+      ]
+    },
+    {
+      "ticker": "6273.T",
+      "name": "SMC",
+      "aliases": [
+        "SMC Corporation",
+        "SMC"
+      ],
+      "subthemes": [
+        "motion",
+        "industrial"
+      ]
+    },
+    {
+      "ticker": "6324.T",
+      "name": "Harmonic Drive Systems",
+      "aliases": [
+        "Harmonic Drive Systems",
+        "Harmonic Drive"
+      ],
+      "subthemes": [
+        "motion",
+        "humanoids"
+      ]
+    },
+    {
+      "ticker": "6268.T",
+      "name": "Nabtesco",
+      "aliases": [
+        "Nabtesco"
+      ],
+      "subthemes": [
+        "motion",
+        "industrial"
+      ]
+    },
+    {
+      "ticker": "6481.T",
+      "name": "THK",
+      "aliases": [
+        "THK Co",
+        "THK"
+      ],
+      "subthemes": [
+        "motion",
+        "industrial"
+      ]
+    },
+    {
+      "ticker": "6594.T",
+      "name": "Nidec",
+      "aliases": [
+        "Nidec"
+      ],
+      "subthemes": [
+        "motion",
+        "humanoids"
+      ]
+    },
+    {
+      "ticker": "6645.T",
+      "name": "Omron",
+      "aliases": [
+        "Omron"
+      ],
+      "subthemes": [
+        "industrial",
+        "vision"
+      ]
+    },
+    {
+      "ticker": "6383.T",
+      "name": "Daifuku",
+      "aliases": [
+        "Daifuku"
+      ],
+      "subthemes": [
+        "logistics",
+        "industrial"
+      ]
+    },
+    {
+      "ticker": "TER",
+      "name": "Teradyne",
+      "aliases": [
+        "Teradyne",
+        "Universal Robots",
+        "Mobile Industrial Robots",
+        "MiR"
+      ],
+      "subthemes": [
+        "industrial",
+        "logistics"
+      ],
+      "sec_ticker": "TER"
+    },
+    {
+      "ticker": "CGNX",
+      "name": "Cognex",
+      "aliases": [
+        "Cognex"
+      ],
+      "subthemes": [
+        "vision",
+        "industrial"
+      ],
+      "sec_ticker": "CGNX"
+    },
+    {
+      "ticker": "ROK",
+      "name": "Rockwell Automation",
+      "aliases": [
+        "Rockwell Automation",
+        "Rockwell"
+      ],
+      "subthemes": [
+        "industrial"
+      ],
+      "sec_ticker": "ROK"
+    },
+    {
+      "ticker": "ZBRA",
+      "name": "Zebra Technologies",
+      "aliases": [
+        "Zebra Technologies",
+        "Zebra"
+      ],
+      "subthemes": [
+        "logistics",
+        "vision"
+      ],
+      "sec_ticker": "ZBRA"
+    },
+    {
+      "ticker": "SYM",
+      "name": "Symbotic",
+      "aliases": [
+        "Symbotic"
+      ],
+      "subthemes": [
+        "logistics"
+      ],
+      "sec_ticker": "SYM"
+    },
+    {
+      "ticker": "AUTO.OL",
+      "name": "AutoStore",
+      "aliases": [
+        "AutoStore"
+      ],
+      "subthemes": [
+        "logistics"
+      ]
+    },
+    {
+      "ticker": "KGX.DE",
+      "name": "KION Group",
+      "aliases": [
+        "KION Group",
+        "KION"
+      ],
+      "subthemes": [
+        "logistics",
+        "industrial"
+      ]
+    },
+    {
+      "ticker": "JUN3.DE",
+      "name": "Jungheinrich",
+      "aliases": [
+        "Jungheinrich"
+      ],
+      "subthemes": [
+        "logistics"
+      ]
+    },
+    {
+      "ticker": "SIE.DE",
+      "name": "Siemens",
+      "aliases": [
+        "Siemens"
+      ],
+      "subthemes": [
+        "industrial",
+        "physical_ai"
+      ]
+    },
+    {
+      "ticker": "SU.PA",
+      "name": "Schneider Electric",
+      "aliases": [
+        "Schneider Electric"
+      ],
+      "subthemes": [
+        "industrial"
+      ]
+    },
+    {
+      "ticker": "ISRG",
+      "name": "Intuitive Surgical",
+      "aliases": [
+        "Intuitive Surgical",
+        "da Vinci surgical system"
+      ],
+      "subthemes": [
+        "industrial",
+        "vision"
+      ],
+      "sec_ticker": "ISRG"
+    },
+    {
+      "ticker": "SYK",
+      "name": "Stryker",
+      "aliases": [
+        "Stryker",
+        "Mako"
+      ],
+      "subthemes": [
+        "industrial",
+        "vision"
+      ],
+      "sec_ticker": "SYK"
+    },
+    {
+      "ticker": "MDT",
+      "name": "Medtronic",
+      "aliases": [
+        "Medtronic",
+        "Hugo robotic"
+      ],
+      "subthemes": [
+        "industrial",
+        "vision"
+      ],
+      "sec_ticker": "MDT"
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla",
+      "aliases": [
+        "Tesla",
+        "Optimus"
+      ],
+      "subthemes": [
+        "humanoids",
+        "physical_ai"
+      ],
+      "sec_ticker": "TSLA"
+    },
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA",
+      "aliases": [
+        "NVIDIA",
+        "Isaac robotics",
+        "GR00T"
+      ],
+      "subthemes": [
+        "physical_ai",
+        "humanoids"
+      ],
+      "sec_ticker": "NVDA"
+    },
+    {
+      "ticker": "QCOM",
+      "name": "Qualcomm",
+      "aliases": [
+        "Qualcomm"
+      ],
+      "subthemes": [
+        "physical_ai",
+        "vision"
+      ],
+      "sec_ticker": "QCOM"
+    },
+    {
+      "ticker": "PTC",
+      "name": "PTC",
+      "aliases": [
+        "PTC",
+        "ThingWorx"
+      ],
+      "subthemes": [
+        "physical_ai",
+        "industrial"
+      ],
+      "sec_ticker": "PTC"
+    },
+    {
+      "ticker": "AMBA",
+      "name": "Ambarella",
+      "aliases": [
+        "Ambarella"
+      ],
+      "subthemes": [
+        "vision",
+        "physical_ai"
+      ],
+      "sec_ticker": "AMBA"
+    },
+    {
+      "ticker": "TEL",
+      "name": "TE Connectivity",
+      "aliases": [
+        "TE Connectivity"
+      ],
+      "subthemes": [
+        "motion",
+        "vision"
+      ],
+      "sec_ticker": "TEL"
+    },
+    {
+      "ticker": "PH",
+      "name": "Parker Hannifin",
+      "aliases": [
+        "Parker Hannifin",
+        "Parker"
+      ],
+      "subthemes": [
+        "motion",
+        "industrial"
+      ],
+      "sec_ticker": "PH"
+    },
+    {
+      "ticker": "RRX",
+      "name": "Regal Rexnord",
+      "aliases": [
+        "Regal Rexnord"
+      ],
+      "subthemes": [
+        "motion",
+        "industrial"
+      ],
+      "sec_ticker": "RRX"
+    },
+    {
+      "ticker": "BSL.DE",
+      "name": "Basler",
+      "aliases": [
+        "Basler AG",
+        "Basler"
+      ],
+      "subthemes": [
+        "vision",
+        "industrial"
+      ]
+    }
+  ]
+}
