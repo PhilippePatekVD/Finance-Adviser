@@ -8,7 +8,7 @@
 <style>
 :root{--bg:#f5f5f7;--card:#fff;--ink:#1d1d1f;--muted:#6e6e73;--line:rgba(0,0,0,.075);--blue:#0071e3;--green:#248a3d;--red:#d70015;--orange:#9b5c00;--blue2:#eaf4ff;--green2:#edf8ef;--red2:#fff0f1;--orange2:#fff5e7}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}.shell{max-width:1160px;margin:auto;padding:0 18px 50px}
-.top{height:62px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px}.mark{width:34px;height:34px;border-radius:10px;background:#1d1d1f;color:#fff;display:grid;place-items:center;font-size:11px;font-weight:750}.brand b{font-size:15px}.brand small{display:block;font-size:9px;color:var(--muted);margin-top:2px}.fresh{font-size:10px;color:var(--muted);background:#e8e8ed;padding:7px 10px;border-radius:999px}
+.top{height:62px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px}.mark{width:34px;height:34px;border-radius:10px;background:#1d1d1f;color:#fff;display:grid;place-items:center;font-size:11px;font-weight:750}.brand b{font-size:15px}.brand small{display:block;font-size:9px;color:var(--muted);margin-top:2px}.fresh{font-size:10px;color:var(--muted);background:#e8e8ed;padding:7px 10px;border-radius:999px}.top-actions{display:flex;gap:7px;align-items:center}.radar-link{font-size:10px;text-decoration:none;color:#fff;background:#1d1d1f;padding:8px 11px;border-radius:999px;white-space:nowrap}
 .hero{background:#fff;border-radius:30px;padding:42px;display:grid;grid-template-columns:1.3fr .7fr;gap:25px;box-shadow:0 2px 10px rgba(0,0,0,.04)}.eyebrow{font-size:10px;font-weight:700;color:var(--blue)}h1{font-size:clamp(42px,6vw,70px);line-height:.98;letter-spacing:-.055em;margin:10px 0 14px}.hero p{font-size:15px;color:var(--muted);line-height:1.55;max-width:670px}.hero-metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric{background:#f5f5f7;border-radius:18px;padding:17px}.metric strong{display:block;font-size:26px;letter-spacing:-.04em}.metric span{display:block;margin-top:5px;font-size:9px;color:var(--muted)}
 .sourcebar{margin-top:12px;background:#fff;border-radius:18px;padding:14px 16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}.sourceitem{font-size:10px;color:var(--muted)}.sourceitem b{color:var(--ink)}
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:12px}.card{background:#fff;border-radius:24px;padding:23px;box-shadow:0 2px 9px rgba(0,0,0,.04)}.span4{grid-column:span 4}.span5{grid-column:span 5}.span6{grid-column:span 6}.span7{grid-column:span 7}.span8{grid-column:span 8}.span12{grid-column:span 12}.card h2{font-size:21px;letter-spacing:-.035em;margin:0 0 5px}.sub{font-size:11px;color:var(--muted);line-height:1.45;margin:0 0 16px}.big{font-size:37px;font-weight:720;letter-spacing:-.045em}.mini{font-size:10px;color:var(--muted);margin-top:5px}
@@ -26,7 +26,7 @@
 <main class="shell">
 <header class="top">
   <div class="brand"><div class="mark">PI</div><div><b>Portfolio Intelligence</b><small>Finance Adviser · transparent edition</small></div></div>
-  <div id="fresh" class="fresh">Chargement…</div>
+  <div class="top-actions"><a class="radar-link" href="radar.html">Radar Robotique</a><div id="fresh" class="fresh">Chargement…</div></div>
 </header>
 
 <section class="hero">
