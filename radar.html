@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f7">
+<title>Robotics Catalyst Radar</title>
+<style>
+:root{--bg:#f5f5f7;--card:#fff;--ink:#1d1d1f;--muted:#6e6e73;--line:rgba(0,0,0,.075);--blue:#0071e3;--green:#248a3d;--orange:#a95500;--red:#d70015;--green2:#edf8ef;--orange2:#fff5e7;--red2:#fff0f1;--blue2:#eaf4ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}.shell{max-width:1160px;margin:auto;padding:0 18px 50px}
+.top{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}.mark{width:34px;height:34px;border-radius:10px;background:#1d1d1f;color:#fff;display:grid;place-items:center;font-size:10px;font-weight:750}.brand b{font-size:15px}.brand small{display:block;font-size:9px;color:var(--muted);margin-top:2px}.nav{display:flex;align-items:center;gap:7px}.nav a,.fresh{font-size:10px;text-decoration:none;color:var(--muted);background:#e8e8ed;padding:8px 11px;border-radius:999px}.nav a.on{background:#1d1d1f;color:#fff}
+.hero{background:#fff;border-radius:30px;padding:42px;display:grid;grid-template-columns:1.25fr .75fr;gap:26px;box-shadow:0 2px 10px rgba(0,0,0,.04)}.eyebrow{font-size:10px;font-weight:700;color:var(--blue)}h1{font-size:clamp(42px,6vw,68px);line-height:.98;letter-spacing:-.055em;margin:10px 0 14px}.hero p{font-size:15px;color:var(--muted);line-height:1.55;max-width:700px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric{background:#f5f5f7;border-radius:18px;padding:17px}.metric strong{display:block;font-size:27px;letter-spacing:-.04em}.metric span{display:block;font-size:8px;color:var(--muted);margin-top:5px}
+.bar{margin-top:12px;background:#fff;border-radius:18px;padding:14px 16px;display:flex;gap:14px;flex-wrap:wrap}.bar span{font-size:9px;color:var(--muted)}.bar b{color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:12px}.card{background:#fff;border-radius:24px;padding:23px;box-shadow:0 2px 9px rgba(0,0,0,.04)}.span12{grid-column:span 12}.span8{grid-column:span 8}.span4{grid-column:span 4}.card h2{font-size:21px;letter-spacing:-.035em;margin:0 0 5px}.sub{font-size:11px;color:var(--muted);line-height:1.5;margin:0 0 16px}
+.ai{padding:14px 15px;border-radius:16px;background:var(--blue2);font-size:10px;line-height:1.5}.ai.off{background:#f2f2f7;color:var(--muted)}.ai.ok{background:var(--green2);color:#1c6630}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 16px}.filter{border:0;background:#e8e8ed;border-radius:999px;padding:7px 10px;font-size:9px;cursor:pointer}.filter.on{background:#1d1d1f;color:#fff}
+.companies{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.company{background:#f7f7f9;border-radius:17px;padding:15px}.company-top{display:flex;justify-content:space-between;gap:10px;align-items:start}.company b{font-size:12px}.company small{display:block;color:var(--muted);font-size:8px;margin-top:3px}.prio{font-size:7px;font-weight:700;padding:5px 7px;border-radius:999px}.high{background:var(--red2);color:var(--red)}.medium{background:var(--orange2);color:var(--orange)}.monitor{background:#ececf1;color:var(--muted)}.company .meta{font-size:9px;color:var(--muted);margin-top:9px;line-height:1.45}.tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}.tag{font-size:7px;padding:4px 6px;border-radius:999px;background:#e8e8ed;color:#555}
+.signals{display:grid;gap:9px}.signal{border:1px solid var(--line);border-radius:17px;padding:16px}.signal-head{display:flex;justify-content:space-between;gap:12px;align-items:start}.signal a{color:inherit;text-decoration:none}.signal a:hover{text-decoration:underline}.signal h3{font-size:13px;line-height:1.35;margin:0}.signal-meta{font-size:8px;color:var(--muted);margin-top:5px}.signal p{font-size:10px;color:var(--muted);line-height:1.5;margin:9px 0 0}.reason{font-size:8px;color:var(--muted);margin-top:8px}.reason b{color:var(--ink)}
+.discovery{display:grid;gap:8px}.disco{padding:12px 13px;border-radius:14px;background:#f7f7f9}.disco a{font-size:10px;color:inherit;text-decoration:none;font-weight:650;line-height:1.4}.disco small{display:block;color:var(--muted);font-size:8px;margin-top:4px}.warning{padding:12px 13px;border-radius:14px;background:var(--orange2);color:#754600;font-size:9px;line-height:1.45;margin-top:6px}.footer{text-align:center;color:#8e8e93;font-size:9px;line-height:1.5;margin-top:27px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.span8,.span4{grid-column:span 12}.companies{grid-template-columns:1fr 1fr}}@media(max-width:650px){.shell{padding:0 12px 40px}.top{height:auto;padding:10px 0;align-items:flex-start}.nav{flex-wrap:wrap;justify-content:flex-end}.hero{padding:28px 21px}.hero h1{font-size:44px}.companies{grid-template-columns:1fr}.signal-head{display:block}.prio{display:inline-block;margin-top:7px}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header class="top">
+  <a class="brand" href="index.html"><div class="mark">PI</div><div><b>Portfolio Intelligence</b><small>Research Radar</small></div></a>
+  <div class="nav"><a href="index.html">Portefeuille</a><a href="radar.html" class="on">Radar Robotique</a><span id="fresh" class="fresh">Chargement…</span></div>
+</header>
+
+<section class="hero">
+  <div><div class="eyebrow">CATALYST RADAR · ROBOTICS & PHYSICAL AI</div><h1>Voir les signaux avant qu’ils deviennent évidents.</h1><p>Filings, actualité mondiale et chaîne de valeur robotique. Les priorités indiquent où approfondir la recherche — jamais quoi acheter.</p></div>
+  <div class="metrics">
+    <div class="metric"><strong id="high">—</strong><span>priorités élevées</span></div>
+    <div class="metric"><strong id="medium">—</strong><span>priorités moyennes</span></div>
+    <div class="metric"><strong id="active">—</strong><span>sociétés avec signal 30 j</span></div>
+    <div class="metric"><strong id="discoveries">—</strong><span>pistes hors univers</span></div>
+  </div>
+</section>
+
+<section class="bar"><span><b>News :</b> GDELT DOC 2.0</span><span><b>Sources primaires :</b> SEC EDGAR</span><span><b>Priorité :</b> règles explicites</span><span><b>Dernière recherche :</b> <span id="generated">—</span></span></section>
+
+<section class="grid">
+  <article class="card span12"><h2>Couche IA</h2><p class="sub">Le radar fonctionne sans IA. Gemini ne sert qu’à synthétiser les preuves déjà collectées.</p><div id="ai" class="ai off">—</div></article>
+
+  <article class="card span12"><h2>Sociétés à approfondir</h2><p class="sub">Source primaire, catalyseur concret, récence et corroboration sont visibles séparément — pas de score opaque.</p><div id="companies" class="companies"></div></article>
+
+  <article class="card span8"><h2>Signaux</h2><p class="sub">Filings et articles classés par priorité de recherche.</p><div class="filters"><button class="filter on" data-filter="all">Tous</button><button class="filter" data-filter="high">Élevée</button><button class="filter" data-filter="medium">Moyenne</button><button class="filter" data-filter="filing">Filings</button></div><div id="signals" class="signals"></div></article>
+
+  <article class="card span4"><h2>Découverte</h2><p class="sub">Articles thématiques récents ne correspondant pas encore à notre univers de sociétés. C’est ici que peuvent apparaître de nouveaux noms.</p><div id="discovery" class="discovery"></div></article>
+
+  <article class="card span12"><h2>Qualité & avertissements</h2><p class="sub">Une source manquante reste visible au lieu d’être transformée en certitude.</p><div id="errors"></div></article>
+</section>
+<div class="footer">Catalyst Radar est un système de veille et de recherche. Il ne constitue ni une recommandation d’investissement ni une prévision de performance.</div>
+</main>
+<script>
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+let DATA=null,FILTER="all";
+const ago=iso=>{if(!iso)return"—";const h=Math.max(0,Math.round((Date.now()-new Date(iso).getTime())/36e5));return h<24?h+" h":Math.round(h/24)+" j"};
+const labelCat=x=>({orders_backlog:"commandes/backlog",capacity_capex:"capacité/capex",partnerships:"partenariat",product_launch:"produit/lancement",guidance:"guidance",robotics_exposure:"exposition robotique",customer_adoption:"adoption client",government_defense:"public/défense"}[x]||x);
+function renderCompanies(){
+  const rows=(DATA.companies||[]).filter(x=>x.signal_count_30d>0).slice(0,18);
+  document.getElementById("companies").innerHTML=rows.map(x=>'<div class="company"><div class="company-top"><div><b>'+esc(x.name)+'</b><small>'+esc(x.ticker)+' · '+x.signal_count_30d+' signal(s) 30 j</small></div><span class="prio '+esc(x.priority)+'">'+(x.priority==="high"?"ÉLEVÉE":x.priority==="medium"?"MOYENNE":"VEILLE")+'</span></div><div class="tags">'+(x.categories||[]).slice(0,5).map(c=>'<span class="tag">'+esc(labelCat(c))+'</span>').join("")+'</div><div class="meta">'+esc((x.reasons||[]).join(" · "))+'</div></div>').join("")||'<div class="sub">Aucun signal récent.</div>';
+}
+function renderSignals(){
+  let rows=(DATA.signals||[]);
+  if(FILTER==="high"||FILTER==="medium")rows=rows.filter(x=>x.priority?.level===FILTER);
+  if(FILTER==="filing")rows=rows.filter(x=>x.source_type==="filing");
+  rows=rows.slice(0,70);
+  document.getElementById("signals").innerHTML=rows.map(x=>'<div class="signal"><div class="signal-head"><div><h3><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.title)+'</a></h3><div class="signal-meta">'+esc(x.company_name||"Thème non classé")+' · '+esc(x.source_name)+' · '+ago(x.date)+'</div></div><span class="prio '+esc(x.priority?.level||"monitor")+'">'+(x.priority?.level==="high"?"ÉLEVÉE":x.priority?.level==="medium"?"MOYENNE":"VEILLE")+'</span></div><div class="tags">'+(x.categories||[]).map(c=>'<span class="tag">'+esc(labelCat(c))+'</span>').join("")+'</div>'+(x.snippet?'<p>'+esc(x.snippet)+'</p>':'')+'<div class="reason"><b>Pourquoi :</b> '+esc((x.priority?.reasons||[]).join(" · ")||"signal thématique")+'</div></div>').join("")||'<div class="sub">Aucun signal dans ce filtre.</div>';
+}
+function renderDiscovery(){
+  document.getElementById("discovery").innerHTML=(DATA.discovery||[]).slice(0,25).map(x=>'<div class="disco"><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.title)+'</a><small>'+esc(x.source_name)+' · '+ago(x.date)+' · '+esc((x.subthemes||[]).join(", "))+'</small></div>').join("")||'<div class="sub">Aucune piste non classée.</div>';
+}
+async function main(){
+  const r=await fetch("radar.json?ts="+Date.now(),{cache:"no-store"});DATA=await r.json();
+  document.getElementById("fresh").textContent=ago(DATA.generated_at);
+  document.getElementById("generated").textContent=DATA.generated_at?new Date(DATA.generated_at).toLocaleString("fr-CH"):"—";
+  const cs=DATA.companies||[];
+  document.getElementById("high").textContent=cs.filter(x=>x.priority==="high").length;
+  document.getElementById("medium").textContent=cs.filter(x=>x.priority==="medium").length;
+  document.getElementById("active").textContent=cs.filter(x=>x.signal_count_30d>0).length;
+  document.getElementById("discoveries").textContent=(DATA.discovery||[]).length;
+  const ai=DATA.ai||{};const box=document.getElementById("ai");
+  if(ai.status==="ok"){box.className="ai ok";box.innerHTML='<b>Gemini '+esc(ai.model)+' actif</b><br>'+esc(ai.result?.summary||"Synthèse disponible.");}
+  else{box.className="ai off";box.innerHTML='<b>Gemini : '+esc(ai.status||"désactivé")+'</b><br>'+esc(ai.note||"Le moteur déterministe reste entièrement opérationnel.");}
+  renderCompanies();renderSignals();renderDiscovery();
+  document.getElementById("errors").innerHTML=(DATA.errors||[]).map(e=>'<div class="warning">'+esc(e)+'</div>').join("")||'<div class="ai ok">Aucun avertissement de collecte.</div>';
+  document.querySelectorAll("[data-filter]").forEach(b=>b.onclick=()=>{FILTER=b.dataset.filter;document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("on",x===b));renderSignals()});
+}
+main().catch(e=>{document.getElementById("fresh").textContent="Erreur";document.getElementById("errors").innerHTML='<div class="warning">'+esc(e.message)+'</div>'});
+</script>
+</body>
+</html>
