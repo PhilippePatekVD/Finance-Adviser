@@ -1,0 +1,95 @@
+name: Portfolio Intelligence
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 6-22 * * 1-5'
+  push:
+    branches: ["main"]
+    paths:
+      - "portfolio_intelligence.py"
+      - "index.html"
+      - "portfolio.json"
+      - "watchlist.json"
+      - "requirements.txt"
+      - ".github/workflows/portfolio_intelligence.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: portfolio-intelligence-pages
+  cancel-in-progress: true
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Validate code
+        run: |
+          python -m py_compile portfolio_intelligence.py
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          html = Path("index.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", html, flags=re.I)
+          Path("/tmp/portfolio-intelligence.js").write_text("\n".join(scripts), encoding="utf-8")
+          PY
+          node --check /tmp/portfolio-intelligence.js
+
+      - name: Build current data
+        run: python portfolio_intelligence.py
+
+      - name: Validate output
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path("data.json").read_text(encoding="utf-8"))
+          assert data.get("schema_version") == 4
+          assert "generated_at" in data
+          assert "portfolio" in data
+          print("Status:", data.get("status"))
+          print("Positions:", len(data.get("portfolio", {}).get("positions", [])))
+          print("Warnings:", len(data.get("errors", [])))
+          PY
+
+      - name: Prepare site
+        run: |
+          rm -rf site
+          mkdir -p site
+          cp index.html site/index.html
+          cp data.json site/data.json
+          touch site/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
