@@ -593,7 +593,8 @@
     "sec": {
       "refresh_hours": 20,
       "stale_cache_hours": 168,
-      "circuit_breaker_failures": 2
+      "circuit_breaker_failures": 2,
+      "max_network_companies_per_run": 6
     }
   }
 }
