@@ -393,6 +393,55 @@ def collect_theme_news(subthemes: List[Dict[str,Any]], companies: List[Dict[str,
     return known, discovery[:60], errors
 
 
+def collect_alternative_signals(companies: List[Dict[str,Any]], terms: Dict[str,List[str]]) -> tuple[List[Dict[str,Any]], List[Dict[str,Any]], List[str]]:
+    queries = [
+        ("hiring", 'robotics (hiring OR recruiting OR "robotics engineer" OR "robotics jobs")'),
+        ("patent", 'robotics (patent OR patents OR patented OR "patent application")'),
+        ("public_contract", 'robotics ("government contract" OR grant OR subsidy OR tender OR procurement)'),
+        ("capacity", 'robotics ("new factory" OR "new plant" OR "capacity expansion" OR "mass production")'),
+    ]
+    known: List[Dict[str,Any]] = []
+    discovery: List[Dict[str,Any]] = []
+    errors: List[str] = []
+    seen = set()
+
+    for proxy_type, query in queries:
+        try:
+            articles = google_news_rss(query, 45)
+            for a in articles:
+                title = clean_text(a.get("title"))
+                if not title:
+                    continue
+                company = alias_match(title, companies)
+                s = news_signal(a, company, None, terms)
+                s["id"] = signal_id("proxy", proxy_type, s["url"], title)
+                s["source_type"] = "alternative_proxy"
+                s["alternative_type"] = proxy_type
+                s["primary_source"] = False
+                s["proxy_note"] = "Signal indirect issu de la presse/RSS ; vérifier la source primaire avant toute conclusion."
+                if proxy_type == "hiring":
+                    s["categories"] = list(dict.fromkeys((s.get("categories") or []) + ["hiring"]))
+                elif proxy_type == "patent":
+                    s["categories"] = list(dict.fromkeys((s.get("categories") or []) + ["patent"]))
+                elif proxy_type == "public_contract":
+                    s["categories"] = list(dict.fromkeys((s.get("categories") or []) + ["government_defense"]))
+                elif proxy_type == "capacity":
+                    s["categories"] = list(dict.fromkeys((s.get("categories") or []) + ["capacity_capex"]))
+
+                if s["id"] in seen:
+                    continue
+                seen.add(s["id"])
+                if company:
+                    known.append(s)
+                else:
+                    discovery.append(s)
+        except Exception as exc:
+            errors.append(f"Alternative proxy {proxy_type}: {type(exc).__name__}: {exc}")
+        time.sleep(0.08)
+
+    return known, discovery[:50], errors
+
+
 def optional_gemini_summary(payload: Dict[str,Any]) -> Dict[str,Any]:
     enabled = os.environ.get("ENABLE_GEMINI_FREE","0") == "1"
     key = os.environ.get("GEMINI_API_KEY","").strip()
@@ -450,6 +499,11 @@ def main() -> None:
     signals.extend(news_signals)
     errors.extend(news_errors)
 
+    proxy_signals, proxy_discovery, proxy_errors = collect_alternative_signals(companies, terms)
+    signals.extend(proxy_signals)
+    discovery.extend(proxy_discovery)
+    errors.extend(proxy_errors)
+
     try:
         cik_map = sec_cik_map()
         for company in companies:
@@ -481,6 +535,7 @@ def main() -> None:
         "method":{
             "news":"GDELT DOC 2.0 · fallback Google News RSS · titres et métadonnées publiques",
             "primary":"SEC EDGAR · filings récents pour les émetteurs couverts",
+            "alternative":"Google News RSS · proxies explicites pour recrutements, brevets, contrats publics et expansion industrielle",
             "priority":"Règles transparentes basées sur récence, source primaire, type de catalyseur et corroboration",
             "note":"Une priorité de recherche n'est ni une recommandation d'achat ni une prévision de performance."
         },
