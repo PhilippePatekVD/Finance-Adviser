@@ -259,7 +259,7 @@ def gdelt(query: str, days: int = 30, maxrecords: int = 150) -> List[Dict[str, A
         "timespan": f"{days}d",
         "sort": "datedesc",
     }
-    data, _ = request_json(session, GDELT, params=params, timeout=12, attempts=3)
+    data, _ = request_json(session, GDELT, params=params, timeout=12, attempts=2)
     return data.get("articles", []) if isinstance(data, dict) else []
 
 
@@ -333,7 +333,7 @@ def collect_news(cfg: Dict[str, Any], cache: Dict[str, Any],
         source_used = None
 
         try:
-            articles = gdelt(batch["query"], 30, 150)
+            articles = gdelt(batch["query"], 30, 100)
             source_used = "GDELT"
             cache_put(cache, "gdelt", batch["id"], articles)
             gdelt_ok += 1
@@ -517,6 +517,7 @@ def collect_sec(cfg: Dict[str, Any], cache: Dict[str, Any],
     refresh_hours = float(settings.get("refresh_hours", 20))
     stale_hours = float(settings.get("stale_cache_hours", 168))
     breaker_limit = int(settings.get("circuit_breaker_failures", 2))
+    max_network = int(settings.get("max_network_companies_per_run", 6))
     days = int(cfg["theme"].get("lookback_days", 90))
     terms = cfg["theme"]["catalyst_terms"]
 
@@ -537,7 +538,7 @@ def collect_sec(cfg: Dict[str, Any], cache: Dict[str, Any],
             fresh_cache_hits += 1
             continue
 
-        if breaker_open:
+        if breaker_open or network_attempts >= max_network:
             stale = cache_get(cache, "sec", key, stale_hours)
             if stale is not None:
                 results.extend(stale)
@@ -580,6 +581,7 @@ def collect_sec(cfg: Dict[str, Any], cache: Dict[str, Any],
         "stale_cache_hits": stale_cache_hits,
         "circuit_breaker_open": breaker_open,
         "mapping_request_removed": True,
+        "max_network_companies_per_run": max_network,
     }
     return results, errors
 
