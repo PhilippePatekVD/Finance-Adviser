@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "theme": {
     "id": "robotics",
     "label": "Robotique & Physical AI",
@@ -511,5 +511,6 @@
         "industrial"
       ]
     }
-  ]
+  ],
+  "pipeline_revision": "research-os-v2"
 }
