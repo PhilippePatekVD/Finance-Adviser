@@ -1,66 +1,85 @@
 {
-  "version": 1,
-  "updated_at": "2026-09-08",
+  "version": 2,
+  "updated_at": "2026-09-25",
   "items": [
-    {
-      "ticker": "AAPL",
-      "label": "Apple",
-      "theme": "Technologie / écosystème",
-      "note": "Conviction personnelle"
-    },
-    {
-      "ticker": "TECN.SW",
-      "label": "Tecan",
-      "theme": "Santé / Life Sciences",
-      "note": "Qualité suisse"
-    },
-    {
-      "ticker": "VACN.SW",
-      "label": "VAT Group",
-      "theme": "Semi-conducteurs",
-      "note": "Infrastructure semi-conducteurs"
-    },
-    {
-      "ticker": "ISRG",
-      "label": "Intuitive Surgical",
-      "theme": "MedTech",
-      "note": "Robotique chirurgicale"
-    },
-    {
-      "ticker": "SYK",
-      "label": "Stryker",
-      "theme": "MedTech",
-      "note": "Dispositifs médicaux"
-    },
-    {
-      "ticker": "CSU.TO",
-      "label": "Constellation Software",
-      "theme": "Logiciels",
-      "note": "Compounder logiciel"
-    },
-    {
-      "ticker": "FTNT",
-      "label": "Fortinet",
-      "theme": "Cybersécurité",
-      "note": "Cybersécurité"
-    },
-    {
-      "ticker": "ASML",
-      "label": "ASML",
-      "theme": "Semi-conducteurs",
-      "note": "Lithographie EUV"
-    },
-    {
-      "ticker": "RMS.PA",
-      "label": "Hermès",
-      "theme": "Luxe",
-      "note": "Luxe / pricing power"
-    },
-    {
-      "ticker": "RACE",
-      "label": "Ferrari",
-      "theme": "Luxe",
-      "note": "Marque / rareté"
-    }
+    {"ticker": "AAPL", "label": "Apple", "theme": "Technologie / écosystème", "note": "Conviction personnelle"},
+    {"ticker": "TECN.SW", "label": "Tecan", "theme": "Santé / Life Sciences", "note": "Qualité suisse"},
+    {"ticker": "VACN.SW", "label": "VAT Group", "theme": "Semi-conducteurs", "note": "Infrastructure semi-conducteurs"},
+    {"ticker": "ISRG", "label": "Intuitive Surgical", "theme": "MedTech", "note": "Robotique chirurgicale"},
+    {"ticker": "SYK", "label": "Stryker", "theme": "MedTech", "note": "Dispositifs médicaux"},
+    {"ticker": "CSU.TO", "label": "Constellation Software", "theme": "Logiciels", "note": "Compounder logiciel"},
+    {"ticker": "FTNT", "label": "Fortinet", "theme": "Cybersécurité", "note": "Cybersécurité"},
+    {"ticker": "ASML", "label": "ASML", "theme": "Semi-conducteurs", "note": "Lithographie EUV"},
+    {"ticker": "RMS.PA", "label": "Hermès", "theme": "Luxe", "note": "Luxe / pricing power"},
+    {"ticker": "RACE", "label": "Ferrari", "theme": "Luxe", "note": "Marque / rareté"},
+
+    {"ticker": "FWRA.SW", "label": "Invesco FTSE All-World UCITS ETF", "theme": "ETF / Monde", "note": "Suivi Yahoo Finance"},
+    {"ticker": "SPIA.SW", "label": "UBS Core SPI ETF", "theme": "ETF / Suisse", "note": "Suivi Yahoo Finance"},
+    {"ticker": "XAIX.SW", "label": "Xtrackers Artificial Intelligence & Big Data UCITS ETF", "theme": "ETF / Intelligence artificielle", "note": "Suivi Yahoo Finance"},
+    {"ticker": "SEMI.SW", "label": "iShares MSCI Global Semiconductors UCITS ETF", "theme": "ETF / Semi-conducteurs", "note": "Suivi Yahoo Finance"},
+    {"ticker": "FGRD.SW", "label": "First Trust Nasdaq Clean Edge Smart Grid Infrastructure UCITS ETF", "theme": "ETF / Réseaux électriques", "note": "Suivi Yahoo Finance"},
+    {"ticker": "WIRE.SW", "label": "Xtrackers Electrification Technologies & Smart Grid UCITS ETF", "theme": "ETF / Électrification", "note": "Suivi Yahoo Finance"},
+    {"ticker": "IWQU.SW", "label": "iShares Edge MSCI World Quality Factor UCITS ETF", "theme": "ETF / Qualité mondiale", "note": "Suivi Yahoo Finance"},
+    {"ticker": "WSML", "label": "iShares MSCI World Small-Cap ETF", "theme": "ETF / Petites capitalisations", "note": "Suivi Yahoo Finance"},
+    {"ticker": "RBOT.SW", "label": "iShares Automation & Robotics UCITS ETF", "theme": "ETF / Robotique", "note": "Suivi Yahoo Finance"},
+    {"ticker": "NUCL.L", "label": "VanEck Uranium and Nuclear Technologies UCITS ETF", "theme": "ETF / Nucléaire", "note": "Suivi Yahoo Finance"},
+    {"ticker": "VGT", "label": "Vanguard Information Technology ETF", "theme": "ETF / Technologie", "note": "Suivi Yahoo Finance"},
+    {"ticker": "IEMG", "label": "iShares Core MSCI Emerging Markets ETF", "theme": "ETF / Marchés émergents", "note": "Suivi Yahoo Finance"},
+
+    {"ticker": "^DJI", "label": "Dow Jones Industrial Average", "theme": "Indice / États-Unis", "note": "Suivi Yahoo Finance"},
+    {"ticker": "^GSPC", "label": "S&P 500", "theme": "Indice / États-Unis", "note": "Suivi Yahoo Finance"},
+    {"ticker": "^IXIC", "label": "Nasdaq Composite", "theme": "Indice / États-Unis", "note": "Suivi Yahoo Finance"},
+    {"ticker": "NVDA", "label": "NVIDIA", "theme": "Semi-conducteurs / IA", "note": "Suivi Yahoo Finance"},
+    {"ticker": "GOOG", "label": "Alphabet", "theme": "Technologie / Internet", "note": "Suivi Yahoo Finance"},
+    {"ticker": "TSLA", "label": "Tesla", "theme": "Automobile / Énergie", "note": "Suivi Yahoo Finance"},
+    {"ticker": "INTC", "label": "Intel", "theme": "Semi-conducteurs", "note": "Suivi Yahoo Finance"},
+    {"ticker": "AMD", "label": "Advanced Micro Devices", "theme": "Semi-conducteurs", "note": "Suivi Yahoo Finance"},
+
+    {"ticker": "DELL", "label": "Dell Technologies", "theme": "Infrastructure informatique", "note": "Suivi Yahoo Finance"},
+    {"ticker": "SPCX", "label": "Space Exploration Technologies Corp.", "theme": "Spatial", "note": "Suivi Yahoo Finance"},
+    {"ticker": "MSFT", "label": "Microsoft", "theme": "Technologie / Cloud", "note": "Suivi Yahoo Finance"},
+    {"ticker": "META", "label": "Meta Platforms", "theme": "Technologie / Internet", "note": "Suivi Yahoo Finance"},
+    {"ticker": "SNDK", "label": "Sandisk", "theme": "Semi-conducteurs / Stockage", "note": "Suivi Yahoo Finance"},
+    {"ticker": "PLTR", "label": "Palantir Technologies", "theme": "Logiciels / IA", "note": "Suivi Yahoo Finance"},
+    {"ticker": "RKLB", "label": "Rocket Lab", "theme": "Spatial", "note": "Suivi Yahoo Finance"},
+    {"ticker": "AVGO", "label": "Broadcom", "theme": "Semi-conducteurs / Infrastructure", "note": "Suivi Yahoo Finance"},
+    {"ticker": "ORCL", "label": "Oracle", "theme": "Logiciels / Cloud", "note": "Suivi Yahoo Finance"},
+    {"ticker": "MU", "label": "Micron Technology", "theme": "Semi-conducteurs / Mémoire", "note": "Suivi Yahoo Finance"},
+
+    {"ticker": "SKHY", "label": "SK hynix ADR", "theme": "Semi-conducteurs / Mémoire", "note": "Ligne ADR suivie sur Yahoo Finance"},
+    {"ticker": "AMZN", "label": "Amazon", "theme": "Commerce / Cloud", "note": "Suivi Yahoo Finance"},
+    {"ticker": "RO.SW", "label": "Roche", "theme": "Santé / Pharmaceutique", "note": "Suivi Yahoo Finance"},
+    {"ticker": "NESN.SW", "label": "Nestlé", "theme": "Consommation défensive", "note": "Suivi Yahoo Finance"},
+    {"ticker": "NOVN.SW", "label": "Novartis", "theme": "Santé / Pharmaceutique", "note": "Suivi Yahoo Finance"},
+    {"ticker": "UBSG.SW", "label": "UBS Group", "theme": "Finance / Banque", "note": "Suivi Yahoo Finance"},
+    {"ticker": "ABBN.SW", "label": "ABB", "theme": "Industrie / Électrification", "note": "Suivi Yahoo Finance"},
+    {"ticker": "CFR.SW", "label": "Richemont", "theme": "Luxe", "note": "Suivi Yahoo Finance"},
+    {"ticker": "HUBN.SW", "label": "Huber+Suhner", "theme": "Industrie / Connectivité", "note": "Suivi Yahoo Finance"},
+    {"ticker": "BZ=F", "label": "Brent Crude Oil Futures", "theme": "Matière première / Énergie", "note": "Contrat à terme suivi sur Yahoo Finance"},
+    {"ticker": "BTC-USD", "label": "Bitcoin USD", "theme": "Cryptoactif", "note": "Suivi Yahoo Finance"},
+
+    {"ticker": "CBRS", "label": "Cerebras Systems", "theme": "Semi-conducteurs / IA", "note": "Suivi Yahoo Finance"},
+    {"ticker": "TSM", "label": "Taiwan Semiconductor Manufacturing", "theme": "Semi-conducteurs / Fonderie", "note": "Suivi Yahoo Finance"},
+    {"ticker": "MC.PA", "label": "LVMH", "theme": "Luxe", "note": "Suivi Yahoo Finance"},
+    {"ticker": "AI.PA", "label": "Air Liquide", "theme": "Industrie / Gaz", "note": "Suivi Yahoo Finance"},
+    {"ticker": "SU.PA", "label": "Schneider Electric", "theme": "Industrie / Électrification", "note": "Suivi Yahoo Finance"},
+    {"ticker": "LITE", "label": "Lumentum Holdings", "theme": "Photonique / Réseaux", "note": "Suivi Yahoo Finance"},
+    {"ticker": "000660.KS", "label": "SK hynix", "theme": "Semi-conducteurs / Mémoire", "note": "Action coréenne suivie sur Yahoo Finance"},
+    {"ticker": "005935.KS", "label": "Samsung Electronics Pref.", "theme": "Semi-conducteurs / Électronique", "note": "Action préférentielle coréenne"},
+    {"ticker": "3037.TW", "label": "Unimicron Technology", "theme": "Semi-conducteurs / Substrats", "note": "Suivi Yahoo Finance"},
+    {"ticker": "6594.T", "label": "Nidec", "theme": "Industrie / Robotique", "note": "Suivi Yahoo Finance"},
+    {"ticker": "ORA", "label": "Ormat Technologies", "theme": "Énergie / Géothermie", "note": "Suivi Yahoo Finance"},
+
+    {"ticker": "AMAT", "label": "Applied Materials", "theme": "Équipement semi-conducteurs", "note": "Suivi Yahoo Finance"},
+    {"ticker": "MRVL", "label": "Marvell Technology", "theme": "Semi-conducteurs / Réseaux", "note": "Suivi Yahoo Finance"},
+    {"ticker": "COHR", "label": "Coherent", "theme": "Photonique / Semi-conducteurs", "note": "Suivi Yahoo Finance"},
+    {"ticker": "VICR", "label": "Vicor", "theme": "Électronique de puissance", "note": "Suivi Yahoo Finance"},
+    {"ticker": "CORZ", "label": "Core Scientific", "theme": "Infrastructure numérique / Bitcoin", "note": "Suivi Yahoo Finance"},
+    {"ticker": "MP", "label": "MP Materials", "theme": "Matériaux critiques / Terres rares", "note": "Suivi Yahoo Finance"},
+    {"ticker": "CEG", "label": "Constellation Energy", "theme": "Énergie / Nucléaire", "note": "Suivi Yahoo Finance"},
+    {"ticker": "FN", "label": "Fabrinet", "theme": "Photonique / Fabrication", "note": "Suivi Yahoo Finance"},
+    {"ticker": "ANET", "label": "Arista Networks", "theme": "Réseaux / Cloud", "note": "Suivi Yahoo Finance"},
+    {"ticker": "4062.T", "label": "Ibiden", "theme": "Semi-conducteurs / Substrats", "note": "Suivi Yahoo Finance"},
+    {"ticker": "ETN", "label": "Eaton", "theme": "Industrie / Électrification", "note": "Suivi Yahoo Finance"}
   ]
 }
