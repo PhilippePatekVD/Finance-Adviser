@@ -383,7 +383,9 @@ def beta_statistics(stock_rows: List[Dict[str, Any]], benchmark_rows: List[Dict[
     stock = pd.Series({pd.Timestamp(x["date"]): x["adjusted"] for x in stock_rows}, dtype=float)
     benchmark = pd.Series({pd.Timestamp(x["date"]): x["adjusted"] for x in benchmark_rows}, dtype=float)
     start = max(stock.index.max(), benchmark.index.max()) - pd.DateOffset(years=2)
-    frame = pd.concat([stock.rename("stock"), benchmark.rename("benchmark")], axis=1).loc[start:].dropna()
+    frame = pd.concat(
+        [stock.rename("stock"), benchmark.rename("benchmark")], axis=1, sort=False
+    ).loc[start:].dropna()
     weekly = frame.resample("W-FRI").last().pct_change().dropna()
     if len(weekly) < 40 or weekly["benchmark"].var() in (0, None):
         return {"beta_2y_weekly": None, "observations": len(weekly)}
@@ -631,7 +633,9 @@ def downsample_chart(stock_rows: List[Dict[str, Any]], benchmark_rows: List[Dict
     stock = pd.Series({pd.Timestamp(x["date"]): x["adjusted"] for x in stock_rows}, dtype=float)
     benchmark = pd.Series({pd.Timestamp(x["date"]): x["adjusted"] for x in benchmark_rows}, dtype=float)
     end = stock.index.max()
-    frame = pd.concat([stock.rename("stock"), benchmark.rename("benchmark")], axis=1).loc[end - pd.DateOffset(years=5):].ffill().dropna()
+    frame = pd.concat(
+        [stock.rename("stock"), benchmark.rename("benchmark")], axis=1, sort=False
+    ).loc[end - pd.DateOffset(years=5):].ffill().dropna()
     if frame.empty:
         return []
     weekly = frame.resample("W-FRI").last().dropna()
@@ -718,8 +722,16 @@ def build_dossier(item: Dict[str, Any], sec_mapping: Dict[str, str],
     chart = fetch_chart(symbol)
     fallback_name = str(item.get("label") or symbol)
     quote, news = fetch_search_and_news(symbol, fallback_name)
-    series = fetch_timeseries(symbol)
     meta = chart.get("meta") or {}
+    instrument_type = clean_text(
+        quote.get("quoteType") or meta.get("instrumentType")
+    ).upper()
+    non_company_types = {
+        "ETF", "INDEX", "MUTUALFUND", "FUTURE", "CURRENCY", "CRYPTOCURRENCY"
+    }
+    # Market-only instruments have no corporate accounts. Avoid pointless
+    # fundamentals calls while retaining prices, returns, risk and news.
+    series = {} if instrument_type in non_company_types else fetch_timeseries(symbol)
     currency = str(meta.get("currency") or "")
     exchange = str(meta.get("fullExchangeName") or meta.get("exchangeName") or quote.get("exchDisp") or quote.get("exchange") or "")
     name = clean_text(quote.get("longname") or quote.get("shortname") or meta.get("longName") or meta.get("shortName") or fallback_name)
@@ -737,7 +749,11 @@ def build_dossier(item: Dict[str, Any], sec_mapping: Dict[str, str],
     assessments = {key: assessment(key, value) for key, value in metrics.items()}
     assessment_risk_keys = ["volatility_1y_pct", "max_drawdown_1y_pct", "max_drawdown_5y_pct", "beta_2y_weekly", "distance_52w_high_pct", "distance_200d_pct"]
     assessments.update({key: assessment(key, risk.get(key)) for key in assessment_risk_keys})
-    cik = sec_mapping.get(symbol) if not symbol.startswith("^") and "." not in symbol else None
+    cik = (
+        sec_mapping.get(symbol)
+        if instrument_type == "EQUITY" and not symbol.startswith("^") and "." not in symbol
+        else None
+    )
     sec_errors: List[str] = []
     try:
         sec = fetch_sec_profile(cik)
@@ -750,7 +766,7 @@ def build_dossier(item: Dict[str, Any], sec_mapping: Dict[str, str],
     coverage = sum(metrics.get(key) is not None for key in coverage_keys) / len(coverage_keys) * 100
     profile = {
         "name": name, "symbol": symbol, "exchange": exchange, "currency": currency,
-        "quote_type": quote.get("quoteType") or meta.get("instrumentType"),
+        "quote_type": instrument_type or None,
         "sector": quote.get("sectorDisp") or quote.get("sector"),
         "industry": quote.get("industryDisp") or quote.get("industry"),
         "financial_currency": financial_currency,
@@ -802,7 +818,9 @@ def normalize_universe() -> List[Dict[str, Any]]:
         if ticker not in seen and re.fullmatch(r"[A-Z0-9.\^=\-]{1,24}", ticker):
             output.append({"ticker": ticker, "label": ticker, "theme": "Analyse ponctuelle", "note": "Ajout manuel"})
             seen.add(ticker)
-    return output[:30]
+    # Keep an explicit safety ceiling while allowing the complete personal
+    # universe, including equities, ETFs, indices, commodities and crypto.
+    return output[:100]
 
 
 def build() -> Dict[str, Any]:
@@ -858,7 +876,7 @@ def build() -> Dict[str, Any]:
             "total_returns": "Variation des cours ajustés Yahoo, approximation avec dividendes et splits réinvestis.",
             "beta": "Covariance / variance sur rendements hebdomadaires ajustés, fenêtre de deux ans, indice local indiqué.",
             "roic": "NOPAT approximatif / capital investi moyen ; taux d’impôt publié ou 21 % par défaut.",
-            "limits": "Cours potentiellement retardés. Les seuils sont généraux et doivent être comparés au secteur. Frais, impôts et change de l’investisseur ne sont pas inclus.",
+            "limits": "Cours potentiellement retardés. Les seuils sont généraux et doivent être comparés au secteur. Les ETF, indices, matières premières et cryptoactifs n’ont pas de ratios comptables de société. Frais, impôts et change de l’investisseur ne sont pas inclus.",
         },
     }
     cache["last_run"] = output["generated_at"]

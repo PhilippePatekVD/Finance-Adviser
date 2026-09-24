@@ -110,6 +110,7 @@ jobs:
           radar = json.loads(Path("radar.json").read_text(encoding="utf-8"))
           research = json.loads(Path("research.json").read_text(encoding="utf-8"))
           company = json.loads(Path("company_data.json").read_text(encoding="utf-8"))
+          watchlist = json.loads(Path("watchlist.json").read_text(encoding="utf-8"))
 
           assert data.get("schema_version") == 4
           assert "portfolio" in data
@@ -133,7 +134,15 @@ jobs:
 
           assert company.get("schema_version") == 1
           assert isinstance(company.get("dossiers"), list)
-          assert len(company.get("dossiers", [])) >= 1, "Company Lab universe empty"
+          expected_tickers = [
+              str(item.get("ticker") or "").strip().upper()
+              for item in watchlist.get("items", [])
+              if str(item.get("ticker") or "").strip()
+              and not str(item.get("ticker") or "").strip().upper().startswith("CASH")
+          ]
+          expected_tickers = list(dict.fromkeys(expected_tickers))[:100]
+          actual_tickers = [item.get("ticker") for item in company.get("dossiers", [])]
+          assert actual_tickers == expected_tickers, "Company Lab does not cover the full configured universe"
           assert all("ticker" in item for item in company.get("dossiers", []))
 
           print("Portfolio status:", data.get("status"))

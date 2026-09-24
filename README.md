@@ -38,6 +38,10 @@ La performance reconstruite n'est pas présentée comme la performance réelle I
 
 Les ratios incohérents ne sont pas maquillés. Le P/E fournisseur reste traçable, mais le P/E calculé est déclaré non interprétable lorsque le BPA LTM est nul ou négatif.
 
+Les ETF, indices, contrats à terme et cryptoactifs sont aussi acceptés. Pour ces
+instruments sans comptes d'entreprise, le dossier conserve les cours, rendements,
+risques, actualités et le simulateur, sans inventer de ratios fondamentaux.
+
 ### Ajouter un ticker
 
 La page Company permet de consigner une demande au format `[Company Lab] ADD TICKER`. Après vérification du symbole et de la place de cotation, le ticker est ajouté à `watchlist.json`, puis le workflow principal calcule et publie le dossier. Vous pouvez aussi simplement me donner le ticker dans la conversation.
