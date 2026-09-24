@@ -10,8 +10,10 @@ on:
       - "portfolio_intelligence.py"
       - "catalyst_radar.py"
       - "research_os.py"
+      - "company_lab.py"
       - "research_config.json"
       - "index.html"
+      - "company.html"
       - "radar.html"
       - "research.html"
       - "portfolio.json"
@@ -56,25 +58,37 @@ jobs:
           restore-keys: |
             research-state-
 
+      - name: Restore Company Lab cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .company_state
+          key: company-lab-${{ github.run_id }}
+          restore-keys: |
+            company-lab-
+
       - name: Validate code
         run: |
-          python -m py_compile portfolio_intelligence.py catalyst_radar.py research_os.py
+          python -m py_compile portfolio_intelligence.py catalyst_radar.py research_os.py company_lab.py
           python - <<'PY'
           from pathlib import Path
           import re
 
-          for name in ("index.html", "radar.html", "research.html"):
+          for name in ("index.html", "company.html", "radar.html", "research.html"):
               html = Path(name).read_text(encoding="utf-8")
               scripts = re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", html, flags=re.I)
               out = Path("/tmp") / (Path(name).stem + "-inline.js")
               out.write_text("\n".join(scripts), encoding="utf-8")
           PY
           node --check /tmp/index-inline.js
+          node --check /tmp/company-inline.js
           node --check /tmp/radar-inline.js
           node --check /tmp/research-inline.js
 
       - name: Build portfolio data
         run: python portfolio_intelligence.py
+
+      - name: Build Company Lab
+        run: python company_lab.py
 
       - name: Build Catalyst Radar
         env:
@@ -95,6 +109,7 @@ jobs:
           data = json.loads(Path("data.json").read_text(encoding="utf-8"))
           radar = json.loads(Path("radar.json").read_text(encoding="utf-8"))
           research = json.loads(Path("research.json").read_text(encoding="utf-8"))
+          company = json.loads(Path("company_data.json").read_text(encoding="utf-8"))
 
           assert data.get("schema_version") == 4
           assert "portfolio" in data
@@ -116,6 +131,11 @@ jobs:
           assert len(research.get("dossiers", [])) >= 30, "Research OS company dossiers missing"
           assert research.get("knowledge_graph", {}).get("nodes"), "Knowledge graph empty"
 
+          assert company.get("schema_version") == 1
+          assert isinstance(company.get("dossiers"), list)
+          assert len(company.get("dossiers", [])) >= 1, "Company Lab universe empty"
+          assert all("ticker" in item for item in company.get("dossiers", []))
+
           print("Portfolio status:", data.get("status"))
           print("Positions:", len(data.get("portfolio", {}).get("positions", [])))
           print("Radar companies:", len(radar.get("companies", [])))
@@ -130,6 +150,8 @@ jobs:
           print("Research memory runs:", research.get("memory", {}).get("historical_run_count"))
           print("Unknown candidates:", len(research.get("unknown_candidates", [])))
           print("Gemini:", radar.get("ai", {}).get("status"))
+          print("Company Lab dossiers:", company.get("available_count"), "/", company.get("universe_count"))
+          print("Company Lab cache:", company.get("cached_count"))
           PY
 
       - name: Prepare site
@@ -137,9 +159,11 @@ jobs:
           rm -rf site
           mkdir -p site
           cp index.html site/index.html
+          cp company.html site/company.html
           cp radar.html site/radar.html
           cp research.html site/research.html
           cp data.json site/data.json
+          cp company_data.json site/company_data.json
           cp radar.json site/radar.json
           cp research.json site/research.json
           touch site/.nojekyll
@@ -162,3 +186,10 @@ jobs:
         with:
           path: .research_state
           key: research-state-${{ github.run_id }}
+
+      - name: Save Company Lab cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .company_state
+          key: company-lab-${{ github.run_id }}
