@@ -40,7 +40,7 @@ Les ratios incohérents ne sont pas maquillés. Le P/E fournisseur reste traçab
 
 ### Ajouter un ticker
 
-La page Company ouvre une issue préremplie au format `[Company Lab] ADD TICKER`. Le workflow `company_lab_watchlist.yml` n'accepte la modification que si l'issue est ouverte par le propriétaire du dépôt. Il met à jour `watchlist.json`, puis le workflow principal calcule et publie le dossier. La suppression utilise `REMOVE`.
+La page Company permet de consigner une demande au format `[Company Lab] ADD TICKER`. Après vérification du symbole et de la place de cotation, le ticker est ajouté à `watchlist.json`, puis le workflow principal calcule et publie le dossier. Vous pouvez aussi simplement me donner le ticker dans la conversation.
 
 ### Données et coût
 
@@ -249,7 +249,6 @@ Ordre :
 Finance-Adviser/
 ├── portfolio_intelligence.py
 ├── company_lab.py
-├── watchlist_manager.py
 ├── catalyst_radar.py
 ├── research_os.py
 ├── research_config.json
