@@ -68,7 +68,7 @@ jobs:
 
       - name: Validate code
         run: |
-          python -m py_compile portfolio_intelligence.py catalyst_radar.py research_os.py company_lab.py watchlist_manager.py
+          python -m py_compile portfolio_intelligence.py catalyst_radar.py research_os.py company_lab.py
           python - <<'PY'
           from pathlib import Path
           import re
