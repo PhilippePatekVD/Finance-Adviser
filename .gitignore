@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.company_state/
+.research_state/
+company_data.json
+radar.json
+research.json
+site/
