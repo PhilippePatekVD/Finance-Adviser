@@ -2,11 +2,12 @@
 
 Portfolio Intelligence est un outil personnel de recherche et de lecture de portefeuille.
 
-Il ne cherche plus à remplacer Yahoo Finance. Il ajoute trois couches complémentaires :
+Il ne cherche plus à remplacer Yahoo Finance. Il ajoute quatre couches complémentaires :
 
 1. **Portfolio** — ce que le portefeuille contient et comment il se comporte.
 2. **Radar** — ce qui émerge dans la robotique et le Physical AI.
 3. **Research** — mémoire, preuves, changements, hypothèses et audit des signaux.
+4. **Company Lab** — dossier fondamental, ratios, historique, actualités et simulateur.
 
 ## Portfolio
 
@@ -19,6 +20,35 @@ Il ne cherche plus à remplacer Yahoo Finance. Il ajoute trois couches compléme
 - sources et fraîcheur visibles.
 
 La performance reconstruite n'est pas présentée comme la performance réelle IBKR tant que l'historique complet des transactions n'est pas disponible.
+
+## Company Lab
+
+`company_lab.py` construit un dossier pour chaque ticker de `watchlist.json` :
+
+- profil de cotation, secteur et industrie ;
+- évolution du cours et rendement total sur 1 jour, 1 semaine, 1, 3 et 6 mois, 1, 2 et 5 ans ;
+- comparaison cinq ans avec un indice local ;
+- bêta hebdomadaire deux ans, volatilité et drawdowns ;
+- résultats annuels, bilan, flux de trésorerie et allocation du capital ;
+- P/E recalculé, P/E anticipé, PEG, P/S, P/B, EV/CA, EV/EBITDA, earnings yield et FCF yield ;
+- croissance, marges, ROE, ROA, ROIC approximatif, conversion du cash, dette et liquidité ;
+- actualités récentes reliées au ticker et derniers formulaires SEC ;
+- simulateur historique et liste de suivi locale ;
+- guide de plus de 40 indicateurs avec définitions et ordres de grandeur.
+
+Les ratios incohérents ne sont pas maquillés. Le P/E fournisseur reste traçable, mais le P/E calculé est déclaré non interprétable lorsque le BPA LTM est nul ou négatif.
+
+### Ajouter un ticker
+
+La page Company ouvre une issue préremplie au format `[Company Lab] ADD TICKER`. Le workflow `company_lab_watchlist.yml` n'accepte la modification que si l'issue est ouverte par le propriétaire du dépôt. Il met à jour `watchlist.json`, puis le workflow principal calcule et publie le dossier. La suppression utilise `REMOVE`.
+
+### Données et coût
+
+- **Yahoo Finance, endpoints publics** — cours, historiques, comptes standardisés et actualités, pour recherche personnelle ;
+- **SEC EDGAR** — dépôts réglementaires primaires, sans clé ;
+- **GitHub Actions et GitHub Pages** — calcul et hébergement du site public.
+
+Le projet ne requiert aucune API payante, aucune carte bancaire et aucune clé susceptible de générer une facture. Le cache `.company_state` conserve le dernier dossier valide lorsqu'une source publique limite temporairement les requêtes.
 
 ## Catalyst Radar
 
@@ -199,15 +229,17 @@ Ordre :
 1. validation du code ;
 2. restauration de la mémoire Research OS ;
 3. build Portfolio ;
-4. build Catalyst Radar ;
-5. build Research OS ;
-6. validation des trois sorties ;
-7. déploiement GitHub Pages ;
-8. sauvegarde de la mémoire machine.
+4. build Company Lab ;
+5. build Catalyst Radar ;
+6. build Research OS ;
+7. validation des quatre sorties ;
+8. déploiement GitHub Pages ;
+9. sauvegarde des mémoires machine.
 
 ## Pages
 
 - `index.html` — Portfolio
+- `company.html` — Company Lab
 - `radar.html` — Catalyst Radar
 - `research.html` — Research OS
 
@@ -216,12 +248,15 @@ Ordre :
 ```text
 Finance-Adviser/
 ├── portfolio_intelligence.py
+├── company_lab.py
+├── watchlist_manager.py
 ├── catalyst_radar.py
 ├── research_os.py
 ├── research_config.json
 ├── portfolio.json
 ├── watchlist.json
 ├── index.html
+├── company.html
 ├── radar.html
 ├── research.html
 └── .github/workflows/portfolio_intelligence.yml
